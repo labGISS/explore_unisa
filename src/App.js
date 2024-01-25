@@ -1,25 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from 'C:/Users/UTENTE/IdeaProjects/explore_unisa/src/components/navbar/navbar.jsx';
-
+import Navbar from '../src/components/navbar/navbar.jsx';
+import RecipeReviewCard from '../src/components/card/card.jsx';
+import { Button } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Navbar />
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar/>
+      <Button variant="contained">Contained</Button>
+        <RecipeReviewCard/>
+
     </div>
   );
 }
