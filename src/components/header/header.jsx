@@ -15,6 +15,7 @@ import {
     MDBDropdownItem,
     MDBCollapse,
 } from 'mdb-react-ui-kit';
+import unisaImage from './unisa2.png';
 export default function Header() {
     const [showBasic, setShowBasic,openBasic, setOpenBasic] = useState(false);
 
@@ -23,7 +24,6 @@ export default function Header() {
             <MDBNavbar expand='lg' light bgColor='light'>
                 <MDBContainer fluid>
                     <MDBNavbarBrand href='#'>Brand</MDBNavbarBrand>
-
                     <MDBNavbarToggler
                         aria-controls='navbarSupportedContent'
                         aria-expanded='false'
@@ -73,13 +73,13 @@ export default function Header() {
             </MDBNavbar>
             <div
                 className='p-5 text-center bg-image'
-                style={{  backgroundImage: "url('C:/Users/39334/IdeaProjects/explore_unisa/public/unisa.png')" }}
+                style={{ backgroundImage: `url(${unisaImage})`, height: '700px'}}
             >
                 <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
                     <div className='d-flex justify-content-center align-items-center h-100'>
                         <div className='text-white'>
-                            <h1 className='mb-3'>Heading</h1>
-                            <h4 className='mb-3'>Subheading</h4>
+                            <h1 className='mb-3'>Explore UNISA</h1>
+                            <h3 className='mb-3'>Un nuovo modo di vivere il tuo campus</h3>
                             <MDBBtn tag="a" outline size="lg" className="text-white">
                                 Call to action
                             </MDBBtn>

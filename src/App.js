@@ -6,6 +6,7 @@ import RecipeReviewCard from '../src/components/card/card.jsx';
 import CardFigma from '../src/components/CardFigma/cardFigma.jsx';
 import Header from '../src/components/header/header.jsx';
 import CardBoot from '../src/components/cardBoot/cardBoot.jsx';
+import Footer from '../src/components/footer/footer.jsx';
 import {Button, Grid} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent'
@@ -17,7 +18,18 @@ function App() {
   return (
     <div className="App">
       <Header/>
-
+        <Grid container spacing={10}  justifyContent="center"  alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+            <Grid item >
+               <CardFigma />
+            </Grid>
+            <Grid item >
+                <CardFigma />
+            </Grid>
+            <Grid item >
+                <CardFigma />
+            </Grid>
+        </Grid>
+        <Footer/>
     </div>
   );
 }
