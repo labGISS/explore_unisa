@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from '../src/components/navbar/navbar.jsx';
 import RecipeReviewCard from '../src/components/card/card.jsx';
+import CardFigma from '../src/components/CardFigma/cardFigma.jsx';
 import {Button, Grid} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent'
@@ -18,6 +19,9 @@ function App() {
             </Grid>
             <Grid item >
                 <RecipeReviewCard title={nuovo_titolo} />
+            </Grid>
+            <Grid item >
+                <CardFigma />
             </Grid>
         </Grid>
     </div>

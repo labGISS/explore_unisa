@@ -1,0 +1,14 @@
+.sapere {
+    color: black;
+    fontSize: 24;
+    fontFamily: 'Roboto';
+    fontWeight: '700';
+    wordWrap: 'break-word'
+}
+.testo {
+    color: black;
+    fontSize: 16;
+    fontFamily: 'Roboto';
+    fontWeight: '400';
+    wordWrap: 'break-word'
+}
