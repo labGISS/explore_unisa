@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from '../src/components/navbar/navbar.jsx';
 import RecipeReviewCard from '../src/components/card/card.jsx';
 import CardFigma from '../src/components/CardFigma/cardFigma.jsx';
+import cardBoot from '../src/components/CardFigma/cardBoot.jsx';
 import {Button, Grid} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent'
@@ -12,13 +13,13 @@ function App() {
   return (
     <div className="App">
       <Navbar/>
-      <Button variant="contained">Contained</Button>
-        <Grid container spacing={1}>
+
+        <Grid container spacing={6} justifyContent="center"  alignItems="flex-end" >
             <Grid item >
-                <RecipeReviewCard title={"Carmine Patore"} />
+                <MDBCard/>
             </Grid>
             <Grid item >
-                <RecipeReviewCard title={nuovo_titolo} />
+                <CardFigma />
             </Grid>
             <Grid item >
                 <CardFigma />
