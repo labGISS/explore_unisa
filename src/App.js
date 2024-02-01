@@ -7,6 +7,7 @@ import CardFigma from '../src/components/CardFigma/cardFigma.jsx';
 import Header from '../src/components/header/header.jsx';
 import CardBoot from '../src/components/cardBoot/cardBoot.jsx';
 import Footer from '../src/components/footer/footer.jsx';
+import MapWithRouting from '../src/components/mapwithrouting/MapWithRouting.jsx';
 import {Button, Grid} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent'
