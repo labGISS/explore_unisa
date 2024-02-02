@@ -46,9 +46,6 @@ function Home() {
                     <CardFigma />
                 </Grid>
             </Grid>
-            <div>
-                <h1>My Leaflet.js and React Map</h1>
-            </div>
             <Footer />
         </div>
     );
