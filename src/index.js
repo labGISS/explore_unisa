@@ -5,11 +5,14 @@ import App from './App';
 import Routing from './Routing'
 import MapWithPlaceholder from './components/mapwithrouting/MapWithRouting';
 import reportWebVitals from './reportWebVitals';
+import SimpleMap from "./SimpleMap";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-        <MapWithPlaceholder />
+      <div>
+        <App />
+      </div>
   </React.StrictMode>
 );
 
