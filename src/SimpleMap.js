@@ -10,7 +10,11 @@ function SimpleMap(){
     return (
 
         <div style={{ height: '500px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="SimpleMap">
-        <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{height: "50vh", width: "50vw"}}>
+        <MapContainer center={[latitude, longitude]} maxBounds ={
+            [1581111, 1581354],
+            [1645841, 1646356]
+        }
+        zoom={13} ref={mapRef} style={{height: "50vh", width: "50vw"}}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
