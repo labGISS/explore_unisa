@@ -15,8 +15,9 @@ import CardActions from '@mui/material/CardActions'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import SimpleMap from './SimpleMap';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
 import React from "react";
+import LeafletMapComponent from "./components/leafletMap/leafletmap";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
+
                 {/* Altre rotte possono essere aggiunte qui */}
             </Routes>
         </Router>
@@ -45,6 +47,7 @@ function Home() {
                 <Grid item>
                     <CardFigma />
                 </Grid>
+
             </Grid>
             <Footer />
         </div>

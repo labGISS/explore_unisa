@@ -1,0 +1,1 @@
+var json_STRADE_3 = {"type":"FeatureCollection","name":"STRADE_3","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":"1"},"geometry":{"type":"MultiLineString","coordinates":[[[14.787028914823082,40.775760137158478],[14.791080800595136,40.770171467602566],[14.792163253833875,40.769861279903793]]]}}]}
