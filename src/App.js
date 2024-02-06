@@ -25,7 +25,6 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
-
                 {/* Altre rotte possono essere aggiunte qui */}
             </Routes>
         </Router>
