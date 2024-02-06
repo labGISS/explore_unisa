@@ -74,7 +74,11 @@ const Routing = () => {
                 waypoints: [
                     L.latLng(40.7690, 14.792),
                     L.latLng(40.7715, 14.792)
-                ]
+                ],
+                router: new L.Routing.OSRMv1({
+                    serviceUrl: 'https://api.openrouteservice.org/v2/directions/foot-walking',
+                    apiKey: '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df'
+                }),
             });
     return instance;
 };
@@ -89,7 +93,7 @@ function SimpleMap(){
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
-    //             const response = await fetch('https://api.openrouteservice.org/v2/directions/foot-walking?api_key=YOUR_API_KEY&start=8.681495,49.41461&end=8.687872,49.420318');
+    //             const response = await fetch('https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=8.681495,49.41461&end=8.687872,49.420318');
     //             const data = await response.json();
     //             console.log('API Response:', data);
     //
