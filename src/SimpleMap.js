@@ -92,7 +92,23 @@ function SimpleMap(){
     const position = [40.7738, 14.8003]
 
     const [route, setRoute] = useState([]);
-
+    const localizeClick = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log("Latitude:", position.coords.latitude);
+                    console.log("Longitude:", position.coords.longitude);
+                    const map = mapRef.current;
+                    L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+                },
+                (error) => {
+                    console.error("Error getting geolocation:", error.message);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    };
     const handleWaypoints = () => {
         const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
         const url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=14.79136122,40.77100564&end=14.7908324,40.7715735';
@@ -116,6 +132,10 @@ function SimpleMap(){
                 // Aggiungi il nuovo percorso alla mappa
                 if (mapRef.current) {
                     const map = mapRef.current;
+                    L.geoJSON(myGeo).addTo(map);
+
+                    L.marker([40.77100564, 14.79136122]).addTo(map);
+
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
                 }
 
@@ -125,7 +145,35 @@ function SimpleMap(){
                 console.error('Error:', error);
             });
     };
+    const deleteWaypoints = () => {
+        const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
+        const url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=14.79136122,40.77100564&end=14.7908324,40.7715735';
 
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Data from API:', data);
+                const coordinates = data.features[0].geometry.coordinates;
+                const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
+                // Rimuovi il percorso esistente, se presente
+                if (mapRef.current) {
+                    const map = mapRef.current;
+                    map.eachLayer(layer => {
+                        if (layer instanceof L.Polyline) {
+                            layer.remove(layer);
+
+                        }
+                        if (layer instanceof L.Marker) {
+                            layer.remove(layer);
+                        }
+                    });
+                    L.geoJSON(myGeo).addTo(map);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
 
     return (
 
@@ -138,11 +186,16 @@ function SimpleMap(){
                 />
                 <GeoJSON data={myGeo} />
                 <GeoJSON data={strade} style={(feature)=>({color: 'green'})} />
-                {/*<RoutingMachine profile='foot'/>*/}
                 <Marker position={position}></Marker>
             </MapContainer>
             <Button onClick={handleWaypoints} type="primary">
                 Calcola Percorso
+            </Button>
+            <Button onClick={deleteWaypoints} type="primary">
+                Elimina Percorso
+            </Button>
+            <Button onClick={localizeClick} type="primary">
+                Localizzami
             </Button>
         </div>
     );
