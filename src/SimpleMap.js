@@ -8,7 +8,9 @@ import { createControlComponent } from "@react-leaflet/core";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import gh from 'graphhopper-js-api-client';
 import {Button} from "@mui/material";
-
+import Navbar from '../src/components/navbar/navbar.jsx';
+import Footer from '../src/components/footer/footer.jsx';
+import {Grid} from '@mui/material';
 
 var myGeo = {
     "type": "FeatureCollection",
@@ -63,7 +65,6 @@ var strade = {
         { "type": "Feature", "properties": { "id": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 14.791249627386058, 40.770740366055762 ], [ 14.791493341463037, 40.770842319842117 ], [ 14.791463167339222, 40.77088450757001 ], [ 14.791672065119485, 40.770975914221914 ], [ 14.791600111439616, 40.771072594197683 ], [ 14.791618680131197, 40.771081383279416 ], [ 14.791795082701199, 40.770842319842117 ], [ 14.79206664981554, 40.77095306257074 ], [ 14.791880962899748, 40.771188609982907 ], [ 14.791535121019091, 40.771701889511142 ], [ 14.791690633811067, 40.771761654677952 ] ] ] } }
     ]
 }
-
 
 const Routing = () => {
 
@@ -175,29 +176,64 @@ function SimpleMap(){
             });
     };
 
-    return (
+        const LocalizeClick = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        console.log("Latitude:", position.coords.latitude);
+                        console.log("Longitude:", position.coords.longitude);
+                    },
+                    (error) => {
+                        console.error("Error getting geolocation:", error.message);
+                    }
+                );
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+        };
 
-        <div style={{ height: '500px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="SimpleMap">
-            <MapContainer center={[latitude, longitude]}
-                          zoom={13} ref={mapRef} style={{height: "50vh", width: "50vw"}}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <GeoJSON data={myGeo} />
-                <GeoJSON data={strade} style={(feature)=>({color: 'green'})} />
-                <Marker position={position}></Marker>
-            </MapContainer>
-            <Button onClick={handleWaypoints} type="primary">
-                Calcola Percorso
-            </Button>
-            <Button onClick={deleteWaypoints} type="primary">
-                Elimina Percorso
-            </Button>
-            <Button onClick={localizeClick} type="primary">
-                Localizzami
-            </Button>
+    return (
+        <div>
+            <Navbar></Navbar>
+            <div style={{
+                height: '500px',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }} className="SimpleMap">
+                <MapContainer center={[latitude, longitude]}
+                              zoom={13} ref={mapRef} style={{height: "50vh", width: "50vw"}}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <GeoJSON data={myGeo}/>
+                    <GeoJSON data={strade} style={(feature) => ({color: 'green'})}/>
+                    <Marker position={position}></Marker>
+                </MapContainer>
+
+            </div>
+            <Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+                <Grid item>
+                    <Button onClick={handleWaypoints} type="primary">
+                        Calcola Percorso
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={deleteWaypoints} type="primary">
+                        Elimina Percorso
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={localizeClick} type="primary">
+                        Localizzami
+                    </Button>
+                </Grid>
+            </Grid>
+            <Footer style={"padding: 20px; text-align: center; margin-top: 100px;"}></Footer>
         </div>
+
     );
 }
 
