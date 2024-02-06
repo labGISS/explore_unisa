@@ -62,6 +62,7 @@ var strade = {
 }
 
 
+
 const Routing = () => {
 
             const instance =L.Routing.control({
@@ -73,11 +74,7 @@ const Routing = () => {
                 waypoints: [
                     L.latLng(40.7690, 14.792),
                     L.latLng(40.7715, 14.792)
-                ],
-                router: new L.Routing.OSRMv1({
-                    serviceUrl: 'https://api.openrouteservice.org/v2/directions/driving-car',
-                    apiKey: '5b3ce3597851110001cf62482f01d69eefba465facda2fc15008603c',
-                }),
+                ]
             });
     return instance;
 };
@@ -89,6 +86,21 @@ function SimpleMap(){
     const position = [40.7738, 14.8003]
 
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch('https://api.openrouteservice.org/v2/directions/foot-walking?api_key=YOUR_API_KEY&start=8.681495,49.41461&end=8.687872,49.420318');
+    //             const data = await response.json();
+    //             console.log('API Response:', data);
+    //
+    //             // Puoi utilizzare i dati della risposta API come necessario
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     };
+    //
+    //     fetchData();
+    // }, []);
     return (
 
         <div style={{ height: '500px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="SimpleMap">
