@@ -139,6 +139,8 @@ function SimpleMap(){
             console.error('Geolocation is not supported by this browser.');
         }
     };
+    let dentro=false;
+
     const handleWaypoints = (mar1,mar2) => {
         const lat1 = mar1.lat.toFixed(6);  // Limita a 6 decimali
         const lng1 = mar1.lng.toFixed(6);
@@ -161,26 +163,30 @@ function SimpleMap(){
                     map.eachLayer(layer => {
                         if (layer instanceof L.Polyline) {
                             map.removeLayer(layer);
+
                             map.eachLayer(layer => {
-                                if(layer instanceof  L.Marker){
-                                    markerArray[0].remove();
+                                if(layer instanceof  L.Marker && !dentro){
+
+                                    console.log(markerArray);
                                     setMarkerArray((prevArray) => {
 
                                         const newPositions = prevArray.slice(1);
-                                        console.log(' DATI :', newPositions);// Utilizzare slice per ottenere una porzione escludendo il primo elemento
+                                        markerArray[0].remove();
                                         return newPositions;
                                     });
+
+                                    dentro=true;
                                 }
                             });
-
+                            dentro=false;
                         }
 
                     });
-                }
-
-                // Aggiungi il nuovo percorso alla mappa
-                if (mapRef.current) {
-                    const map = mapRef.current;
+                // }
+                //
+                // // Aggiungi il nuovo percorso alla mappa
+                // if (mapRef.current) {
+                //    const map = mapRef.current;
                     // L.geoJSON(myGeo).addTo(map);
                     if(showGeoJSONLayer1){
                         L.geoJSON(piazze,{color:'yellow'}).addTo(map);
@@ -192,6 +198,7 @@ function SimpleMap(){
                         L.geoJSON(myGeo).addTo(map);
                     }
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
+
                     // // Aggiungi popup con istruzioni
                     const instructionsDiv = document.getElementById('instructionsDiv');
                     instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
