@@ -6,6 +6,7 @@ import Routing from './Routing'
 import MapWithPlaceholder from './components/mapwithrouting/MapWithRouting';
 import reportWebVitals from './reportWebVitals';
 import SimpleMap from "./SimpleMap";
+import Location from "./Location"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
