@@ -161,7 +161,20 @@ function SimpleMap(){
                     map.eachLayer(layer => {
                         if (layer instanceof L.Polyline) {
                             map.removeLayer(layer);
+                            map.eachLayer(layer => {
+                                if(layer instanceof  L.Marker){
+                                    markerArray[0].remove();
+                                    setMarkerArray((prevArray) => {
+
+                                        const newPositions = prevArray.slice(1);
+                                        console.log(' DATI :', newPositions);// Utilizzare slice per ottenere una porzione escludendo il primo elemento
+                                        return newPositions;
+                                    });
+                                }
+                            });
+
                         }
+
                     });
                 }
 
@@ -229,7 +242,15 @@ function SimpleMap(){
                             count = 0;
                         }
                     });
-                    L.geoJSON(myGeo).addTo(map);
+                    if(showGeoJSONLayer1){
+                        L.geoJSON(piazze,{color:'yellow'}).addTo(map);
+                    }
+                    if(showGeoJSONLayer2){
+                        L.geoJSON(bus,{color:'red'}).addTo(map);
+                    }//non funziona nè il colore nè il rosso
+                    if(showGeoJSONLayer3){
+                        L.geoJSON(myGeo).addTo(map);
+                    }
                 }
             // })
             // .catch((error) => {
@@ -237,6 +258,7 @@ function SimpleMap(){
             // });
     };
     // Dichiarazione di uno stato per tenere traccia del primo marker
+    const [markerArray, setMarkerArray] = useState([]);
     const [markerPositions, setMarkerPositions] = useState([]);
 
     useEffect(() => {
@@ -251,21 +273,26 @@ function SimpleMap(){
                     return newPositions;
                 });
 
-                count = 1;
 
+            console.log(' MARKER DOPO:', markerArray);
+
+            count=1;
             }
 
     }, [count, markerPositions]);
     const handleMapClick = (e) => {
-        if (count < 2) {
+       if (count < 2) {
             if (mapRef.current) {
                 const map = mapRef.current;
-                console.log('VEDI MARKER:', e.latlng);
-                L.marker(e.latlng).addTo(map);
+                const marker = L.marker(e.latlng)
+                marker.addTo(map);
                 setMarkerPositions((prevPositions) => [...prevPositions, e.latlng]);
+                setMarkerArray((prevArray) => [...prevArray, marker]);
                 count++;
             }
-        }
+           console.log(' MARKER:', markerArray);
+
+       }
 
     };
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
