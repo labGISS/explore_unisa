@@ -187,24 +187,6 @@ function SimpleMap(){
                 // }
                 //
                 // // Aggiungi il nuovo percorso alla mappa
-                // if (mapRef.current) {
-                //    const map = mapRef.current;
-                    // L.geoJSON(myGeo).addTo(map);
-                    // if(showGeoJSONLayer1){
-                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    // }
-                    // if(showGeoJSONLayer2){
-                    //    L.geoJSON(bus,{color:'red'}).addTo(map);
-                    // }//non funziona nè il colore nè il rosso
-                    // else{
-                    //     map.removeLayer(bus);
-                    //
-                    //     setShowGeoJSONLayer2(false);
-                    // }
-
-                    // if(showGeoJSONLayer3){
-                    //     L.geoJSON(myGeo).addTo(map);
-                    // }
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
 
                     // // Aggiungi popup con istruzioni
@@ -212,14 +194,7 @@ function SimpleMap(){
                     instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
                     instructions.forEach((instruction, index) => {
                         const { location, instruction: text } = instruction;
-
-
                         instructionsDiv.innerHTML += `<p>Step ${index + 1}: ${text}</p>`;
-                        // // Crea un marker per l'istruzione
-                        // const marker = L.marker([40.77100564, 14.79136122],{text}).addTo(map);
-                        //
-                        // // Crea un popup per l'istruzione e lo associa al marker
-                        // marker.bindPopup(`<p>Step ${index + 1}: ${text}</p>`);
                     });
 
                     L.setOptions({language: 'it'})
@@ -235,16 +210,6 @@ function SimpleMap(){
     };
 
     const deleteWaypoints = () => {
-        // const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
-        // const url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=14.79136122,40.77100564&end=14.7908324,40.7715735';
-
-        // fetch(url)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('Data from API:', data);
-        //         const coordinates = data.features[0].geometry.coordinates;
-        //         const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
-        //         // Rimuovi il percorso esistente, se presente
                 if (mapRef.current) {
                     const map = mapRef.current;
                     map.eachLayer(layer => {
@@ -256,22 +221,11 @@ function SimpleMap(){
                             layer.remove(layer);
                             count = 0;
                         }
-                    });
-                    if(showGeoJSONLayer1){
-                        L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    }
-                    if(showGeoJSONLayer2){
-                        L.geoJSON(bus,{color:'red'}).addTo(map);
-                    }//non funziona nè il colore nè il rosso
 
-                    if(showGeoJSONLayer3){
-                        L.geoJSON(myGeo).addTo(map);
-                    }
+                    });
                 }
-            // })
-            // .catch((error) => {
-            //     console.error('Error:', error);
-            // });
+                setMarkerArray([]);
+                setMarkerPositions([]);
     };
     // Dichiarazione di uno stato per tenere traccia del primo marker
     const [markerArray, setMarkerArray] = useState([]);
@@ -369,9 +323,6 @@ function SimpleMap(){
                         return marker;
                     }}
                 />}
-                {/*<GeoJSON data={myGeo} />*/}
-                {/*<GeoJSON data={piazze} style={(feature)=>({color: 'yellow'})} />*/}
-                {/*<GeoJSON data={bus} style={(feature)=>({color: 'red'})} />*/}
                 <Marker position={position}></Marker>
                 <MapEventsHandler handleMapClick={handleMapClick} />
             </MapContainer>
