@@ -161,14 +161,14 @@ function SimpleMap(){
         }
     };
     let dentro=false;
-
+    let busLayer;
     const handleWaypoints = (mar1,mar2) => {
         const lat1 = mar1.lat.toFixed(6);  // Limita a 6 decimali
         const lng1 = mar1.lng.toFixed(6);
         const lat2 = mar2.lat.toFixed(6);
         const lng2 = mar2.lng.toFixed(6);
         const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
-        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&lang=de`;
+        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
          console.log("STAMPA",lat1,lng1,lat2,lng2);
         fetch(url)
             .then((response) => response.json())
@@ -182,6 +182,7 @@ function SimpleMap(){
                 if (mapRef.current) {
                     const map = mapRef.current;
                     map.eachLayer(layer => {
+                        console.log(layer);
                         if (layer instanceof L.Polyline) {
                             map.removeLayer(layer);
 
@@ -269,6 +270,7 @@ function SimpleMap(){
                             layer.remove(layer);
                             count = 0;
                         }
+
                     });
                     if(showGeoJSONLayer1){
                         L.geoJSON(piazze,{color:'yellow'}).addTo(map);
@@ -340,7 +342,6 @@ function SimpleMap(){
     const handleCheckboxChange3 = () => {
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
-
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
