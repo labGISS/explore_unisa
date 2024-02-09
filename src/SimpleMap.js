@@ -148,7 +148,7 @@ function SimpleMap(){
         const lat2 = mar2.lat.toFixed(6);
         const lng2 = mar2.lng.toFixed(6);
         const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
-        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&lang=de`;
+        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
          console.log("STAMPA",lat1,lng1,lat2,lng2);
         fetch(url)
             .then((response) => response.json())
