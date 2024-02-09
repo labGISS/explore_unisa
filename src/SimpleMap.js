@@ -279,9 +279,11 @@ function SimpleMap(){
     };
     return (
 
-        <div style={{ height: '500px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="SimpleMap">
+        <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
+            <Sidebar></Sidebar>
+            <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
             <MapContainer center={[latitude, longitude]}
-                          zoom={13} ref={mapRef} style={{height: "50vh", width: "50vw"}}>
+                          zoom={13} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -326,7 +328,7 @@ function SimpleMap(){
                 <Marker position={position}></Marker>
                 <MapEventsHandler handleMapClick={handleMapClick} />
             </MapContainer>
-
+            </div>
             <div>
                 <label>
                     Mostra Piazze
@@ -351,7 +353,6 @@ function SimpleMap(){
                 Localizzami
             </Button>
             <div id="instructionsDiv"></div>
-            <Sidebar/>
 
         </div>
 

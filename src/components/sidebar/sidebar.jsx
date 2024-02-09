@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -18,8 +18,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { TextField, Button } from '@mui/material';
-import RoomIcon from '@mui/icons-material/Room';
 
 const drawerWidth = 240;
 
@@ -71,9 +69,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [showInputs, setShowInputs] = useState(false);
-    const [startLocation, setStartLocation] = useState('');
-    const [destination, setDestination] = useState('');
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -83,24 +78,10 @@ export default function PersistentDrawerLeft() {
         setOpen(false);
     };
 
-    const handleGeoLocationClick = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setStartLocation(`${position.coords.latitude}, ${position.coords.longitude}`);
-            });
-        } else {
-            alert('Geolocation is not supported by this browser.');
-        }
-    };
-
-    const handleNavigationClick = () => {
-        setShowInputs(!showInputs);
-    };
-
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="absolute" open={open}  >
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -129,58 +110,41 @@ export default function PersistentDrawerLeft() {
                 anchor="left"
                 open={open}
             >
-                <DrawerHeader>
+                <DrawerHeader >
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    <ListItem key="Naviga" disablePadding>
-                        <ListItemButton onClick={handleNavigationClick}>
-                            <ListItemIcon>
-                                <RoomIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Naviga" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem key="PDI" disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <MailIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="PDI" />
-                        </ListItemButton>
-                    </ListItem>
+                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
                 </List>
                 <Divider />
-                {showInputs && (
-                    <Box sx={{ padding: 2 }}>
-                        <TextField
-                            label="Partenza"
-                            fullWidth
-                            value={startLocation}
-                            onChange={(e) => setStartLocation(e.target.value)}
-                            InputProps={{
-                                startAdornment: (
-                                    <IconButton onClick={handleGeoLocationClick}>
-                                        <RoomIcon />
-                                    </IconButton>
-                                ),
-                            }}
-                        />
-                        <TextField
-                            label="Destinazione"
-                            fullWidth
-                            value={destination}
-                            onChange={(e) => setDestination(e.target.value)}
-                        />
-                        <Button variant="contained" onClick={handleNavigationClick}>Avvia navigazione</Button>
-                    </Box>
-                )}
+                <List>
+                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
             </Drawer>
-            <Main open={open}>
+            <Main open={open} style={{display:"none" }}>
                 <DrawerHeader />
+
             </Main>
         </Box>
     );
