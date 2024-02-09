@@ -134,7 +134,7 @@ export default function PersistentDrawerLeft({ handleButtonClick }) {
                 </List>
                 <Divider />
                 <List>
-                    {['Piazze', 'Bus', 'Edifici'].map((text, index) => (
+                    {['Piazze', 'Bus', 'Edifici','Elimina'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton onClick={() => handleButtonClick(text)}>
                                 <ListItemIcon>

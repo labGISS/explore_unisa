@@ -127,6 +127,30 @@ var strade = {
 }
 
 
+
+/*DA VEDERE DOMANI
+* useEffect(() => {
+    // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
+    if (piazzeLayerRef.current) {
+      const map = mapRef.current;
+      if (showGeoJSONLayer1) {
+        piazzeLayerRef.current.addTo(map);
+      } else {
+        map.removeLayer(piazzeLayerRef.current);
+      }
+    }
+  }, [showGeoJSONLayer1]);
+  *
+  *
+  * if (piazzeLayerRef.current) {
+      const map = mapRef.current;
+      // Esempio: rimuovi il layer se esiste
+      map.removeLayer(piazzeLayerRef.current);
+    }
+    *
+    * let piazzeLayerRef = useRef(null);
+  * */
+
 let count = 0;
 var listaEdifici = getNamesAndIds(myGeo);
 var listaPiazze = getNamesAndIds(piazze);
@@ -267,26 +291,28 @@ function SimpleMap(){
                             layer.remove(layer);
 
                         }
-                        if (layer instanceof L.Marker) {
+                        if (layer instanceof L.Marker && layer.options.key !== 'bus-layer') {
                             layer.remove(layer);
                             count = 0;
                         }
 
                     });
-                    if(showGeoJSONLayer1){
-                        L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    }
-                    if(showGeoJSONLayer2){
-                        L.geoJSON(bus,{color:'red'}).addTo(map);
-                    }//non funziona nè il colore nè il rosso
-                    if(showGeoJSONLayer3){
-                        L.geoJSON(myGeo).addTo(map);
-                    }
+                    // if(showGeoJSONLayer1){
+                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
+                    // }
+                    // if(showGeoJSONLayer2){
+                    //     L.geoJSON(bus,{color:'red'}).addTo(map);
+                    // }//non funziona nè il colore nè il rosso
+                    // if(showGeoJSONLayer3){
+                    //     L.geoJSON(myGeo).addTo(map);
+                    // }
                 }
             // })
             // .catch((error) => {
             //     console.error('Error:', error);
             // });
+        setMarkerArray([]);
+        setMarkerPositions([]);
     };
     // Dichiarazione di uno stato per tenere traccia del primo marker
     const [markerArray, setMarkerArray] = useState([]);
@@ -347,19 +373,36 @@ function SimpleMap(){
     const handleCheckboxChange3 = () => {
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
+
+
+    const handleButtonClick = (text) => {
+        console.log(`Button clicked: ${text}`);
+        // Aggiungi la logica specifica per attivare il layer del bus qui
+        if (text === 'Bus') {
+            handleBusButtonClick();
+        } if (text === 'Piazze') {
+            handleCheckboxChange1();
+        } if (text === 'Edifici') {
+            handleCheckboxChange3();
+        }if (text === 'Elimina') {
+            deleteWaypoints();
+        }
+        // Aggiungi altri controlli se necessario
+    };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
-                <PersistentDrawerLeft handleButtonClick={handleBusButtonClick} />
+                <PersistentDrawerLeft handleButtonClick={handleButtonClick} />
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {showGeoJSONLayer1 && <GeoJSON data={piazze} style={(feature) => ({ color: 'yellow' })} />}
-                    {showGeoJSONLayer2 && <GeoJSON data={bus} style={(feature) => ({ color: 'red' })} />}
+
+                    {showGeoJSONLayer1 && <GeoJSON data={piazze} style={(feature) => ({ color: 'yellow' })}  />}
+                    {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus} style={(feature) => ({ color: 'red' })} />}
                     {showGeoJSONLayer3 && <GeoJSON data={myGeo}  />} />}
                     {/*<GeoJSON data={myGeo} />*/}
                     {/*<GeoJSON data={piazze} style={(feature)=>({color: 'yellow'})} />*/}
@@ -368,22 +411,22 @@ function SimpleMap(){
                     <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
+{/*ref={piazzeLayerRef}*/}
 
-
-            <div>
-                <label>
-                    Mostra Piazze
-                    <input type="checkbox" checked={showGeoJSONLayer1} onChange={handleCheckboxChange1} />
-                </label>
-                <label>
-                    Mostra Bus
-                    <input type="checkbox" checked={showGeoJSONLayer2} onChange={handleCheckboxChange2} />
-                </label>
-                    <label>
-                    Mostra Edifici
-                    <input type="checkbox" checked={showGeoJSONLayer3} onChange={handleCheckboxChange3} />
-                    </label>
-            </div>
+            {/*<div>*/}
+            {/*    <label>*/}
+            {/*        Mostra Piazze*/}
+            {/*        <input type="checkbox" checked={showGeoJSONLayer1} onChange={handleCheckboxChange1} />*/}
+            {/*    </label>*/}
+            {/*    <label>*/}
+            {/*        Mostra Bus*/}
+            {/*        <input type="checkbox" checked={showGeoJSONLayer2} onChange={handleCheckboxChange2} />*/}
+            {/*    </label>*/}
+            {/*        <label>*/}
+            {/*        Mostra Edifici*/}
+            {/*        <input type="checkbox" checked={showGeoJSONLayer3} onChange={handleCheckboxChange3} />*/}
+            {/*        </label>*/}
+            {/*</div>*/}
 
         {/*    /!*<Button onClick={handleWaypoints} type="primary">*!/*/}
         {/*    /!*    Calcola Percorso*!/*/}
