@@ -13,6 +13,7 @@ import Navbar from'../src/components/navbar/navbar.jsx'
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
 
 function getNamesAndIds(geoJsonData) {
     const namesAndIds = [];
@@ -325,6 +326,7 @@ function SimpleMap(){
        }
 
     };
+    const [showBusLayer, setShowBusLayer] = useState(false);
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
     const [showGeoJSONLayer2, setShowGeoJSONLayer2] = useState(false);
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
@@ -334,7 +336,10 @@ function SimpleMap(){
     const handleCheckboxChange2 = () => {
         setShowGeoJSONLayer2(!showGeoJSONLayer2);
     };
-
+    const handleBusButtonClick = () => {
+        // Gestisci la logica per mostrare/nascondere il layer del bus
+        setShowGeoJSONLayer2(!showGeoJSONLayer2);
+    };
     const [selectedValue, setSelectedValue] = useState(null);
     const handleSelectChange = (event) => {
         setSelectedValue(event.target.value)
@@ -346,8 +351,9 @@ function SimpleMap(){
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
+                <PersistentDrawerLeft handleButtonClick={handleBusButtonClick} />
                 <MapContainer center={[latitude, longitude]}
-                              zoom={16} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
+                              zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -364,20 +370,20 @@ function SimpleMap(){
             </div>
 
 
-        {/*    <div>*/}
-        {/*        <label>*/}
-        {/*            Mostra Piazze*/}
-        {/*            <input type="checkbox" checked={showGeoJSONLayer1} onChange={handleCheckboxChange1} />*/}
-        {/*        </label>*/}
-        {/*        <label>*/}
-        {/*            Mostra Bus*/}
-        {/*            <input type="checkbox" checked={showGeoJSONLayer2} onChange={handleCheckboxChange2} />*/}
-        {/*        </label>*/}
-        {/*            <label>*/}
-        {/*            Mostra Edifici*/}
-        {/*            <input type="checkbox" checked={showGeoJSONLayer3} onChange={handleCheckboxChange3} />*/}
-        {/*            </label>*/}
-        {/*    </div>*/}
+            <div>
+                <label>
+                    Mostra Piazze
+                    <input type="checkbox" checked={showGeoJSONLayer1} onChange={handleCheckboxChange1} />
+                </label>
+                <label>
+                    Mostra Bus
+                    <input type="checkbox" checked={showGeoJSONLayer2} onChange={handleCheckboxChange2} />
+                </label>
+                    <label>
+                    Mostra Edifici
+                    <input type="checkbox" checked={showGeoJSONLayer3} onChange={handleCheckboxChange3} />
+                    </label>
+            </div>
 
         {/*    /!*<Button onClick={handleWaypoints} type="primary">*!/*/}
         {/*    /!*    Calcola Percorso*!/*/}

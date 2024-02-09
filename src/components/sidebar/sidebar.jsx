@@ -66,7 +66,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ handleButtonClick }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -77,7 +77,11 @@ export default function PersistentDrawerLeft() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-
+    // const handleButtonClick = (text) => {
+    //     // Qui puoi definire cosa succede quando un pulsante viene cliccato
+    //     console.log(`Button clicked: ${text}`);
+    //
+    // };
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -130,9 +134,9 @@ export default function PersistentDrawerLeft() {
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {['Piazze', 'Bus', 'Edifici'].map((text, index) => (
                         <ListItem key={text} disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => handleButtonClick(text)}>
                                 <ListItemIcon>
                                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                 </ListItemIcon>
