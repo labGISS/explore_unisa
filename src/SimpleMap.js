@@ -10,10 +10,12 @@ import gh from 'graphhopper-js-api-client';
 import {Button, colors} from "@mui/material";
 import Sidebar from'../src/components/sidebar/sidebar.jsx'
 import Navbar from'../src/components/navbar/navbar.jsx'
+import SwipeableEdge from '../src/components/swipeableEdge/swipeableEdge'
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
+import Dialog from "../src/components/dialog/Dialog.jsx";
 
 function getNamesAndIds(geoJsonData) {
     const namesAndIds = [];
@@ -187,6 +189,9 @@ function SimpleMap(){
     };
     let dentro=false;
     let busLayer;
+    var flag = 0;
+    const [instructions, setInstructions] = useState(""); // Definisci lo state instructions
+
     const handleWaypoints = (mar1,mar2) => {
         const lat1 = mar1.lat.toFixed(6);  // Limita a 6 decimali
         const lng1 = mar1.lng.toFixed(6);
@@ -195,14 +200,17 @@ function SimpleMap(){
         const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
         const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
          console.log("STAMPA",lat1,lng1,lat2,lng2);
+         //crea qua il secondo punto e invia la richiesta
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 console.log('Data from API:', data);
                 const coordinates = data.features[0].geometry.coordinates;
-                const instructions = data.features[0].properties.segments[0].steps;
+               //instructions = data.features[0].properties.segments[0].steps;
+               setInstructions(data.features[0].properties.segments[0].steps)
                 console.log('Istruction :', instructions);
                 const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
+                flag = 1
                 // Rimuovi il percorso esistente, se presente
                 if (mapRef.current) {
                     const map = mapRef.current;
@@ -372,7 +380,6 @@ function SimpleMap(){
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
     useEffect(() => {
-        // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
             const map = mapRef.current;
             if (showGeoJSONLayer1) {
@@ -401,7 +408,7 @@ function SimpleMap(){
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
-                <PersistentDrawerLeft handleButtonClick={handleButtonClick} />
+                <PersistentDrawerLeft handleButtonClick={handleBusButtonClick} />
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
@@ -419,7 +426,6 @@ function SimpleMap(){
                     <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
-{/*ref={piazzeLayerRef}*/}
 
             {/*<div>*/}
             {/*    <label>*/}
@@ -497,6 +503,10 @@ function SimpleMap(){
         {/*            <MenuItem value={30}>Bus</MenuItem>*/}
         {/*        </Select>*/}
         {/*    )}*/}
+            <div>
+
+                <SwipeableEdge istruzioni={instructions}></SwipeableEdge>
+            </div>
 
         </div>
 
