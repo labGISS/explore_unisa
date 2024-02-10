@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import {TextField} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -121,16 +122,32 @@ export default function PersistentDrawerLeft({ handleButtonClick }) {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <TextField
+                                label="Start Point"
+                                variant="outlined"
+                                // value={startPoint}
+                                // onChange={handleStartPointChange}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <MailIcon />
+                            </ListItemIcon>
+                            <TextField
+                                label="End Point"
+                                variant="outlined"
+                                // value={endPoint}
+                                // onChange={handleEndPointChange}
+                            />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>

@@ -157,7 +157,7 @@ var listaPiazze = getNamesAndIds(piazze);
 console.log(listaPiazze);
 
 function SimpleMap(){
-
+    let piazzeLayerRef = useRef(null);
     const mapRef = useRef(null);
     const latitude = 40.764753;
     const longitude = 14.792275;
@@ -209,6 +209,7 @@ function SimpleMap(){
                     map.eachLayer(layer => {
                         console.log(layer);
                         if (layer instanceof L.Polyline) {
+                            console.log("LAYERR",layer);
                             map.removeLayer(layer);
 
                             map.eachLayer(layer => {
@@ -235,15 +236,15 @@ function SimpleMap(){
                 // if (mapRef.current) {
                 //    const map = mapRef.current;
                     // L.geoJSON(myGeo).addTo(map);
-                    if(showGeoJSONLayer1){
-                        L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    }
-                    if(showGeoJSONLayer2){
-                        L.geoJSON(bus,{color:'red'}).addTo(map);
-                    }//non funziona nè il colore nè il rosso
-                    if(showGeoJSONLayer3){
-                        L.geoJSON(myGeo).addTo(map);
-                    }
+                    // if(showGeoJSONLayer1){
+                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
+                    // }
+                    // if(showGeoJSONLayer2){
+                    //     L.geoJSON(bus,{color:'red'}).addTo(map);
+                    // }//non funziona nè il colore nè il rosso
+                    // if(showGeoJSONLayer3){
+                    //     L.geoJSON(myGeo).addTo(map);
+                    // }
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
 
                     // // Aggiungi popup con istruzioni
@@ -274,29 +275,30 @@ function SimpleMap(){
     };
 
     const deleteWaypoints = () => {
-        // const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
-        // const url = 'https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=14.79136122,40.77100564&end=14.7908324,40.7715735';
 
-        // fetch(url)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log('Data from API:', data);
-        //         const coordinates = data.features[0].geometry.coordinates;
-        //         const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
-        //         // Rimuovi il percorso esistente, se presente
                 if (mapRef.current) {
                     const map = mapRef.current;
                     map.eachLayer(layer => {
                         if (layer instanceof L.Polyline) {
-                            layer.remove(layer);
+                            layer.remove();
 
                         }
-                        if (layer instanceof L.Marker && layer.options.key !== 'bus-layer') {
-                            layer.remove(layer);
-                            count = 0;
+                        // if (layer instanceof L.Marker && layer !== piazzeLayerRef.current) {
+                        //     layer.remove();
+                        //     count = 0;
+                        // }
+                        console.log("PIAZZE LAYER",piazzeLayerRef.current)
+                        if (layer instanceof L.Marker) {
+                                layer.remove();
+                                count = 0;
+
                         }
 
                     });
+
+
+                    }
+                    // handleCheckboxChange1();
                     // if(showGeoJSONLayer1){
                     //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
                     // }
@@ -306,11 +308,6 @@ function SimpleMap(){
                     // if(showGeoJSONLayer3){
                     //     L.geoJSON(myGeo).addTo(map);
                     // }
-                }
-            // })
-            // .catch((error) => {
-            //     console.error('Error:', error);
-            // });
         setMarkerArray([]);
         setMarkerPositions([]);
     };
@@ -356,6 +353,7 @@ function SimpleMap(){
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
     const [showGeoJSONLayer2, setShowGeoJSONLayer2] = useState(false);
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
+
     const handleCheckboxChange1 = () => {
         setShowGeoJSONLayer1(!showGeoJSONLayer1);
     };
@@ -373,7 +371,17 @@ function SimpleMap(){
     const handleCheckboxChange3 = () => {
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
-
+    useEffect(() => {
+        // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
+        if (piazzeLayerRef.current) {
+            const map = mapRef.current;
+            if (showGeoJSONLayer1) {
+                piazzeLayerRef.current.addTo(map);
+            } else {
+                map.removeLayer(piazzeLayerRef.current);
+            }
+        }
+    }, [showGeoJSONLayer1]);
 
     const handleButtonClick = (text) => {
         console.log(`Button clicked: ${text}`);
@@ -401,7 +409,7 @@ function SimpleMap(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    {showGeoJSONLayer1 && <GeoJSON data={piazze} style={(feature) => ({ color: 'yellow' })}  />}
+                    {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}  />}
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus} style={(feature) => ({ color: 'red' })} />}
                     {showGeoJSONLayer3 && <GeoJSON data={myGeo}  />} />}
                     {/*<GeoJSON data={myGeo} />*/}
