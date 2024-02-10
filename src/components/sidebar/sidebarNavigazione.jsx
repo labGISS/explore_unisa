@@ -76,11 +76,6 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
     const handleDrawerOpen = () => {
         setOpen(true);
     };
-    const [suggestedNames, setSuggestedNames] = useState([]);
-    const [suggestedNamesEnd, setSuggestedNamesEnd] = useState([]);
-    const myGeoNomi = ["F3", "H", "F2", "F1", "F1", "Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "Piscina", "Laboratorio", "Laboratorio", "Laboratorio", "Laboratorio", "Mensa", "Chiostro della pace", "D", "Edisu", "Residenze", "Residenze", "Residenze", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank", "F", "E", "C", "B", "Residenze", "Laboratorio Modelli", "Masseria", "Masseria", "Bibllioteca umanistica"];
-
-    const piazzeNomi = ["Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica \"Giulio Natta\"", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società"];
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -95,20 +90,10 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
 
     const handleStartPointChange = (event) => {
         setStartPoint(event.target.value);
-        updateSuggestedNames(event.target.value);
     };
 
     const handleEndPointChange = (event) => {
         setEndPoint(event.target.value);
-        updateSuggestedNamesEnd(event.target.value);
-    };
-    const updateSuggestedNames = (inputValue) => {
-        const filteredNames = [...myGeoNomi, ...piazzeNomi].filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
-        setSuggestedNames(filteredNames);
-    };
-    const updateSuggestedNamesEnd = (inputValue) => {
-        const filteredNames = [...myGeoNomi, ...piazzeNomi].filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
-        setSuggestedNamesEnd(filteredNames);
     };
 
     const handleSendClick = () => {
@@ -118,14 +103,6 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
         } else {
             console.log('Compila entrambi i campi prima di inviare.');
         }
-    };
-    const onSuggestionClick = (name) => {
-        // Imposta il valore del textfield con il nome del suggerimento
-        setStartPoint(name);
-    };
-    const onSuggestionClick2 = (name) => {
-        // Imposta il valore del textfield con il nome del suggerimento
-        setEndPoint(name);
     };
     return (
         <Box sx={{ display: 'flex' }}>
@@ -142,7 +119,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Navigazione Rapida
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -164,51 +141,6 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
-                <Divider />
-
-                <List>
-                    <ListItem disablePadding>
-                        <ListItemButton style={{ flexDirection: 'column' }}>
-                            <TextField
-                                label="Start Point"
-                                variant="outlined"
-                                value={startPoint}
-                                onChange={handleStartPointChange}
-                            />
-                            <ul>
-                                {suggestedNames.map((name, index) => (
-                                    <li key={index} onClick={() => onSuggestionClick(name)}>
-                                        {name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton style={{ flexDirection: 'column' }}>
-                            <TextField
-                                label="End Point"
-                                variant="outlined"
-                                value={endPoint}
-                                onChange={handleEndPointChange}
-                            />
-                            <ul>
-                                {suggestedNamesEnd.map((name, index) => (
-                                    <li key={index} onClick={() => onSuggestionClick2(name)}>
-                                        {name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <Button variant="contained" onClick={handleSendClick}>
-                                Invia
-                            </Button>
-                        </ListItemButton>
-                    </ListItem>
-                </List>
                 <Divider />
                 <List>
                     {['Piazze', 'Bus', 'Edifici','Elimina'].map((text, index) => (

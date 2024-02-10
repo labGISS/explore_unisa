@@ -15,9 +15,10 @@ import CardActions from '@mui/material/CardActions'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import SimpleMap from './SimpleMap';
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Routes, useNavigate} from 'react-router-dom';
 import React from "react";
 import LeafletMapComponent from "./components/leafletMap/leafletmap";
+import Navigazione from "./Navigazione";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
+                <Route path="/Navigazione" element={<Navigazione />} />
                 {/* Altre rotte possono essere aggiunte qui */}
             </Routes>
         </Router>
@@ -33,6 +35,11 @@ function App() {
 
 // Componente Home
 function Home() {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        // Quando il pulsante viene cliccato, naviga a "/Navigazione"
+        navigate('/Navigazione');
+    };
     return (
         <div>
             <Header />
@@ -48,6 +55,7 @@ function Home() {
                 </Grid>
 
             </Grid>
+            <Button onClick={handleClick}>Vai a Navigazione</Button>
             <Footer />
         </div>
     );
