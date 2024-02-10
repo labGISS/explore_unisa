@@ -18,7 +18,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
+import {useState} from "react";
 
 const drawerWidth = 240;
 
@@ -67,7 +68,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft({ handleButtonClick }) {
+export default function PersistentDrawerLeft({ handleButtonClick, onSendClick }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -83,6 +84,25 @@ export default function PersistentDrawerLeft({ handleButtonClick }) {
     //     console.log(`Button clicked: ${text}`);
     //
     // };
+    const [startPoint, setStartPoint] = useState('');
+    const [endPoint, setEndPoint] = useState('');
+
+    const handleStartPointChange = (event) => {
+        setStartPoint(event.target.value);
+    };
+
+    const handleEndPointChange = (event) => {
+        setEndPoint(event.target.value);
+    };
+
+    const handleSendClick = () => {
+        // Verifica se entrambi i campi di testo sono compilati prima di inviare i dati
+        if (startPoint && endPoint) {
+            onSendClick({ startPoint, endPoint });
+        } else {
+            console.log('Compila entrambi i campi prima di inviare.');
+        }
+    };
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -130,8 +150,8 @@ export default function PersistentDrawerLeft({ handleButtonClick }) {
                             <TextField
                                 label="Start Point"
                                 variant="outlined"
-                                // value={startPoint}
-                                // onChange={handleStartPointChange}
+                                value={startPoint}
+                                onChange={handleStartPointChange}
                             />
                         </ListItemButton>
                     </ListItem>
@@ -143,9 +163,16 @@ export default function PersistentDrawerLeft({ handleButtonClick }) {
                             <TextField
                                 label="End Point"
                                 variant="outlined"
-                                // value={endPoint}
-                                // onChange={handleEndPointChange}
+                                value={endPoint}
+                                onChange={handleEndPointChange}
                             />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <Button variant="contained" onClick={handleSendClick}>
+                                Invia
+                            </Button>
                         </ListItemButton>
                     </ListItem>
                 </List>

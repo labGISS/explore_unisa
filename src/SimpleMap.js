@@ -380,6 +380,7 @@ function SimpleMap(){
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
     useEffect(() => {
+        // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
             const map = mapRef.current;
             if (showGeoJSONLayer1) {
@@ -404,11 +405,129 @@ function SimpleMap(){
         }
         // Aggiungi altri controlli se necessario
     };
+
+
+    const handlePoint = (mar1,mar2,mar3, mar4) => {
+        const lat1 = mar2.toFixed(6);  // Limita a 6 decimali
+        const lng1 = mar1.toFixed(6);
+        const lat2 = mar4.toFixed(6);
+        const lng2 = mar3.toFixed(6);
+        const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
+        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
+        console.log("STAMPA",lat1,lng1,lat2,lng2);
+        //crea qua il secondo punto e invia la richiesta
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Data from API:', data);
+                const coordinates = data.features[0].geometry.coordinates;
+                //instructions = data.features[0].properties.segments[0].steps;
+                setInstructions(data.features[0].properties.segments[0].steps)
+                console.log('Istruction :', instructions);
+                const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
+                flag = 1
+                // Rimuovi il percorso esistente, se presente
+                if (mapRef.current) {
+                    const map = mapRef.current;
+                    map.eachLayer(layer => {
+                        console.log(layer);
+                        if (layer instanceof L.Polyline) {
+                            console.log("LAYERR",layer);
+                            map.removeLayer(layer);
+
+                        }
+
+                    });
+                    // }
+                    //
+                    // // Aggiungi il nuovo percorso alla mappa
+                    // if (mapRef.current) {
+                    //    const map = mapRef.current;
+                    // L.geoJSON(myGeo).addTo(map);
+                    // if(showGeoJSONLayer1){
+                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
+                    // }
+                    // if(showGeoJSONLayer2){
+                    //     L.geoJSON(bus,{color:'red'}).addTo(map);
+                    // }//non funziona nè il colore nè il rosso
+                    // if(showGeoJSONLayer3){
+                    //     L.geoJSON(myGeo).addTo(map);
+                    // }
+                    L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
+
+                    L.marker([lat1,lng1 ]).addTo(map);
+
+                    L.marker([lat2,lng2 ]).addTo(map);
+                    // // Aggiungi popup con istruzioni
+                    const instructionsDiv = document.getElementById('instructionsDiv');
+                    instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
+                    instructions.forEach((instruction, index) => {
+                        const { location, instruction: text } = instruction;
+
+
+                        instructionsDiv.innerHTML += `<p>Step ${index + 1}: ${text}</p>`;
+                        // // Crea un marker per l'istruzione
+                        // const marker = L.marker([40.77100564, 14.79136122],{text}).addTo(map);
+                        //
+                        // // Crea un popup per l'istruzione e lo associa al marker
+                        // marker.bindPopup(`<p>Step ${index + 1}: ${text}</p>`);
+                    });
+
+                    L.setOptions({language: 'it'})
+
+
+                }
+
+                setRoute(routeCoordinates);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
+
+
+    const handleSendClick = (data) => {
+        // Estrai i dati dalla Sidebar
+        const { startPoint, endPoint } = data;
+
+        // Cerca le coordinate per i punti di partenza e arrivo nelle collezioni di dati
+        const startCoordinates = findCoordinatesByName(startPoint);
+        const endCoordinates = findCoordinatesByName(endPoint);
+
+        // Verifica se sono state trovate le coordinate per entrambi i punti
+        if (startCoordinates && endCoordinates) {
+            deleteWaypoints();
+            // Esegui la funzione handleWayPoint con le coordinate trovate
+            console.log('COOORDINATEE',startCoordinates[0],endCoordinates);
+
+            handlePoint(startCoordinates[0],startCoordinates[1], endCoordinates[0],endCoordinates[1]);
+        } else {
+            // Logga un messaggio se non sono state trovate le coordinate
+            console.log('Coordinate non trovate per entrambi i punti');
+        }
+    };
+
+// Funzione per cercare le coordinate per un dato Nome nella collezione di dati
+    const findCoordinatesByName = (name) => {
+        // Cerca il nome nella collezione "myGeo", "piazze" e "bus"
+        const myGeoFeature = myGeo.features.find((feature) => feature.properties.Nome === name);
+        const piazzeFeature = piazze.features.find((feature) => feature.properties.Nome === name);
+        const busFeature = bus.features.find((feature) => feature.properties.Nome === name);
+
+        // Restituisci le coordinate se trovate
+        if (myGeoFeature) return myGeoFeature.geometry.coordinates;
+        if (piazzeFeature) return piazzeFeature.geometry.coordinates;
+        if (busFeature) return busFeature.geometry.coordinates;
+
+        // Restituisci null se il nome non è stato trovato in nessuna collezione
+        return null;
+    };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
-                <PersistentDrawerLeft handleButtonClick={handleBusButtonClick} />
+                <PersistentDrawerLeft handleButtonClick={handleButtonClick} />
+                <PersistentDrawerLeft onSendClick={handleSendClick} />
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
@@ -426,6 +545,7 @@ function SimpleMap(){
                     <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
+{/*ref={piazzeLayerRef}*/}
 
             {/*<div>*/}
             {/*    <label>*/}
@@ -505,7 +625,7 @@ function SimpleMap(){
         {/*    )}*/}
             <div>
 
-                <SwipeableEdge istruzioni={instructions}></SwipeableEdge>
+                {/*<SwipeableEdge istruzioni={instructions}></SwipeableEdge>*/}
             </div>
 
         </div>
