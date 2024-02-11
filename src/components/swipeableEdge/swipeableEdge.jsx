@@ -83,10 +83,7 @@ function SwipeableEdgeDrawer({istruzioni}) {
                         {Array.isArray(istruzioni) && istruzioni.length > 0 ? (
                             istruzioni.map((istruzione, index) => (
                                 <div key={index}>
-                                    <p>Distance: {istruzione.distance}</p>
-                                    <p>Duration: {istruzione.duration}</p>
-                                    <p>{istruzione.type}</p>
-                                    <p>{istruzione.instruction}</p>
+                                    <p>Distanza: {istruzione.distance} Durata: {istruzione.duration} {istruzione.instruction} {istruzione.type}</p>
                                     <p>{istruzione.name}</p>
                                     <p>{istruzione.way_points}</p>
                                 </div>

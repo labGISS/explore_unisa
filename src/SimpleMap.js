@@ -130,6 +130,28 @@ var strade = {
 
 
 
+/*DA VEDERE DOMANI
+* useEffect(() => {
+    // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
+    if (piazzeLayerRef.current) {
+      const map = mapRef.current;
+      if (showGeoJSONLayer1) {
+        piazzeLayerRef.current.addTo(map);
+      } else {
+        map.removeLayer(piazzeLayerRef.current);
+      }
+    }
+  }, [showGeoJSONLayer1]);
+  *
+  *
+  * if (piazzeLayerRef.current) {
+      const map = mapRef.current;
+      // Esempio: rimuovi il layer se esiste
+      map.removeLayer(piazzeLayerRef.current);
+    }
+    *
+    * let piazzeLayerRef = useRef(null);
+  * */
 
 let count = 0;
 var listaEdifici = getNamesAndIds(myGeo);
@@ -143,6 +165,13 @@ function SimpleMap(){
     const longitude = 14.790703;
     const position = [latitude, longitude]
     const [markers, setMarkers] = useState([40.764753, 14.792275]);
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => { //controllo se è mobile
+        // Verifica se il dispositivo è mobile
+        const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+        setIsMobile(isMobileDevice);
+    }, []);
 
     const [route, setRoute] = useState([]);
     const localizeClick = () => {
@@ -186,6 +215,7 @@ function SimpleMap(){
                         if (layer instanceof L.Marker) {
                                 layer.remove();
                                 count = 0;
+
                         }
 
                     });
@@ -207,6 +237,7 @@ function SimpleMap(){
         setShowGeoJSONLayer2(!showGeoJSONLayer2);
     };
     const handleBusButtonClick = () => {
+        // Gestisci la logica per mostrare/nascondere il layer del bus
         setShowGeoJSONLayer2(!showGeoJSONLayer2);
     };
     const [selectedValue, setSelectedValue] = useState(null);
@@ -217,6 +248,7 @@ function SimpleMap(){
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
     useEffect(() => {
+        // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
             const map = mapRef.current;
             if (showGeoJSONLayer1) {
@@ -281,9 +313,29 @@ function SimpleMap(){
                     const newMarker = L.marker([lat1, lng1]).addTo(map);
                     setMarkers(prevMarkers => [...prevMarkers, newMarker]);
 
+                    // const markerToDelete = markers.find(marker => marker.options && marker.options.id === 'marker1');
+                    // console.log("MARKER TO DELETE", markerToDelete);
+
+                    // Aggiungi il marker 2
                     const newMarker2 = L.marker([lat2, lng2]).addTo(map);
 
                     setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
+
+
+                    // // Aggiungi popup con istruzioni
+                    // const instructionsDiv = document.getElementById('instructionsDiv');
+                    // instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
+                    // instructions.forEach((instruction, index) => {
+                    //     const { location, instruction: text } = instruction;
+                    //
+                    //
+                    //     instructionsDiv.innerHTML += `<p>Step ${index + 1}: ${text}</p>`;
+                    //     // // Crea un marker per l'istruzione
+                    //     // const marker = L.marker([40.77100564, 14.79136122],{text}).addTo(map);
+                    //     //
+                    //     // // Crea un popup per l'istruzione e lo associa al marker
+                    //     // marker.bindPopup(`<p>Step ${index + 1}: ${text}</p>`);
+                    // });
 
                     L.setOptions({language: 'it'})
 
@@ -309,8 +361,12 @@ function SimpleMap(){
         // Verifica se sono state trovate le coordinate per entrambi i punti
         if (startCoordinates && endCoordinates) {
             deleteWaypoints();
+            // Esegui la funzione handleWayPoint con le coordinate trovate
+            console.log('COOORDINATEE',startCoordinates[0],endCoordinates);
+
             handlePoint(startCoordinates[0],startCoordinates[1], endCoordinates[0],endCoordinates[1]);
         } else {
+            // Logga un messaggio se non sono state trovate le coordinate
             console.log('Coordinate non trovate per entrambi i punti');
         }
     };
@@ -339,6 +395,9 @@ function SimpleMap(){
     };
     const navigate = useNavigate();
     const handleNavigationClick = () => {
+        // Aggiungi qui la logica di navigazione a Navigazione.js
+        // ad esempio, utilizzando react-router-dom o useHistory
+        // Esempio con react-router-dom:
         navigate('/Navigazione');
     };
     return (
@@ -469,6 +528,7 @@ function SimpleMap(){
         {/*        </Select>*/}
         {/*    )}*/}
             <div>
+                {isMobile ? <SwipeableEdge istruzioni={instructions} /> : <Dialog />}
 
                 {/*<SwipeableEdge istruzioni={instructions}></SwipeableEdge>*/}
             </div>
