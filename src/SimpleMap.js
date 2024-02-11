@@ -318,7 +318,7 @@ function SimpleMap(){
 
                     // Aggiungi il marker 2
                     const newMarker2 = L.marker([lat2, lng2]).addTo(map);
-
+                    map.flyTo([lat2, lng2]);
                     setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
 
 
