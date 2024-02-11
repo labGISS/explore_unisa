@@ -16,6 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebarNavigazione.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
+import 'leaflet.icon.glyph';
 
 function getNamesAndIds(geoJsonData) {
     const namesAndIds = [];
@@ -345,7 +346,13 @@ function Navigazione(){
         }
         // Aggiungi altri controlli se necessario
     };
+    const onEachFeature = (feature, layer) => {
+        if (feature.properties) {
+            const popupContent = `<p>${feature.properties.Nome}</p>`; // Sostituisci con le tue proprietà
 
+            layer.bindPopup(popupContent);
+        }
+    };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <SidebarNavigazione/>
@@ -358,12 +365,39 @@ function Navigazione(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}  />}
-                    {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus} style={(feature) => ({ color: 'red' })} />}
-                    {showGeoJSONLayer3 && <GeoJSON data={myGeo}  />} />}
-                    {/*<GeoJSON data={myGeo} />*/}
-                    {/*<GeoJSON data={piazze} style={(feature)=>({color: 'yellow'})} />*/}
-                    {/*<GeoJSON data={bus} style={(feature)=>({color: 'red'})} />*/}
+                    {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'yellow', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
+                    {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'red', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
+                    {showGeoJSONLayer3 && <GeoJSON data={myGeo}  pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'red', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
                     <Marker position={position}></Marker>
                     <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
