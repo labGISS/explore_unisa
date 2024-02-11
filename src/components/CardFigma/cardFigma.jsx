@@ -26,20 +26,25 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function CardFigma({ title: initialTitle }) {
+export default function CardFigma({ title: initialTitle, onClick }) {
     const [expanded, setExpanded] = React.useState(false);
     const [title, setTitle] = React.useState(initialTitle);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
+    const handleClick = () => {
+        // Chiamare la funzione onClick se è stata fornita come prop
+        if (onClick) {
+            onClick();
+        }
+    };
     return (
         <cardFigma>
-        <div style={{width: '350px', background: 'white', boxShadow: '2px 2px 4px 2px rgba(0, 0, 0, 0.15)', borderRadius: 25, overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
+        <div style={{width: '350px', background: 'white', boxShadow: '2px 2px 4px 2px rgba(0, 0, 0, 0.15)', borderRadius: 25, overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}onClick={handleClick}>
             <div style={{alignSelf: 'stretch', padding: 16, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
                 <div style={{flex: '1 1 0', alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-                    <div style={{alignSelf: 'stretch', textAlign: 'center', color: 'black', fontSize: 24, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word'}}>Piazza del Sapere</div>
+                    <div style={{alignSelf: 'stretch', textAlign: 'center', color: 'black', fontSize: 24, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word'}}>{title}</div>
                 </div>
             </div>
             <div style={{alignSelf: 'stretch', height: 175, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>

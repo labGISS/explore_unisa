@@ -40,15 +40,20 @@ function Home() {
         // Quando il pulsante viene cliccato, naviga a "/Navigazione"
         navigate('/Navigazione');
     };
+
+    const handleClick2 = () => {
+        // Quando il pulsante viene cliccato, naviga a "/Navigazione"
+        navigate('/SimpleMap');
+    };
     return (
         <div>
             <Header />
             <Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                 <Grid item>
-                    <CardFigma />
+                    <CardFigma title="Clicca per visualizzare la mappa" onClick={handleClick2} />
                 </Grid>
                 <Grid item>
-                    <CardFigma />
+                    <CardFigma title="Clicca per visualizzare la nostra navigazione rapida" onClick={handleClick} />
                 </Grid>
                 <Grid item>
                     <CardFigma />
