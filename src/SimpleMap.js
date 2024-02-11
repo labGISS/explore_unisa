@@ -393,11 +393,12 @@ function SimpleMap(){
             layer.bindPopup(popupContent);
         }
     };
+
+
+
     const navigate = useNavigate();
     const handleNavigationClick = () => {
-        // Aggiungi qui la logica di navigazione a Navigazione.js
-        // ad esempio, utilizzando react-router-dom o useHistory
-        // Esempio con react-router-dom:
+
         navigate('/Navigazione');
     };
     return (

@@ -145,6 +145,13 @@ function Navigazione(){
     const [markers, setMarkers] = useState([40.764753, 14.792275]);
 
     const [route, setRoute] = useState([]);
+    useEffect(() => {
+        // Cleanup function: Reset state when component is unmounted
+        return () => {
+            console.log("PROVAAAA")
+            deleteWaypoints();
+        };
+    }, []);
     const localizeClick = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -190,7 +197,7 @@ function Navigazione(){
                 setInstructions(data.features[0].properties.segments[0].steps)
                 console.log('Istruction :', instructions);
                 const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
-                // flag = 1
+                flag = 1
                 // Rimuovi il percorso esistente, se presente
                 if (mapRef.current) {
                     const map = mapRef.current;
@@ -251,7 +258,7 @@ function Navigazione(){
 
 
         }
-
+        count=0;
         setMarkerArray([]);
         setMarkerPositions([]);
     };
