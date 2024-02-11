@@ -130,28 +130,6 @@ var strade = {
 
 
 
-/*DA VEDERE DOMANI
-* useEffect(() => {
-    // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
-    if (piazzeLayerRef.current) {
-      const map = mapRef.current;
-      if (showGeoJSONLayer1) {
-        piazzeLayerRef.current.addTo(map);
-      } else {
-        map.removeLayer(piazzeLayerRef.current);
-      }
-    }
-  }, [showGeoJSONLayer1]);
-  *
-  *
-  * if (piazzeLayerRef.current) {
-      const map = mapRef.current;
-      // Esempio: rimuovi il layer se esiste
-      map.removeLayer(piazzeLayerRef.current);
-    }
-    *
-    * let piazzeLayerRef = useRef(null);
-  * */
 
 let count = 0;
 var listaEdifici = getNamesAndIds(myGeo);
@@ -204,31 +182,17 @@ function SimpleMap(){
                             layer.remove();
 
                         }
-                        // if (layer instanceof L.Marker && layer !== piazzeLayerRef.current) {
-                        //     layer.remove();
-                        //     count = 0;
-                        // }
-                        console.log("PIAZZE LAYER",piazzeLayerRef.current)
+
                         if (layer instanceof L.Marker) {
                                 layer.remove();
                                 count = 0;
-
                         }
 
                     });
 
 
                     }
-                    // handleCheckboxChange1();
-                    // if(showGeoJSONLayer1){
-                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    // }
-                    // if(showGeoJSONLayer2){
-                    //     L.geoJSON(bus,{color:'red'}).addTo(map);
-                    // }//non funziona nè il colore nè il rosso
-                    // if(showGeoJSONLayer3){
-                    //     L.geoJSON(myGeo).addTo(map);
-                    // }
+
 
     };
 
@@ -243,7 +207,6 @@ function SimpleMap(){
         setShowGeoJSONLayer2(!showGeoJSONLayer2);
     };
     const handleBusButtonClick = () => {
-        // Gestisci la logica per mostrare/nascondere il layer del bus
         setShowGeoJSONLayer2(!showGeoJSONLayer2);
     };
     const [selectedValue, setSelectedValue] = useState(null);
@@ -254,7 +217,6 @@ function SimpleMap(){
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
     };
     useEffect(() => {
-        // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
             const map = mapRef.current;
             if (showGeoJSONLayer1) {
@@ -312,50 +274,16 @@ function SimpleMap(){
                         }
 
                     });
-                    // }
-                    //
-                    // // Aggiungi il nuovo percorso alla mappa
-                    // if (mapRef.current) {
-                    //    const map = mapRef.current;
-                    // L.geoJSON(myGeo).addTo(map);
-                    // if(showGeoJSONLayer1){
-                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    // }
-                    // if(showGeoJSONLayer2){
-                    //     L.geoJSON(bus,{color:'red'}).addTo(map);
-                    // }//non funziona nè il colore nè il rosso
-                    // if(showGeoJSONLayer3){
-                    //     L.geoJSON(myGeo).addTo(map);
-                    // }
+
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
 
 
                     const newMarker = L.marker([lat1, lng1]).addTo(map);
                     setMarkers(prevMarkers => [...prevMarkers, newMarker]);
 
-                    // const markerToDelete = markers.find(marker => marker.options && marker.options.id === 'marker1');
-                    // console.log("MARKER TO DELETE", markerToDelete);
-
-                    // Aggiungi il marker 2
                     const newMarker2 = L.marker([lat2, lng2]).addTo(map);
 
                     setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
-
-
-                    // // Aggiungi popup con istruzioni
-                    // const instructionsDiv = document.getElementById('instructionsDiv');
-                    // instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
-                    // instructions.forEach((instruction, index) => {
-                    //     const { location, instruction: text } = instruction;
-                    //
-                    //
-                    //     instructionsDiv.innerHTML += `<p>Step ${index + 1}: ${text}</p>`;
-                    //     // // Crea un marker per l'istruzione
-                    //     // const marker = L.marker([40.77100564, 14.79136122],{text}).addTo(map);
-                    //     //
-                    //     // // Crea un popup per l'istruzione e lo associa al marker
-                    //     // marker.bindPopup(`<p>Step ${index + 1}: ${text}</p>`);
-                    // });
 
                     L.setOptions({language: 'it'})
 
@@ -381,12 +309,8 @@ function SimpleMap(){
         // Verifica se sono state trovate le coordinate per entrambi i punti
         if (startCoordinates && endCoordinates) {
             deleteWaypoints();
-            // Esegui la funzione handleWayPoint con le coordinate trovate
-            console.log('COOORDINATEE',startCoordinates[0],endCoordinates);
-
             handlePoint(startCoordinates[0],startCoordinates[1], endCoordinates[0],endCoordinates[1]);
         } else {
-            // Logga un messaggio se non sono state trovate le coordinate
             console.log('Coordinate non trovate per entrambi i punti');
         }
     };
@@ -415,9 +339,6 @@ function SimpleMap(){
     };
     const navigate = useNavigate();
     const handleNavigationClick = () => {
-        // Aggiungi qui la logica di navigazione a Navigazione.js
-        // ad esempio, utilizzando react-router-dom o useHistory
-        // Esempio con react-router-dom:
         navigate('/Navigazione');
     };
     return (

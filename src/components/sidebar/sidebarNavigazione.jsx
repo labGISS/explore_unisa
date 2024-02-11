@@ -81,11 +81,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    // const handleButtonClick = (text) => {
-    //     // Qui puoi definire cosa succede quando un pulsante viene cliccato
-    //     console.log(`Button clicked: ${text}`);
-    //
-    // };
+
     const getCircleColor = (type) => {
         switch (type) {
             case 'Piazze':

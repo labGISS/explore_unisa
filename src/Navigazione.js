@@ -241,11 +241,6 @@ function Navigazione(){
                     layer.remove();
 
                 }
-                // if (layer instanceof L.Marker && layer !== piazzeLayerRef.current) {
-                //     layer.remove();
-                //     count = 0;
-                // }
-                console.log("PIAZZE LAYER",piazzeLayerRef.current)
                 if (layer instanceof L.Marker) {
                     layer.remove();
                     count = 0;
@@ -348,7 +343,7 @@ function Navigazione(){
     };
     const onEachFeature = (feature, layer) => {
         if (feature.properties) {
-            const popupContent = `<p>${feature.properties.Nome}</p>`; // Sostituisci con le tue proprietà
+            const popupContent = `<p>${feature.properties.Nome}</p>`;
 
             layer.bindPopup(popupContent);
         }

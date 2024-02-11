@@ -88,11 +88,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    // const handleButtonClick = (text) => {
-    //     // Qui puoi definire cosa succede quando un pulsante viene cliccato
-    //     console.log(`Button clicked: ${text}`);
-    //
-    // };
+
     const [startPoint, setStartPoint] = useState('');
     const [endPoint, setEndPoint] = useState('');
 
