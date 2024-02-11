@@ -341,7 +341,7 @@ function Navigazione(){
             handleCheckboxChange1();
         } if (text === 'Edifici') {
             handleCheckboxChange3();
-        }if (text === 'Elimina') {
+        }if (text === 'Elimina Percorso') {
             deleteWaypoints();
         }
         // Aggiungi altri controlli se necessario

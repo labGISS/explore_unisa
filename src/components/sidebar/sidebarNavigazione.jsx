@@ -20,6 +20,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {Button, TextField} from "@mui/material";
 import {useState} from "react";
+import Avatar from '@mui/material/Avatar';
 
 const drawerWidth = 240;
 
@@ -85,6 +86,18 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
     //     console.log(`Button clicked: ${text}`);
     //
     // };
+    const getCircleColor = (type) => {
+        switch (type) {
+            case 'Piazze':
+                return 'yellow';
+            case 'Bus':
+                return 'blue';
+            case 'Edifici':
+                return 'red';
+            default:
+                return 'grey'; // Colore di default o modifica a seconda delle tue esigenze
+        }
+    };
     const [startPoint, setStartPoint] = useState('');
     const [endPoint, setEndPoint] = useState('');
 
@@ -143,12 +156,13 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Piazze', 'Bus', 'Edifici','Elimina'].map((text, index) => (
+                    {['Piazze', 'Bus', 'Edifici', 'Elimina Percorso'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton onClick={() => handleButtonClick(text)}>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
+                                <Avatar style={{ backgroundColor: getCircleColor(text) }}>
+                                    {/* Puoi inserire il testo all'interno dell'Avatar per mostrare le iniziali o il numero se necessario */}
+                                     {text.charAt(0)}
+                                </Avatar>
                                 <ListItemText primary={text} />
                             </ListItemButton>
                         </ListItem>

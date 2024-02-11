@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import {Button, TextField} from "@mui/material";
 import {useState} from "react";
 import Autocomplete from '@mui/material/Autocomplete';
+import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 240;
 
@@ -69,7 +70,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft({ handleButtonClick, onSendClick }) {
+export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, handleNavigationClick }) {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -80,9 +81,9 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
     const [suggestedNames, setSuggestedNames] = useState([]);
     const [suggestedNamesEnd, setSuggestedNamesEnd] = useState([]);
     const myGeoNomi = ["F3", "H", "F2", "F1", "F1", "Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "Piscina", "Laboratorio", "Laboratorio", "Laboratorio", "Laboratorio", "Mensa", "Chiostro della pace", "D", "Edisu", "Residenze", "Residenze", "Residenze", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank", "F", "E", "C", "B", "Residenze", "Laboratorio Modelli", "Masseria", "Masseria", "Bibllioteca umanistica"];
-    const options =["F3", "H", "F2", "F1", "F1", "Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "Piscina", "Laboratorio", "Laboratorio", "Laboratorio", "Laboratorio", "Mensa", "Chiostro della pace", "D", "Edisu", "Residenze", "Residenze", "Residenze", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank", "F", "E", "C", "B", "Residenze", "Laboratorio Modelli", "Masseria", "Masseria", "Bibllioteca umanistica"];
+    const options =["F3", "H", "F2", "F1", "Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "Piscina", "Laboratorio", "Mensa", "Chiostro della pace", "D", "Edisu", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank", "F", "E", "C", "B", "Residenze", "Laboratorio Modelli", "Masseria", "Bibllioteca umanistica","Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica Giulio Natta", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società"];
 
-    const piazzeNomi = ["Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica \"Giulio Natta\"", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società"];
+    const piazzeNomi = ["Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica Giulio Natta", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società"];
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -114,6 +115,18 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
     const updateSuggestedNamesEnd = (inputValue) => {
         const filteredNames = [...myGeoNomi, ...piazzeNomi].filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
         setSuggestedNamesEnd(filteredNames);
+    };
+    const getCircleColor = (type) => {
+        switch (type) {
+            case 'Piazze':
+                return 'yellow';
+            case 'Bus':
+                return 'blue';
+            case 'Edifici':
+                return 'red';
+            default:
+                return 'grey'; // Colore di default o modifica a seconda delle tue esigenze
+        }
     };
 
     const handleSendClick = () => {
@@ -147,7 +160,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Naviga il campus
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -184,6 +197,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                                         {...params}
                                         label="Start Point"
                                         variant="outlined"
+                                        style={{ width: '200px', height: '60px' }}  // Imposta larghezza e altezza desiderate
 
                                     />
                                 )}
@@ -203,6 +217,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                                         {...params}
                                         label="End Point"
                                         variant="outlined"
+                                        style={{ width: '200px', height: '60px' }}
                                     />
                                 )}
                             />
@@ -218,16 +233,24 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
                 </List>
                 <Divider />
                 <List>
-                    {['Piazze', 'Bus', 'Edifici','Elimina'].map((text, index) => (
+                    {['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton onClick={() => handleButtonClick(text)}>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
+                                <Avatar style={{ backgroundColor: getCircleColor(text) }}>
+                                    {/* Puoi inserire il testo all'interno dell'Avatar per mostrare le iniziali o il numero se necessario */}
+                                    {text.charAt(0)}
+                                </Avatar>
                                 <ListItemText primary={text} />
                             </ListItemButton>
                         </ListItem>
+
                     ))}
+
+                </List>
+                <List>
+                    <Button variant="contained" color="primary" onClick={() => handleNavigationClick()} style={{ position: 'absolute', top: 10, left: 10 }}>
+                        Naviga Rapidamente
+                    </Button>
                 </List>
             </Drawer>
             <Main open={open} style={{display:"none" }}>

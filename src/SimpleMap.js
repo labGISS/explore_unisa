@@ -16,7 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
-
+import { useNavigate } from 'react-router-dom';
 function getNamesAndIds(geoJsonData) {
     const namesAndIds = [];
     geoJsonData.features.forEach((feature) => {
@@ -193,108 +193,7 @@ function SimpleMap(){
 
     const [instructions, setInstructions] = useState(""); // Definisci lo state instructions
 
-    const handleWaypoints = (mar1,mar2) => {
-        const lat1 = mar1.lat.toFixed(6);  // Limita a 6 decimali
-        const lng1 = mar1.lng.toFixed(6);
-        const lat2 = mar2.lat.toFixed(6);
-        const lng2 = mar2.lng.toFixed(6);
 
-        const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
-        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
-         console.log("STAMPA",lat1,lng1,lat2,lng2);
-         //crea qua il secondo punto e invia la richiesta
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Data from API:', data);
-                const coordinates = data.features[0].geometry.coordinates;
-               //instructions = data.features[0].properties.segments[0].steps;
-               setInstructions(data.features[0].properties.segments[0].steps)
-                console.log('Istruction :', instructions);
-                const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
-                // flag = 1
-                // Rimuovi il percorso esistente, se presente
-                if (mapRef.current) {
-                    const map = mapRef.current;
-                    // map.removeLayer(markers["marker1"]);
-                    // delete markers["marker1"];
-                    // map.removeLayer(markers["marker2"]);
-                    // delete markers["marker1"];
-                    // map.removeLayer(markers["marker1"]._latlng);
-                    // delete markers["marker1"];
-                    // const markerToDelete = markers.find(marker => marker._icon_leaflet_id === 'marker1');
-                    // console.log("MARKERSSTO DELETEEE", markerToDelete);
-                    // map.removeLayer(markerToDelete);
-                    // setMarkers(prevMarkers => prevMarkers.filter(marker => marker !== markerToDelete));
-                    //
-                    // console.log("MARKERSS", markers["marker1"]);
-                    map.eachLayer(layer => {
-                        console.log(layer);
-                        if (layer instanceof L.Polyline) {
-                            console.log("LAYERR",layer);
-                            map.removeLayer(layer);
-
-                            map.eachLayer(layer => {
-                                if(layer instanceof  L.Marker && !dentro){
-
-                                    console.log("veddoooo",markerArray);
-                                    setMarkerArray((prevArray) => {
-
-                                        const newPositions = prevArray.slice(1);
-                                        markerArray[0].remove();
-                                        return newPositions;
-                                    });
-
-                                    dentro=true;
-                                }
-                            });
-                            dentro=false;
-                        }
-
-                    });
-                // }
-                //
-                // // Aggiungi il nuovo percorso alla mappa
-                // if (mapRef.current) {
-                //    const map = mapRef.current;
-                    // L.geoJSON(myGeo).addTo(map);
-                    // if(showGeoJSONLayer1){
-                    //     L.geoJSON(piazze,{color:'yellow'}).addTo(map);
-                    // }
-                    // if(showGeoJSONLayer2){
-                    //     L.geoJSON(bus,{color:'red'}).addTo(map);
-                    // }//non funziona nè il colore nè il rosso
-                    // if(showGeoJSONLayer3){
-                    //     L.geoJSON(myGeo).addTo(map);
-                    // }
-                    L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
-
-                    // // Aggiungi popup con istruzioni
-                    // const instructionsDiv = document.getElementById('instructionsDiv');
-                    // instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
-                    // instructions.forEach((instruction, index) => {
-                    //     const { location, instruction: text } = instruction;
-                    //
-                    //
-                    //     instructionsDiv.innerHTML += `<p>Step ${index + 1}: ${text}</p>`;
-                        // // Crea un marker per l'istruzione
-                        // const marker = L.marker([40.77100564, 14.79136122],{text}).addTo(map);
-                        //
-                        // // Crea un popup per l'istruzione e lo associa al marker
-                        // marker.bindPopup(`<p>Step ${index + 1}: ${text}</p>`);
-                    // });
-
-                    L.setOptions({language: 'it'})
-
-
-                }
-
-                setRoute(routeCoordinates);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    };
 
     const deleteWaypoints = () => {
 
@@ -330,48 +229,9 @@ function SimpleMap(){
                     // if(showGeoJSONLayer3){
                     //     L.geoJSON(myGeo).addTo(map);
                     // }
-        setMarkerArray([]);
-        setMarkerPositions([]);
-    };
-    // Dichiarazione di uno stato per tenere traccia del primo marker
-    const [markerArray, setMarkerArray] = useState([]);
-    const [markerPositions, setMarkerPositions] = useState([]);
-
-    useEffect(() => {
-        if (count === 2) {
-                // Ora markerPositions è stato aggiornato
-                const firstTwoMarkers = markerPositions.slice(0, 2);
-                console.log('Coordinate dei primi due marker:', firstTwoMarkers[0], firstTwoMarkers[1]);
-                handleWaypoints(firstTwoMarkers[0], firstTwoMarkers[1]);
-                // Rimuovi il primo elemento dall'array markerPositions
-                setMarkerPositions((prevPositions) => {
-                    const newPositions = prevPositions.slice(1);  // Utilizzare slice per ottenere una porzione escludendo il primo elemento
-                    return newPositions;
-                });
-
-
-            console.log(' MARKER DOPO:', markerArray);
-
-            count=1;
-            }
-
-    }, [count, markerPositions]);
-    const handleMapClick = (e) => {
-       if (count < 2) {
-            if (mapRef.current) {
-                const map = mapRef.current;
-                const marker = L.marker(e.latlng)
-                marker.addTo(map);
-                setMarkerPositions((prevPositions) => [...prevPositions, e.latlng]);
-                setMarkerArray((prevArray) => [...prevArray, marker]);
-                count++;
-            }
-           console.log(' MARKER:', markerArray);
-
-       }
 
     };
-    const [showBusLayer, setShowBusLayer] = useState(false);
+
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
     const [showGeoJSONLayer2, setShowGeoJSONLayer2] = useState(false);
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
@@ -414,7 +274,7 @@ function SimpleMap(){
             handleCheckboxChange1();
         } if (text === 'Edifici') {
             handleCheckboxChange3();
-        }if (text === 'Elimina') {
+        }if (text === 'Elimina Percorso') {
             deleteWaypoints();
         }
         // Aggiungi altri controlli se necessario
@@ -546,11 +406,25 @@ function SimpleMap(){
         // Restituisci null se il nome non è stato trovato in nessuna collezione
         return null;
     };
+    const onEachFeature = (feature, layer) => {
+        if (feature.properties) {
+            const popupContent = `<p>${feature.properties.Nome}</p>`; // Sostituisci con le tue proprietà
+
+            layer.bindPopup(popupContent);
+        }
+    };
+    const navigate = useNavigate();
+    const handleNavigationClick = () => {
+        // Aggiungi qui la logica di navigazione a Navigazione.js
+        // ad esempio, utilizzando react-router-dom o useHistory
+        // Esempio con react-router-dom:
+        navigate('/Navigazione');
+    };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
-                <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick}/>
+                <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
@@ -558,17 +432,44 @@ function SimpleMap(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}  />}
-                    {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus} style={(feature) => ({ color: 'red' })} />}
-                    {showGeoJSONLayer3 && <GeoJSON data={myGeo}  />} />}
-                    {/*<GeoJSON data={myGeo} />*/}
-                    {/*<GeoJSON data={piazze} style={(feature)=>({color: 'yellow'})} />*/}
-                    {/*<GeoJSON data={bus} style={(feature)=>({color: 'red'})} />*/}
+                    {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'yellow', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
+                    {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'blue', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
+                    {showGeoJSONLayer3 && <GeoJSON data={myGeo}  pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'red', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
+
                     <Marker position={position}></Marker>
-                    <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
-{/*ref={piazzeLayerRef}*/}
+
 
             {/*<div>*/}
             {/*    <label>*/}
@@ -657,10 +558,5 @@ function SimpleMap(){
 
 
 }
-const MapEventsHandler = ({ handleMapClick }) => {
-    useMapEvents({
-        click: (e) => handleMapClick(e),
-    });
-    return null;
-};
+
 export default SimpleMap;
