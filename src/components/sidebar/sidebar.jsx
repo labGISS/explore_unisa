@@ -105,8 +105,6 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
 
     const handleEndPointChange = (event, newValue) => {
         setEndPoint(newValue);
-
-        // Altri logici se necessario
     }
     const updateSuggestedNames = (inputValue) => {
         const filteredNames = [...myGeoNomi, ...piazzeNomi].filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
