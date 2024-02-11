@@ -139,8 +139,8 @@ console.log(listaPiazze);
 function Navigazione(){
     let piazzeLayerRef = useRef(null);
     const mapRef = useRef(null);
-    const latitude = 40.764753;
-    const longitude = 14.792275;
+    const latitude = 40.772921;
+    const longitude = 14.790703;
     const position = [40.764753, 14.792275]
     const [markers, setMarkers] = useState([40.764753, 14.792275]);
 
@@ -398,7 +398,6 @@ function Navigazione(){
                         });
                     }} onEachFeature={onEachFeature}
                     />}
-                    <Marker position={position}></Marker>
                     <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
