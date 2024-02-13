@@ -380,7 +380,7 @@ function Navigazione(){
                     />}
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
                         return L.circleMarker(latlng, {
-                            fillColor: 'red', // Cambia il colore di riempimento
+                            fillColor: 'blue', // Cambia il colore di riempimento
                             color: 'white',   // Cambia il colore del bordo
                             radius: 10,        // Cambia la dimensione del marker
                             weight: 2,         // Cambia la larghezza del bordo

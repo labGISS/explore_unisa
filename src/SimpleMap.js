@@ -17,17 +17,6 @@ import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import { useNavigate } from 'react-router-dom';
-function getNamesAndIds(geoJsonData) {
-    const namesAndIds = [];
-    geoJsonData.features.forEach((feature) => {
-        const name = feature.properties.Nome;
-        const id = feature.properties.id;
-        const lat = feature.geometry.coordinates[0];
-        const long = feature.geometry.coordinates[1];
-        namesAndIds.push({ name, id, lat, long });
-    });
-    return namesAndIds.sort((a, b) => a.name.localeCompare(b.name));
-}
 
 
 var myGeo = {
@@ -129,34 +118,8 @@ var strade = {
 }
 
 
-
-/*DA VEDERE DOMANI
-* useEffect(() => {
-    // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
-    if (piazzeLayerRef.current) {
-      const map = mapRef.current;
-      if (showGeoJSONLayer1) {
-        piazzeLayerRef.current.addTo(map);
-      } else {
-        map.removeLayer(piazzeLayerRef.current);
-      }
-    }
-  }, [showGeoJSONLayer1]);
-  *
-  *
-  * if (piazzeLayerRef.current) {
-      const map = mapRef.current;
-      // Esempio: rimuovi il layer se esiste
-      map.removeLayer(piazzeLayerRef.current);
-    }
-    *
-    * let piazzeLayerRef = useRef(null);
-  * */
-
 let count = 0;
-var listaEdifici = getNamesAndIds(myGeo);
-var listaPiazze = getNamesAndIds(piazze);
-console.log(listaPiazze);
+
 
 function SimpleMap(){
     let piazzeLayerRef = useRef(null);
@@ -397,9 +360,11 @@ function SimpleMap(){
 
 
     const navigate = useNavigate();
-    const handleNavigationClick = () => {
 
-        navigate('/Navigazione');
+
+    const handleNavigationClick = () => {
+        deleteWaypoints();
+        // navigate('/Navigazione');
     };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
