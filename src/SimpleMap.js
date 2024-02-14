@@ -19,7 +19,8 @@ import Dialog from "../src/components/dialog/Dialog.jsx";
 import { useNavigate } from 'react-router-dom';
 import Navigazione from "./Navigazione";
 
-
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 var myGeo = {
     "type": "FeatureCollection",
@@ -131,6 +132,16 @@ function SimpleMap(){
     const position = [latitude, longitude]
     const [markers, setMarkers] = useState([40.764753, 14.792275]);
     const [isMobile, setIsMobile] = React.useState(false);
+    const { t } = useTranslation();
+
+    i18next.init({
+        lng: 'it',
+        resources: {
+            it: {
+                translation: require('../src/language/it.json'),
+            },
+        },
+    });
 
     React.useEffect(() => { //controllo se è mobile
         // Verifica se il dispositivo è mobile
@@ -247,6 +258,7 @@ function SimpleMap(){
         const lng2 = mar3.toFixed(6);
         const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
         const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
+
         console.log("STAMPA",lat1,lng1,lat2,lng2);
         //crea qua il secondo punto e invia la richiesta
         fetch(url)
@@ -255,8 +267,49 @@ function SimpleMap(){
                 console.log('Data from API:', data);
                 const coordinates = data.features[0].geometry.coordinates;
                 //instructions = data.features[0].properties.segments[0].steps;
+                const steps = data.features[0].properties.segments[0].steps;
+                console.log('step**********', steps);
+                const translatedInstructions = steps.map(item => {
+                    const itemTradotto = {};
+                    for (const key in item) {
+                        // if (typeof item[key] === 'string') {
+                        //     itemTradotto[key] = i18next.t(item[key]);
+                        // } else {
+                        //     itemTradotto[key] = item[key];
+                        // }
+                        if(key === 'instruction') {
+                            const instruction = item[key];
+                            const indicationRegex = /^(.*?) on (.*)$/;
+                            if (instruction.includes('onto')) {
+                                const instructionParts = instruction.split(' onto '); // Divide la stringa in parti utilizzando 'onto' come separatore
+                                const instructionKey = instructionParts[0] + ' onto'; // Conserva la parte fino a 'onto'
+                                const restOfInstruction = instructionParts.slice(1).join(' onto '); // Prende il resto della stringa
+                                // Traduce solo la parte fino a 'onto' e poi ricongiunge il resto della stringa
+                                itemTradotto[key] = `${i18next.t(instructionKey)}${restOfInstruction}`;
+
+                             } else if (indicationRegex.test(instruction)) {
+                                const matches = instruction.match(indicationRegex);
+                                const infoPart = matches[1]; // Parte prima di 'on'
+                                const roadPart = matches[2]; // Parte dopo 'on'
+
+                                // Traduce la parte dell'informazione e lascia il nome della strada invariato
+                                itemTradotto[key] = `${i18next.t(infoPart)} ${roadPart}`;
+                            }
+                            else {
+                                itemTradotto[key] = i18next.t(instruction);
+                            }
+
+                        } else if (typeof item[key] === 'string'){
+                            itemTradotto[key] = i18next.t(item[key]);
+                        } else {
+                            itemTradotto[key] = item[key];
+                        }
+                    }
+                    return itemTradotto;
+                });
+
                 setInstructions(data.features[0].properties.segments[0].steps)
-                console.log('Istruction :', instructions);
+                console.log('Istruction in ita****:', translatedInstructions);
                 const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
                 flag = 1
                 // Rimuovi il percorso esistente, se presente

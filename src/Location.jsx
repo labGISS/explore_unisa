@@ -1,39 +1,28 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
 
-function App() {
-    const [currLocation, setCurrLocation] = useState({});
-    const [currLocationJs, setCurrLocationJs] = useState({});
+const App = () => {
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
     useEffect(() => {
-        getLocation();
-        getLocationJs();
+        const getUserLocation = () => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+            }, (error) => {
+                console.log(error.message);
+            });
+        };
+        getUserLocation();
     }, []);
-
-    const getLocation = async () => {
-        const location = await axios.get("https://ipapi.co/json");
-        setCurrLocation(location.data);
-    };
-
-    const getLocationJs = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position);
-            const { latitude, longitude } = position.coords;
-            setCurrLocationJs({ latitude, longitude });
-        });
-    };
 
     return (
         <div>
-            <h1>Current Location</h1>
-            <p>Latitude: {currLocation.latitude}</p>
-            <p>Longitude: {currLocation.longitude}</p>
-            <p>City: {currLocation.city}</p>
-
-            <h1>Current Location JS</h1>
-            <p>Latitude: {currLocationJs.latitude}</p>
-            <p>Longitude: {currLocationJs.longitude}</p>
+            <h1>Le tue coordinate</h1>
+            <p>Latitudine: {latitude}</p>
+            <p>Longitudine: {longitude}</p>
         </div>
     );
-}
+};
 
 export default App;
