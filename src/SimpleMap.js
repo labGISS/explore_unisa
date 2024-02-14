@@ -126,6 +126,7 @@ let count = 0;
 
 function SimpleMap(){
     let piazzeLayerRef = useRef(null);
+    let markersLayer =useRef(null);
     const mapRef = useRef(null);
     const latitude = 40.772921;
     const longitude = 14.790703;
@@ -178,7 +179,8 @@ function SimpleMap(){
 
 
 
-    const deleteWaypoints = () => {
+
+    const deleteWaypoints2 = () => {
 
         if (mapRef.current) {
             const map = mapRef.current;
@@ -187,8 +189,7 @@ function SimpleMap(){
                     layer.remove();
 
                 }
-
-                if (layer instanceof L.Marker && !piazzeLayerRef.current.hasLayer(layer) ) {
+                if (layer instanceof L.Marker) {
                     layer.remove();
                     count = 0;
 
@@ -198,10 +199,11 @@ function SimpleMap(){
 
 
         }
-
-
+        count=0;
+        setMarkerArray([]);
+        setMarkerPositions([]);
+        setContatoreMarker(0);
     };
-
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
     const [showGeoJSONLayer2, setShowGeoJSONLayer2] = useState(false);
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
@@ -246,6 +248,7 @@ function SimpleMap(){
             handleCheckboxChange3();
         }if (text === 'Elimina Percorso') {
             deleteWaypoints();
+            deleteWaypoints2();
         }
         // Aggiungi altri controlli se necessario
     };
@@ -323,22 +326,30 @@ function SimpleMap(){
 
                         }
 
+
                     });
 
+                    markersLayer.current.eachLayer(marker => {
+                        // Rimuovi il marker dal layer
+                        markersLayer.current.removeLayer(marker);
+
+                        // Opzionalmente, puoi anche rimuovere il marker dalla mappa
+                        // mapRef.current.removeLayer(marker);
+                    });
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
 
 
-                    const newMarker = L.marker([lat1, lng1]).addTo(map);
+                    const newMarker = L.marker([lat1, lng1]).addTo(markersLayer.current);
                     setMarkers(prevMarkers => [...prevMarkers, newMarker]);
 
                     // const markerToDelete = markers.find(marker => marker.options && marker.options.id === 'marker1');
                     // console.log("MARKER TO DELETE", markerToDelete);
 
                     // Aggiungi il marker 2
-                    const newMarker2 = L.marker([lat2, lng2]).addTo(map);
+                    const newMarker2 = L.marker([lat2, lng2]).addTo(markersLayer.current);
                     map.flyTo([lat2, lng2]);
                     setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
-
+                    console.log("MARKER LAYER PRIMA",markersLayer.current);
 
                     // // Aggiungi popup con istruzioni
                     // const instructionsDiv = document.getElementById('instructionsDiv');
@@ -366,7 +377,41 @@ function SimpleMap(){
                 console.error('Error:', error);
             });
     };
+    const deleteWaypoints = () => {
 
+
+        if (mapRef.current) {
+            const map = mapRef.current;
+
+            // map.removeLayer(markersLayer);
+                map.eachLayer(layer => {
+                    console.log("MARKER LAYER", markersLayer);
+                    markersLayer.current.eachLayer(marker => {
+                        // Rimuovi il marker dal layer
+                        markersLayer.current.removeLayer(marker);
+
+                        // Opzionalmente, puoi anche rimuovere il marker dalla mappa
+                        // mapRef.current.removeLayer(marker);
+                    });
+                });
+            }
+            //         layer.remove();
+            //
+            //     }
+            //
+            //     if (layer instanceof L.Marker && !piazzeLayerRef.current.hasLayer(layer) ) {
+            //         layer.remove(markers);
+            //         count = 0;
+            //
+            //     }
+            //
+            // });
+            // count = 0;
+
+            // }
+
+
+    };
 
     const handleSendClick = (data) => {
         // Estrai i dati dalla Sidebar
@@ -378,10 +423,10 @@ function SimpleMap(){
 
         // Verifica se sono state trovate le coordinate per entrambi i punti
         if (startCoordinates && endCoordinates) {
-            deleteWaypoints();
+           // deleteWaypoints();
             // Esegui la funzione handleWayPoint con le coordinate trovate
             console.log('COOORDINATEE',startCoordinates[0],endCoordinates);
-
+            deleteWaypoints2();
             handlePoint(startCoordinates[0],startCoordinates[1], endCoordinates[0],endCoordinates[1]);
         } else {
             // Logga un messaggio se non sono state trovate le coordinate
@@ -420,6 +465,112 @@ function SimpleMap(){
     const handleNavigationClick = () => {
         navigate('/Navigazione');
     };
+    const [contatoreMarker, setContatoreMarker] = useState(0);
+    const handleWaypoints = (mar1,mar2) => {
+        const lat1 = mar1.lat.toFixed(6);  // Limita a 6 decimali
+        const lng1 = mar1.lng.toFixed(6);
+        const lat2 = mar2.lat.toFixed(6);
+        const lng2 = mar2.lng.toFixed(6);
+
+        const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
+        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
+        console.log("STAMPA",lat1,lng1,lat2,lng2);
+        deleteWaypoints();
+        console.log("STAMPA LAYERGROUPPPP", markersLayer.current);
+        //crea qua il secondo punto e invia la richiesta
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Data from API:', data);
+                const coordinates = data.features[0].geometry.coordinates;
+                //instructions = data.features[0].properties.segments[0].steps;
+                setInstructions(data.features[0].properties.segments[0].steps)
+                console.log('Istruction :', instructions);
+                const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
+                flag = 1
+                // Rimuovi il percorso esistente, se presente
+                if (mapRef.current) {
+                    const map = mapRef.current;
+
+                    map.eachLayer(layer => {
+                        console.log(layer);
+                        if (layer instanceof L.Polyline) {
+                            console.log("LAYERR",layer);
+                            map.removeLayer(layer);
+
+                            map.eachLayer(layer => {
+                                if(layer instanceof  L.Marker && contatoreMarker>0) {
+                                    if (!dentro) {
+                                        setMarkerArray((prevArray) => {
+
+                                            const newPositions = prevArray.slice(1);
+                                            markerArray[0].remove();
+                                            return newPositions;
+                                        });
+
+                                        dentro = true;
+                                    }
+                                }
+                            });
+                            dentro=false;
+                        }
+
+                    });
+
+                    L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
+                    L.setOptions({language: 'it'})
+                    setContatoreMarker(prevCount => prevCount + 1);
+                    console.log("CONTATORE MARKER", contatoreMarker);
+
+                }
+
+                setRoute(routeCoordinates);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
+
+
+    // Dichiarazione di uno stato per tenere traccia del primo marker
+    const [markerArray, setMarkerArray] = useState([]);
+    const [markerPositions, setMarkerPositions] = useState([]);
+
+    useEffect(() => {
+        if (count === 2) {
+            // Ora markerPositions è stato aggiornato
+            const firstTwoMarkers = markerPositions.slice(0, 2);
+            console.log('Coordinate dei primi due marker:', firstTwoMarkers[0], firstTwoMarkers[1]);
+            handleWaypoints(firstTwoMarkers[0], firstTwoMarkers[1]);
+            // Rimuovi il primo elemento dall'array markerPositions
+            setMarkerPositions((prevPositions) => {
+                const newPositions = prevPositions.slice(1);  // Utilizzare slice per ottenere una porzione escludendo il primo elemento
+                return newPositions;
+            });
+
+
+            console.log(' MARKER DOPO:', markerArray);
+
+            count=1;
+        }
+
+    }, [count, markerPositions]);
+    const handleMapClick = (e) => {
+        if (count < 2) {
+            if (mapRef.current) {
+                const map = mapRef.current;
+                const marker = L.marker(e.latlng)
+                marker.addTo(map);
+                setMarkerPositions((prevPositions) => [...prevPositions, e.latlng]);
+                setMarkerArray((prevArray) => [...prevArray, marker]);
+                count++;
+            }
+            console.log(' MARKER:', markerArray);
+
+        }
+
+    };
+
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
@@ -432,7 +583,7 @@ function SimpleMap(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <LayerGroup ref={piazzeLayerRef} />
-
+                    <LayerGroup ref={markersLayer} />
                     {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
                         const marker= L.marker(latlng, {
                             icon: L.divIcon({
@@ -476,7 +627,7 @@ function SimpleMap(){
                     }} onEachFeature={onEachFeature}
                     />}
 
-
+                    <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
 
@@ -569,5 +720,11 @@ function SimpleMap(){
 
 
 }
+const MapEventsHandler = ({ handleMapClick }) => {
+    useMapEvents({
+        click: (e) => handleMapClick(e),
+    });
+    return null;
+};
 
 export default SimpleMap;
