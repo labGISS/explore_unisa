@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext  } from "react";
-import {GeoJSON, MapContainer, Marker, Polyline, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import {GeoJSON, LayerGroup, MapContainer, Marker, Polyline, Popup, TileLayer, useMapEvents} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -17,6 +17,8 @@ import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import { useNavigate } from 'react-router-dom';
+import Navigazione from "./Navigazione";
+
 
 
 var myGeo = {
@@ -96,8 +98,8 @@ var piazze = {
 
 var bus = {
     "type": "FeatureCollection",
-        "name": "busUnisa",
-        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    "name": "busUnisa",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
     "features": [
         { "type": "Feature", "properties": { "id": null }, "geometry": { "type": "Point", "coordinates": [ 14.793393186993432, 40.773411938932298 ] } },
         { "type": "Feature", "properties": { "id": null }, "geometry": { "type": "Point", "coordinates": [ 14.793299182992158, 40.773742835407283 ] } },
@@ -167,24 +169,24 @@ function SimpleMap(){
 
     const deleteWaypoints = () => {
 
-                if (mapRef.current) {
-                    const map = mapRef.current;
-                    map.eachLayer(layer => {
-                        if (layer instanceof L.Polyline) {
-                            layer.remove();
+        if (mapRef.current) {
+            const map = mapRef.current;
+            map.eachLayer(layer => {
+                if (layer instanceof L.Polyline) {
+                    layer.remove();
 
-                        }
+                }
 
-                        if (layer instanceof L.Marker) {
-                                layer.remove();
-                                count = 0;
+                if (layer instanceof L.Marker && !piazzeLayerRef.current.hasLayer(layer) ) {
+                    layer.remove();
+                    count = 0;
 
-                        }
+                }
 
-                    });
+            });
 
 
-                    }
+        }
 
 
     };
@@ -363,8 +365,7 @@ function SimpleMap(){
 
 
     const handleNavigationClick = () => {
-        deleteWaypoints();
-        // navigate('/Navigazione');
+        navigate('/Navigazione');
     };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
@@ -377,18 +378,28 @@ function SimpleMap(){
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
+                    <LayerGroup ref={piazzeLayerRef} />
 
                     {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
-                        return L.circleMarker(latlng, {
-                            fillColor: 'yellow', // Cambia il colore di riempimento
-                            color: 'white',   // Cambia il colore del bordo
-                            radius: 10,        // Cambia la dimensione del marker
-                            weight: 2,         // Cambia la larghezza del bordo
-                            opacity: 1,        // Cambia l'opacità
-                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        const marker= L.marker(latlng, {
+                            icon: L.divIcon({
+                                className: 'my-custom-icon', // Classe per l'icona personalizzata
+                                html: '<i class="fas fa-building " style="font-size:48px;color:red"></i>',
+                                iconSize: [82, 82], // Dimensioni dell'icona
+                                iconAnchor: [16, 32], // Punto di ancoraggio dell'icona
+                                popupAnchor: [0, -32] // Punto di ancoraggio del popup rispetto all'icona
+                            })
+
                         });
-                    }} onEachFeature={onEachFeature}
-                    />}
+                        // Aggiungi il marker al layer dei marker
+                        if (piazzeLayerRef.current) {
+                            piazzeLayerRef.current.addLayer(marker);
+                        }
+
+                        return marker;
+                    }} onEachFeature={onEachFeature} ref={piazzeLayerRef} />
+
+                    };
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
                         return L.circleMarker(latlng, {
                             fillColor: 'blue', // Cambia il colore di riempimento
@@ -432,67 +443,67 @@ function SimpleMap(){
             {/*        </label>*/}
             {/*</div>*/}
 
-        {/*    /!*<Button onClick={handleWaypoints} type="primary">*!/*/}
-        {/*    /!*    Calcola Percorso*!/*/}
-        {/*    /!*</Button>*!/*/}
-        {/*    <Button onClick={deleteWaypoints} type="primary">*/}
-        {/*        Elimina Percorso*/}
-        {/*    </Button>*/}
-        {/*    <Button onClick={localizeClick} type="primary">*/}
-        {/*        Localizzami*/}
-        {/*    </Button>*/}
-        {/*    <div id="instructionsDiv"></div>*/}
-        {/*    <Select*/}
-        {/*        labelId="demo-simple-select-label"*/}
-        {/*        id="demo-simple-select"*/}
-        {/*        value={0}*/}
-        {/*        onChange={handleSelectChange}*/}
-        {/*    >*/}
-        {/*        <MenuItem value={0}>Cerca</MenuItem>*/}
-        {/*        <MenuItem value={10}>Edifici</MenuItem>*/}
-        {/*        <MenuItem value={20}>Piazze</MenuItem>*/}
-        {/*        <MenuItem value={30}>Bus</MenuItem>*/}
-        {/*    </Select>*/}
-        {/*    { selectedValue == 10 && (*/}
-        {/*        <Select*/}
-        {/*            labelId="demo-simple-select-label"*/}
-        {/*            id="demo-simple-select"*/}
-        {/*            value={selectedValue}*/}
-        {/*            onChange={handleSelectChange}*/}
-        {/*        >*/}
-        {/*            {listaEdifici.map((elemento) => (*/}
-        {/*                <MenuItem key={elemento.id} value={elemento.id}>*/}
-        {/*                    {elemento.name}*/}
-        {/*                </MenuItem>*/}
-        {/*            ))}*/}
-        {/*        </Select>*/}
-        {/*    )}*/}
-        {/*    { selectedValue == 20 && (*/}
-        {/*        <Select*/}
-        {/*            labelId="demo-simple-select-label"*/}
-        {/*            id="demo-simple-select"*/}
-        {/*            value={selectedValue}*/}
-        {/*            onChange={handleSelectChange}*/}
-        {/*        >*/}
-        {/*            {listaPiazze.map((elemento) => (*/}
-        {/*                <MenuItem key={elemento.id} value={elemento.id}>*/}
-        {/*                    {elemento.name}*/}
-        {/*                </MenuItem>*/}
-        {/*            ))}*/}
-        {/*        </Select>*/}
-        {/*    )}*/}
-        {/*    { selectedValue == 30 && (*/}
-        {/*        <Select*/}
-        {/*            labelId="demo-simple-select-label"*/}
-        {/*            id="demo-simple-select"*/}
-        {/*            value={selectedValue}*/}
-        {/*            onChange={handleSelectChange}*/}
-        {/*        >*/}
-        {/*            <MenuItem value={10}>Edifici</MenuItem>*/}
-        {/*            <MenuItem value={20}>Piazze</MenuItem>*/}
-        {/*            <MenuItem value={30}>Bus</MenuItem>*/}
-        {/*        </Select>*/}
-        {/*    )}*/}
+            {/*    /!*<Button onClick={handleWaypoints} type="primary">*!/*/}
+            {/*    /!*    Calcola Percorso*!/*/}
+            {/*    /!*</Button>*!/*/}
+            {/*    <Button onClick={deleteWaypoints} type="primary">*/}
+            {/*        Elimina Percorso*/}
+            {/*    </Button>*/}
+            {/*    <Button onClick={localizeClick} type="primary">*/}
+            {/*        Localizzami*/}
+            {/*    </Button>*/}
+            {/*    <div id="instructionsDiv"></div>*/}
+            {/*    <Select*/}
+            {/*        labelId="demo-simple-select-label"*/}
+            {/*        id="demo-simple-select"*/}
+            {/*        value={0}*/}
+            {/*        onChange={handleSelectChange}*/}
+            {/*    >*/}
+            {/*        <MenuItem value={0}>Cerca</MenuItem>*/}
+            {/*        <MenuItem value={10}>Edifici</MenuItem>*/}
+            {/*        <MenuItem value={20}>Piazze</MenuItem>*/}
+            {/*        <MenuItem value={30}>Bus</MenuItem>*/}
+            {/*    </Select>*/}
+            {/*    { selectedValue == 10 && (*/}
+            {/*        <Select*/}
+            {/*            labelId="demo-simple-select-label"*/}
+            {/*            id="demo-simple-select"*/}
+            {/*            value={selectedValue}*/}
+            {/*            onChange={handleSelectChange}*/}
+            {/*        >*/}
+            {/*            {listaEdifici.map((elemento) => (*/}
+            {/*                <MenuItem key={elemento.id} value={elemento.id}>*/}
+            {/*                    {elemento.name}*/}
+            {/*                </MenuItem>*/}
+            {/*            ))}*/}
+            {/*        </Select>*/}
+            {/*    )}*/}
+            {/*    { selectedValue == 20 && (*/}
+            {/*        <Select*/}
+            {/*            labelId="demo-simple-select-label"*/}
+            {/*            id="demo-simple-select"*/}
+            {/*            value={selectedValue}*/}
+            {/*            onChange={handleSelectChange}*/}
+            {/*        >*/}
+            {/*            {listaPiazze.map((elemento) => (*/}
+            {/*                <MenuItem key={elemento.id} value={elemento.id}>*/}
+            {/*                    {elemento.name}*/}
+            {/*                </MenuItem>*/}
+            {/*            ))}*/}
+            {/*        </Select>*/}
+            {/*    )}*/}
+            {/*    { selectedValue == 30 && (*/}
+            {/*        <Select*/}
+            {/*            labelId="demo-simple-select-label"*/}
+            {/*            id="demo-simple-select"*/}
+            {/*            value={selectedValue}*/}
+            {/*            onChange={handleSelectChange}*/}
+            {/*        >*/}
+            {/*            <MenuItem value={10}>Edifici</MenuItem>*/}
+            {/*            <MenuItem value={20}>Piazze</MenuItem>*/}
+            {/*            <MenuItem value={30}>Bus</MenuItem>*/}
+            {/*        </Select>*/}
+            {/*    )}*/}
             <div>
                 {isMobile ? <SwipeableEdge istruzioni={instructions} /> : <Dialog />}
 
