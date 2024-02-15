@@ -18,7 +18,7 @@ import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import { useNavigate } from 'react-router-dom';
 import Navigazione from "./Navigazione";
-
+import university from "./university.png";
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 
@@ -569,7 +569,14 @@ function SimpleMap(){
         }
 
     };
-
+    const greenIcon = L.icon({
+        iconUrl: university,
+        iconSize: [38, 35], // size of the icon
+        shadowSize: [50, 64], // size of the shadow
+        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar/>
@@ -583,15 +590,9 @@ function SimpleMap(){
                     />
                     <LayerGroup ref={piazzeLayerRef} />
                     <LayerGroup ref={markersLayer} />
-                    {showGeoJSONLayer1 && <GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
+                    {showGeoJSONLayer1 && (<GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
                         const marker= L.marker(latlng, {
-                            icon: L.divIcon({
-                                className: 'my-custom-icon', // Classe per l'icona personalizzata
-                                html: '<i class="fas fa-building " style="font-size:48px;color:red"></i>',
-                                iconSize: [82, 82], // Dimensioni dell'icona
-                                iconAnchor: [16, 32], // Punto di ancoraggio dell'icona
-                                popupAnchor: [0, -32] // Punto di ancoraggio del popup rispetto all'icona
-                            })
+                            icon: greenIcon,
 
                         });
                         // Aggiungi il marker al layer dei marker
@@ -602,7 +603,7 @@ function SimpleMap(){
                         return marker;
                     }} onEachFeature={onEachFeature} ref={piazzeLayerRef} />
 
-                    };
+                        )}
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
                         return L.circleMarker(latlng, {
                             fillColor: 'blue', // Cambia il colore di riempimento
@@ -611,7 +612,7 @@ function SimpleMap(){
                             weight: 2,         // Cambia la larghezza del bordo
                             opacity: 1,        // Cambia l'opacità
                             fillOpacity: 0.7   // Cambia l'opacità del riempimento
-                        });
+                        })
                     }} onEachFeature={onEachFeature}
                     />}
                     {showGeoJSONLayer3 && <GeoJSON data={myGeo}  pointToLayer={(feature, latlng) => {
