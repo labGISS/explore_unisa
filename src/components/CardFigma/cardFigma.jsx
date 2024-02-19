@@ -48,7 +48,7 @@ export default function CardFigma({ title: initialTitle, onClick, linkImage }) {
                 </div>
             </div>
             <div style={{alignSelf: 'stretch', height: 175, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                <img style={{width: 350, height: 175, position: 'relative'}} src="C://Users//UTENTE//IdeaProjects//explore_unisa//src//image//mappaUnisa.png" />
+                <img style={{width: 350, height: 175, position: 'relative'}} src={linkImage} />
             </div>
             <div style={{alignSelf: 'stretch', height: 146, padding: 16, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                 <div style={{alignSelf: 'stretch', color: 'black', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>

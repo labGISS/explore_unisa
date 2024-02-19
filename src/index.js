@@ -8,12 +8,14 @@ import reportWebVitals from './reportWebVitals';
 import SimpleMap from "./SimpleMap";
 import Location from "./Location"
 import Giardino from "./GiardinoHome"
+import PaginaUlivo from "./PaginaUlivo"
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <div>
-        <Giardino />
+        <PaginaUlivo />
       </div>
   </React.StrictMode>
 );
