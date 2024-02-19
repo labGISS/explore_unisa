@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Divider from '@mui/material/Divider';
 
 const drawerBleeding = 56;
 
@@ -20,6 +21,7 @@ const Root = styled('div')(({ theme }) => ({
 
 const StyledBox = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
+    overflowY: 'auto', // Aggiunto lo scorrimento per le istruzioni lunghe
 }));
 
 const Puller = styled('div')(({ theme }) => ({
@@ -32,8 +34,8 @@ const Puller = styled('div')(({ theme }) => ({
     left: 'calc(50% - 15px)',
 }));
 
-function SwipeableEdgeDrawer({istruzioni}) {
-    const { window } = {istruzioni};
+function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
+    const { window } = { istruzioni };
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (newOpen) => () => {
@@ -75,24 +77,26 @@ function SwipeableEdgeDrawer({istruzioni}) {
                         visibility: 'visible',
                         right: 0,
                         left: 0,
+                        padding: theme => theme.spacing(2),
+                        overflowY: 'auto'
                     }}
                 >
                     <Puller />
-                    <Typography sx={{ p: 2, color: 'text.secondary' }}>Segui le istruzioni</Typography>
-                    <Typography sx={{ p: 2, color: 'text.primary' }}>
-                        {Array.isArray(istruzioni) && istruzioni.length > 0 ? (
-                            istruzioni.map((istruzione, index) => (
-                                <div key={index}>
-                                    <p>Distanza: {istruzione.distance} Durata: {istruzione.duration} {istruzione.instruction} {istruzione.type}</p>
-                                    <p>{istruzione.name}</p>
-                                    <p>{istruzione.way_points}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p>Nessuna istruzione disponibile</p>
-                        )}
-
-                    </Typography>
+                    <Typography sx={{ p: 2, color: 'text.primary', fontWeight: 'bold'  }}>Distanza: {distanza} , Durata: {durata}</Typography>
+                    <Divider/>
+                    {istruzioni && istruzioni.length > 0 ? (
+                        istruzioni.map((istruzione, index) => (
+                            <Box key={index} sx={{ my: 1 }}>
+                                {/*<Typography variant="body1" sx={{ fontWeight: 'bold' }}>*/}
+                                {/*    Distanza: {istruzione.distance}, Durata: {istruzione.duration}*/}
+                                {/*</Typography>*/}
+                                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
+                                <hr/>
+                            </Box>
+                        ))
+                    ) : (
+                        <Typography variant="body2">Nessuna istruzione disponibile</Typography>
+                    )}
                 </StyledBox>
                 <StyledBox
                     sx={{
@@ -115,15 +119,18 @@ SwipeableEdgeDrawer.propTypes = {
      * You won't need it on your project.
      */
     window: PropTypes.func,
-    istruzioni : PropTypes.arrayOf(PropTypes.shape({
-        distance: PropTypes.string,
-        duration: PropTypes.string,
-        type : PropTypes.string,
-        instruction: PropTypes.string,
-        name: PropTypes.string,
-        way_points: PropTypes.string,
-    }))
-
+    istruzioni: PropTypes.arrayOf(
+        PropTypes.shape({
+            distance: PropTypes.string,
+            duration: PropTypes.string,
+            type: PropTypes.string,
+            instruction: PropTypes.string,
+            name: PropTypes.string,
+            way_points: PropTypes.string,
+        })
+    ),
+    distanza: PropTypes.string,
+    durata: PropTypes.string,
 };
 
 export default SwipeableEdgeDrawer;

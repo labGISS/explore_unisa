@@ -50,7 +50,7 @@ function Home() {
             <Header />
             <Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                 <Grid item>
-                    <CardFigma title="Clicca per visualizzare la mappa" onClick={handleClick2} />
+                    <CardFigma title="Clicca per visualizzare la mappa" onClick={handleClick2}  linkImage={"C://Users//UTENTE//IdeaProjects//explore_unisa//src//image//mappaUnisa.png"} />
                 </Grid>
                 <Grid item>
                     <CardFigma title="Clicca per visualizzare la nostra navigazione rapida" onClick={handleClick} />

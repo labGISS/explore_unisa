@@ -7,12 +7,13 @@ import MapWithPlaceholder from './components/mapwithrouting/MapWithRouting';
 import reportWebVitals from './reportWebVitals';
 import SimpleMap from "./SimpleMap";
 import Location from "./Location"
+import Giardino from "./GiardinoHome"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <div>
-        <App />
+        <Giardino />
       </div>
   </React.StrictMode>
 );
