@@ -589,12 +589,12 @@ function SimpleMap(){
 
     };
     const greenIcon = L.icon({
-        iconUrl: university,
-        iconSize: [38, 35], // size of the icon
-        shadowSize: [50, 64], // size of the shadow
-        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62],  // the same for the shadow
-        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+        iconUrl: university, // URL dell'icona dell'università
+        iconSize: [90, 90], // Nuove dimensioni dell'icona
+        shadowSize: [0, 0], // dimensione dell'ombra
+        iconAnchor: [37, 20], // Punto dell'icona che corrisponde alla posizione del marker
+
+        popupAnchor: [0, 0] // Punto dal quale il popup dovrebbe aprirsi rispetto all'iconAnchor
     });
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
