@@ -108,6 +108,7 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                 >
                     <Skeleton variant="rectangular" height="100%" />
                 </StyledBox>
+
             </SwipeableDrawer>
         </Root>
     );

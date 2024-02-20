@@ -728,12 +728,11 @@ function SimpleMap(){
             {/*        </Select>*/}
             {/*    )}*/}
             <div>
-                {isMobile ? <SwipeableEdge istruzioni={instructions} /> : <Dialog />}
+                {isMobile ? <SwipeableEdge istruzioni={instructions} /> : <Dialog  instructions={instructions}/>}
 
-                {isMobile ? <SwipeableEdge istruzioni={instructions} durata={durata} distanza={distanza} /> : <Dialog open={true} />}
+                //
                 {/*<SwipeableEdge istruzioni={instructions}></SwipeableEdge>*/}
             </div>
-            <Dialog open={true} />
 
 
         </div>

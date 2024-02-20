@@ -9,7 +9,7 @@ import CardBoot from '../src/components/cardBoot/cardBoot.jsx';
 import Footer from '../src/components/footer/footer.jsx';
 import MapWithRouting from '../src/components/mapwithrouting/MapWithRouting.jsx';
 import {Button, Grid} from '@mui/material';
-import Card from '@mui/material/Card';
+import Card from './components/card/card';
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
@@ -19,7 +19,10 @@ import {BrowserRouter as Router, Link, Route, Routes, useNavigate} from 'react-r
 import React from "react";
 import LeafletMapComponent from "./components/leafletMap/leafletmap";
 import Navigazione from "./Navigazione";
-
+import Giardino from "./GiardinoHome"
+import immagine1 from "./image/immagine1.JPG"
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 function App() {
     return (
         <Router>
@@ -27,6 +30,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
                 <Route path="/Navigazione" element={<Navigazione />} />
+                <Route path="/Giardino" element={<Giardino />} />
                 {/* Altre rotte possono essere aggiunte qui */}
             </Routes>
         </Router>
@@ -40,6 +44,10 @@ function Home() {
         // Quando il pulsante viene cliccato, naviga a "/Navigazione"
         navigate('/Navigazione');
     };
+    const handleClickGiardino = () => {
+        // Quando il pulsante viene cliccato, naviga a "/Navigazione"
+        navigate('/Giardino');
+    };
 
     const handleClick2 = () => {
         // Quando il pulsante viene cliccato, naviga a "/Navigazione"
@@ -48,19 +56,53 @@ function Home() {
     return (
         <div>
             <Header />
-            <Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-                <Grid item>
-                    <CardFigma title="Clicca per visualizzare la mappa" onClick={handleClick2}  linkImage={"C://Users//UTENTE//IdeaProjects//explore_unisa//src//image//mappaUnisa.png"} />
-                </Grid>
-                <Grid item>
-                    <CardFigma title="Clicca per visualizzare la nostra navigazione rapida" onClick={handleClick} />
-                </Grid>
-                <Grid item>
-                    <CardFigma />
-                </Grid>
+            <Row className="justify-content-center my-4 mx-0">
+                <Col className="text-center d-flex justify-content-center">
+                    <Card title={"Giardino della legalità"}
+                             imageUrl={immagine1}
+                             text={"questa è una prova"}
+                             btnText={"Scopriamolo"}
+                             onClick={handleClickGiardino()}/>
+                </Col>
+                <Col className="text-center d-flex justify-content-center">
+                    <Card title={"Giardino della legalità"}
+                             imageUrl={immagine1}
+                             text={"questa è una prova"}
+                             btnText={"Scopriamolo"}
+                             onClick={handleClick()}/>
+                </Col>
+                <Col className="text-center d-flex justify-content-center">
+                    <Card title={"Giardino della legalità"}
+                             imageUrl={immagine1}
+                             text={"questa è una prova"}
+                             btnText={"Scopriamolo"}
+                             onClick={handleClick()}/>
+                </Col>
+            </Row>
+            {/*<Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>*/}
+            {/*    <Grid item>*/}
+            {/*       <Card title={"Giardino della legalità"}*/}
+            {/*       imageUrl={immagine1}*/}
+            {/*       text={"questa è una prova"}*/}
+            {/*       btnText={"Scopriamolo"}*/}
+            {/*       onClick={handleClick()}/>*/}
+            {/*    </Grid>*/}
+            {/*    <Grid item>*/}
+            {/*        <Card title={"Giardino della legalità"}*/}
+            {/*              imageUrl={immagine1}*/}
+            {/*              text={"questa è una prova"}*/}
+            {/*              btnText={"Scopriamolo"}*/}
+            {/*              onClick={handleClick()}/> </Grid>*/}
+            {/*    <Grid item>*/}
+            {/*        <Card title={"Giardino della legalità"}*/}
+            {/*              imageUrl={immagine1}*/}
+            {/*              text={"questa è una prova"}*/}
+            {/*              btnText={"Scopriamolo"}*/}
+            {/*              onClick={handleClick()}/>*/}
+            {/*    </Grid>*/}
 
-            </Grid>
-            <Button onClick={handleClick}>Vai a Navigazione</Button>
+            {/*</Grid>*/}
+            {/*<Button onClick={handleClick}>Vai a Navigazione</Button>*/}
             <Footer />
         </div>
     );

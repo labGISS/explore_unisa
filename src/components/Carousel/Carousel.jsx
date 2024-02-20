@@ -3,7 +3,7 @@ import immagine1 from "C:/Users/UTENTE/IdeaProjects/explore_unisa/src/image/imma
 function DarkVariantExample() {
     return (
         <Carousel data-bs-theme="dark">
-            <Carousel.Item>
+            <Carousel.Item  >
                 <img
                     className="d-block w-100 img-fluid"
                     src={immagine1}
@@ -14,7 +14,7 @@ function DarkVariantExample() {
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                 </Carousel.Caption>
             </Carousel.Item>
-            <Carousel.Item>
+            <Carousel.Item >
                 <img
                     className="d-block w-100 img-fluid"
                     src={immagine1}
@@ -25,7 +25,7 @@ function DarkVariantExample() {
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </Carousel.Caption>
             </Carousel.Item>
-            <Carousel.Item>
+            <Carousel.Item  >
                 <img
                     className="d-block w-100 img-fluid"
                     src={immagine1}
