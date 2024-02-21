@@ -14,6 +14,7 @@ import CardActions from '@mui/material/CardActions'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import SimpleMap from './SimpleMap';
+import PaginaUlivo from './PaginaUlivo';
 import {BrowserRouter as Router, Link, Route, Routes, useNavigate} from 'react-router-dom';
 import React from "react";
 import LeafletMapComponent from "./components/leafletMap/leafletmap";
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/SimpleMap" element={<SimpleMap />} />
                 <Route path="/Navigazione" element={<Navigazione />} />
                 <Route path="/Giardino" element={<Giardino />} />
+                <Route path="/PaginaUlivo/:id" component={PaginaUlivo} />
                 {/* Altre rotte possono essere aggiunte qui */}
             </Routes>
         </Router>
