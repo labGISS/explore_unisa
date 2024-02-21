@@ -25,9 +25,9 @@ function GiardinoHome() {
             <Navbar/>
 
             <Container>
-                {vittime.map(vittima =>(
-                    <Card key
-                ))}
+                {/*{vittime.map(vittima =>(*/}
+                {/*    <Card key*/}
+                {/*))}*/}
                 {/*<Row className="justify-content-center my-4 mx-0">*/}
                 {/*    {Array.isArray(vittimeData) && vittimeData.map((vittima, index) => (*/}
                 {/*        <Col key={index} className="text-center d-flex justify-content-center">*/}

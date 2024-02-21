@@ -9,7 +9,7 @@ function ColorSchemesExample() {
                 <Container fluid>
                     <Navbar.Brand href="/" style={{ 'color': 'white' }}>Explore UNISA</Navbar.Brand>
                     <Nav className="me-auto" >
-                        <Nav.Link href="#home" style={{ 'color': 'white' }}>Mappa</Nav.Link>
+                        <Nav.Link href="/Mappa" style={{ 'color': 'white' }}>Mappa</Nav.Link>
                         <Nav.Link href="/SimpleMap" style={{ 'color': 'white' }}>Navigatore</Nav.Link>
                         <Nav.Link href="/Giardino" style={{ 'color': 'white' }}>Giardino della legalità</Nav.Link>
                     </Nav>

@@ -24,12 +24,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import mappaUnisa from "../src/image/mappaUnisa.png"
 import fotoUnisa from "../src/image/fotoUnisa.JPG"
+import Mappa from "./Mappa";
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/Mappa" element={<Mappa />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
                 <Route path="/Navigazione" element={<Navigazione />} />
                 <Route path="/Giardino" element={<Giardino />} />
