@@ -1,27 +1,31 @@
 {
   "vittime_mafia": [
     {
-      "nome": "Giuseppe Impastato",
+      "nome": "Don Giuseppe Diana",
+      "descrizione": "add"
+    },
+    {
+      "nome": "Mimmo Beneventano",
       "descrizione": "Attivista antimafia e giornalista italiano ucciso dalla mafia nel 1978 per il suo impegno nella denuncia delle attività criminali."
     },
     {
-      "nome": "Giovanni Falcone",
+      "nome": "Marcello Torre",
       "descrizione": "Magistrato italiano noto per il suo lavoro nella lotta alla mafia. È stato assassinato nel 1992 in un attentato dinamitardo."
     },
     {
-      "nome": "Paolo Borsellino",
+      "nome": "Simonetta Lamberti",
       "descrizione": "Magistrato italiano che ha lavorato con Giovanni Falcone nella lotta alla mafia. È stato assassinato nel 1992 in un attentato dinamitardo pochi mesi dopo Falcone."
     },
     {
-      "nome": "Pino Maniaci",
+      "nome": "Antonio Esposito Ferraioli",
       "descrizione": "Giornalista e attivista italiano noto per il suo impegno nella denuncia delle attività della mafia in Sicilia."
     },
     {
-      "nome": "Libero Grassi",
+      "nome": "Gennaro Musella",
       "descrizione": "Imprenditore italiano assassinato dalla mafia nel 1991 per il suo rifiuto di pagare il pizzo."
     },
     {
-      "nome": "Peppino Impastato",
+      "nome": "Federico Del Prete",
       "descrizione": "Attivista antimafia italiano, assassinato dalla mafia nel 1978 per il suo impegno nella denuncia delle attività criminali."
     }
   ]

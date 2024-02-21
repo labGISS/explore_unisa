@@ -60,7 +60,7 @@ function Home() {
             <Header />
             <Row className="justify-content-center my-4 mx-0">
                 <Col className="text-center d-flex justify-content-center">
-                    <Card title={"Giardino della legalità"}
+                    <Card title={"Giardino della legalità Falcone e Borsellino"}
                           imageUrl={immagine1}
                           text={"Ogni ramo racconta una storia di resilienza e speranza."}
                           btnText={"Scopriamolo"}
