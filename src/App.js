@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-
 import './App.css';
 import Navbar from '../src/components/navbar/navbar.jsx';
 import RecipeReviewCard from '../src/components/card/card.jsx';
@@ -23,6 +22,9 @@ import Giardino from "./GiardinoHome"
 import immagine1 from "./image/immagine1.JPG"
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import mappaUnisa from "../src/image/mappaUnisa.png"
+import fotoUnisa from "../src/image/fotoUnisa.JPG"
+
 function App() {
     return (
         <Router>
@@ -39,44 +41,44 @@ function App() {
 
 // Componente Home
 function Home() {
-    const navigate = useNavigate();
-    const handleClick = () => {
-        // Quando il pulsante viene cliccato, naviga a "/Navigazione"
-        navigate('/Navigazione');
-    };
-    const handleClickGiardino = () => {
-        // Quando il pulsante viene cliccato, naviga a "/Navigazione"
-        navigate('/Giardino');
-    };
-
-    const handleClick2 = () => {
-        // Quando il pulsante viene cliccato, naviga a "/Navigazione"
-        navigate('/SimpleMap');
-    };
+    // const navigate = useNavigate();
+    // const handleClick = () => {
+    //     // Quando il pulsante viene cliccato, naviga a "/Navigazione"
+    //     navigate('/Navigazione');
+    // };
+    // const handleClickGiardino = () => {
+    //     // Quando il pulsante viene cliccato, naviga a "/Navigazione"
+    //     navigate('/Giardino');
+    // };
+    //
+    // const handleClick2 = () => {
+    //     // Quando il pulsante viene cliccato, naviga a "/Navigazione"
+    //     navigate('/SimpleMap');
+    // };
     return (
         <div>
             <Header />
             <Row className="justify-content-center my-4 mx-0">
                 <Col className="text-center d-flex justify-content-center">
                     <Card title={"Giardino della legalità"}
-                             imageUrl={immagine1}
-                             text={"questa è una prova"}
-                             btnText={"Scopriamolo"}
-                             onClick={handleClickGiardino()}/>
+                          imageUrl={immagine1}
+                          text={"Ogni ramo racconta una storia di resilienza e speranza."}
+                          btnText={"Scopriamolo"}
+                    />
                 </Col>
                 <Col className="text-center d-flex justify-content-center">
-                    <Card title={"Giardino della legalità"}
-                             imageUrl={immagine1}
-                             text={"questa è una prova"}
-                             btnText={"Scopriamolo"}
-                             onClick={handleClick()}/>
+                    <Card title={"Mappa del Campus"}
+                          imageUrl={mappaUnisa}
+                          text={"Clicca qui per esplorare la mappa interattiva del campus."}
+                          btnText={"Scopriamolo"}
+                    />
                 </Col>
                 <Col className="text-center d-flex justify-content-center">
-                    <Card title={"Giardino della legalità"}
-                             imageUrl={immagine1}
-                             text={"questa è una prova"}
-                             btnText={"Scopriamolo"}
-                             onClick={handleClick()}/>
+                    <Card title={"Navigatore"}
+                          imageUrl={fotoUnisa}
+                          text={"Ti sei perso?\nTi aiutiamo noi."}
+                          btnText={"Scopriamolo"}
+                    />
                 </Col>
             </Row>
             {/*<Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>*/}

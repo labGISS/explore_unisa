@@ -23,6 +23,7 @@ import {useState} from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import Avatar from "@mui/material/Avatar";
 import {yellow} from "@mui/material/colors";
+import {Link} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -143,6 +144,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
+
             <AppBar position="absolute" open={open}  >
                 <Toolbar>
                     <IconButton
@@ -178,9 +180,16 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-
+                <Link to="/" style={{ textDecoration: 'none', position: 'absolute', top: 30, left: 20, zIndex: 9999 }}>
+                    <Button variant="contained" color="primary">
+                        Torna alla Home
+                    </Button>
+                </Link>
+                <Divider />
                 <List>
+
                     <ListItem disablePadding>
+
                         <ListItemButton style={{ flexDirection: 'column'}}>
                             <Autocomplete
                                 freeSolo

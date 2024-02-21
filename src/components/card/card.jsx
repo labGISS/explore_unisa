@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 function BasicExample({ title, imageUrl, text, btnText}) {
     return (
         <Card style={{ width: '18rem', border: '1px solid #dee2e6', borderRadius: '0.25rem'}}>
-            <Card.Img variant="top" src={imageUrl} />
+            <Card.Img variant="top" src={imageUrl} style={{ height: '190px' }}/>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Text>

@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <div>
-        <PaginaUlivo />
+        <App />
       </div>
   </React.StrictMode>
 );

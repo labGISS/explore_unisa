@@ -19,7 +19,7 @@ import {
 import unisaImage from './unisa2.png';
 import { Link } from 'react-router-dom';
 import SimpleMap from "../../SimpleMap";
-import Navbar from "../navbar/navbar"
+import Navbar from "../navbar/navbar";
 export default function Header() {
     const [showBasic, setShowBasic,openBasic, setOpenBasic] = useState(false);
 
@@ -36,8 +36,7 @@ export default function Header() {
                             <h1 className='mb-3'>Explore UNISA</h1>
                             <h3 className='mb-3'>Un nuovo modo di vivere il tuo campus</h3>
                             <MDBBtn  tag={Link} to="/SimpleMap" outline size="lg" className="text-white" style={{ cursor: 'pointer' }}>
-
-                               Apri la mappa
+                                Apri la mappa
                             </MDBBtn>
                         </div>
                     </div>

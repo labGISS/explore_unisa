@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import immagine1 from "C:/Users/UTENTE/IdeaProjects/explore_unisa/src/image/immagine1.JPG";
+import immagine1 from "../../image/immagine1.JPG";
 function DarkVariantExample() {
     return (
         <Carousel data-bs-theme="dark">

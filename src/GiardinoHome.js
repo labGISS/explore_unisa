@@ -2,11 +2,18 @@ import Carousel from '../src/components/Carousel/Carousel';
 import Navbar from '../src/components/navbar/navbar';
 import Card from '../src/components/card/card';
 import Footer from '../src/components/footer/footer';
-import immagine1 from "C:/Users/UTENTE/IdeaProjects/explore_unisa/src/image/immagine1.JPG"
+import immagine1 from "./image/immagine1.JPG"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import React from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import SimpleMap from "./SimpleMap";
+import Navigazione from "./Navigazione";
+import Home from "./App";
+import Giardino from "./GiardinoHome";
+
+
 
 function GiardinoHome(){
     return (
