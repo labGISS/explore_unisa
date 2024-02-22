@@ -11,39 +11,19 @@ import { Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import data from './vittime.json'
 
-
-function PaginaUlivo(){
+function PaginaUlivo2(){
     const {id} = useParams();
     const vittima = data.vittime_mafia.find(v => v.id === parseInt(id));
-    console.log(vittima)
     if(!vittima){
         console.log('vittima non trovata')
         return <div>Vittima non trovata</div>
     }
 
     return(
-        <div>
-            <Navbar/>
-            <Container className="fluid">
-                <Row className="my-4">
-                    <h3>{vittima.nome}</h3>
-                    <Col md="2" style={{
-                        backgroundImage : `url(${image1})`,
-                        backgroundSize : 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition:'center center',
-                        minHeight:'400px'
-                    }}/>
-                    <Col>
-                        <div className="">
-                            <p>{vittima.testo}</p>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
 
+        <div>
+            <Navbar></Navbar>
+        </div>
     );
 }
-export default PaginaUlivo;
-
+export default PaginaUlivo2;

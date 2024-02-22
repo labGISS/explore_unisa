@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
-function BasicExample({ title, imageUrl, text, btnText}) {
+import { Link } from 'react-router-dom'
+function BasicExample({ title, imageUrl, text, btnText, linkTo}) {
     return (
         <Card style={{ width: '18rem', border: '1px solid #dee2e6', borderRadius: '0.25rem', height:'425px'}}>
             <Card.Img variant="top" src={imageUrl} style={{ height: '190px' }}/>
@@ -11,7 +11,8 @@ function BasicExample({ title, imageUrl, text, btnText}) {
                 <Card.Text>
                     {text}
                 </Card.Text>
-                <Button variant="primary">{btnText}</Button>
+                <Link to={linkTo}>{btnText}</Link>
+
             </Card.Body>
         </Card>
     );

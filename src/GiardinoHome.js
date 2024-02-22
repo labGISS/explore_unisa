@@ -16,6 +16,7 @@ import Home from "./App";
 import Giardino from "./GiardinoHome";
 import vittime from "./vittime.json";
 import { Link } from 'react-router-dom';
+import PaginaUlivo from './PaginaUlivo'
 
 function GiardinoHome() {
     useEffect(() => {
@@ -38,7 +39,9 @@ function GiardinoHome() {
                             <Card title={vittima.nome} // Assumi che il nome della vittima sia il titolo
                                   imageUrl={immagine1} // Immagine di esempio, puoi passare l'URL dell'immagine dal JSON se presente
                                   text={vittima.descrizione} // Testo della descrizione dalla vittima
-                                  btnText={"Scopriamolo"}/>
+                                  btnText={"Scopriamolo"}
+                                  linkTo={`/PaginaUlivo/${vittima.id}`}
+                                />
                           </Col>
                     ))}
                 </Row>
