@@ -116,7 +116,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick })
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="absolute" open={open}  >
+            <AppBar position="absolute" open={open} >
                 <Toolbar>
                     <IconButton
                         color="inherit"
