@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext  } from "react";
-import {GeoJSON, MapContainer, Marker, Polyline, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import {GeoJSON, ImageOverlay, MapContainer, Marker, Polyline, Popup, TileLayer, useMapEvents} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -20,6 +20,8 @@ import 'leaflet.icon.glyph';
 // import bus from './FileJson/busUnisa.geojson';
 // import edifici from './FileJson/edificiPoligono.geojson';
 // import piazze from './FileJson/piazzeUnisaPoligono.geojson';
+import giardinoFoto from './image/DJI_0014.JPG';
+import './style.css';
 
 var piazze= {
     "type": "FeatureCollection",
@@ -116,6 +118,14 @@ var bus = {
     ]
 };
 
+var giardino= {
+    "type": "FeatureCollection",
+    "name": "giardino",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    "features": [
+        { "type": "Feature", "properties": { "id": 5 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 14.790083065102856, 40.770279830583632 ], [ 14.790625605464049, 40.770796673638706 ], [ 14.791842546645277, 40.770064954568454 ], [ 14.791299251357804, 40.769546676477958 ], [ 14.790083065102856, 40.770279830583632 ] ] ] ] } }
+    ]
+};
 
 var strutture = {
     "type": "FeatureCollection",
@@ -219,6 +229,7 @@ function Mappa(){
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
     const [showGeoJSONLayer4, setShowGeoJSONLayer4] = useState(false);
     const [showGeoJSONLayer5, setShowGeoJSONLayer5] = useState(false);
+    const [showGeoJSONLayer6, setShowGeoJSONLayer6] = useState(false);
     const handleCheckboxChange1 = () => {
         setShowGeoJSONLayer1(!showGeoJSONLayer1);
     };
@@ -242,6 +253,9 @@ function Mappa(){
     const handleCheckboxChange5 = () => {
         setShowGeoJSONLayer5(!showGeoJSONLayer5);
     };
+    const handleCheckboxChange6 = () => {
+        setShowGeoJSONLayer6(!showGeoJSONLayer6);
+    };
     useEffect(() => {
         // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
@@ -257,11 +271,18 @@ function Mappa(){
 
     const onEachFeature = (feature, layer) => {
         if (feature.properties) {
-            const popupContent = `<p>${feature.properties.Nome}</p>`;
+            const nome = feature.properties.Nome;
+            const popupContent = `<p><a href="/SimpleMap?nome=${nome}" onclick="redirectToPage('${nome}')">${nome}</a></p>`;
 
             layer.bindPopup(popupContent);
         }
     };
+    // Creazione delle coordinate dei vertici
+    const topleft = L.latLng(40.52256691873593, -3.7743186950683594);
+    const topright = L.latLng(40.5210255066156, -3.7734764814376835);
+    const bottomleft = L.latLng(40.52180437272552, -3.7768453359603886);
+
+
     return (
         <div style={{ height: '100vh', width: '100%'}} className="Map">
             <Navbar />
@@ -288,6 +309,10 @@ function Mappa(){
                         <label style={{ display: 'block', marginBottom: 5 }}>
                             <span style={{ color: '#333', marginRight: 5 }}>Mostra Parcheggi</span>
                             <input type="checkbox" checked={showGeoJSONLayer5} onChange={handleCheckboxChange5} />
+                        </label>
+                        <label style={{ display: 'block', marginBottom: 5 }}>
+                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Giardino</span>
+                            <input type="checkbox" checked={showGeoJSONLayer6} onChange={handleCheckboxChange6} />
                         </label>
                     </div>
 
@@ -349,6 +374,12 @@ function Mappa(){
                         });
                     }} onEachFeature={onEachFeature}
                     />};
+                    {showGeoJSONLayer6 &&  <div style={{ width: '3px' }} className="rotate" > <ImageOverlay
+                        url={giardinoFoto} // URL dell'immagine da visualizzare
+                        bounds={[[40.769546676477958, 14.790083065102856], [40.770796673638706, 14.791842546645277]]} // Limiti dell'immagine
+
+                    />
+                        </div>};
                 </MapContainer>
             </div>
 

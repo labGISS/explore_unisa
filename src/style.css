@@ -1,0 +1,4 @@
+.rotate {
+    transform: rotate(45deg); /* Modifica l'angolo di rotazione secondo necessità */
+    width: 30px;
+}

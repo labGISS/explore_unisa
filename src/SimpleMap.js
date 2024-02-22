@@ -431,7 +431,7 @@ function SimpleMap(){
     };
 
     const handleSendClick = (data) => {
-        // Estrai i dati dalla Sidebar
+
         const { startPoint, endPoint } = data;
 
         // Cerca le coordinate per i punti di partenza e arrivo nelle collezioni di dati
