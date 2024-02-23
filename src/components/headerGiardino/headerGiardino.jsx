@@ -24,7 +24,7 @@ import { Carousel, Image } from 'react-bootstrap';
 import fotoGiardino1 from "../../image/fotoGiardino1.JPG"
 import fotoGiardino2 from "../../image/fotoGiardino2.JPG"
 import fotoGiardino3 from "../../image/fotoGiardino3.JPG"
-
+import fotoGiardino4 from "../../image/giardinoQgis.png"
 export default function HeaderGiardino() {
     const [showBasic, setShowBasic,openBasic, setOpenBasic] = useState(false);
 
@@ -37,14 +37,13 @@ export default function HeaderGiardino() {
             >
                 <Carousel>
                     <Carousel.Item>
-                        <Image src={fotoGiardino1}/>
-
-                    </Carousel.Item>
-                    <Carousel.Item>
                         <Image src={fotoGiardino2}/>
                     </Carousel.Item>
                     <Carousel.Item>
                         <Image src={fotoGiardino3} style={{width:'1280px'}}/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <Image src={fotoGiardino4} style={{width:'1280px'}}/>
                     </Carousel.Item>
                 </Carousel>
             </div>
