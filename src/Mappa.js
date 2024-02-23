@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebarNavigazione.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import 'leaflet.icon.glyph';
+import GiardinoTIF from './image/GiardinoREF.tif'
 
 // import bus from './FileJson/busUnisa.geojson';
 // import edifici from './FileJson/edificiPoligono.geojson';
@@ -378,12 +379,8 @@ function Mappa(){
                         });
                     }} onEachFeature={onEachFeature}
                     />};
-                    {showGeoJSONLayer6 &&  <div style={{ width: '3px' }} className="rotate" > <ImageOverlay
-                        url={giardinoFoto} // URL dell'immagine da visualizzare
-                        bounds={[[40.769546676477958, 14.790083065102856], [40.770796673638706, 14.791842546645277]]} // Limiti dell'immagine
 
-                    />
-                    </div>};
+                    };
                 </MapContainer>
             </div>
 
