@@ -45,7 +45,7 @@ export default function Header() {
                         <div className='text-white'>
                             <h1 className='mb-3'>Explore UNISA</h1>
                             <h3 className='mb-3'>Un nuovo modo di vivere il tuo campus</h3>
-                            <Button variant="outline-primary" as="a" href="#" className="mt-auto" style={buttonStyle}>APRI LA MAPPA</Button>
+                            <Button variant="outline-primary" as="a" href="/Mappa" className="mt-auto" style={buttonStyle}>APRI LA MAPPA</Button>
                             {/*<MDBBtn  tag={Link} to="/SimpleMap" outline size="lg" className="text-white" style={{ cursor: 'pointer' }}>*/}
                             {/*    Apri la mappa*/}
                             {/*</MDBBtn>*/}
