@@ -17,11 +17,13 @@ import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebarNavigazione.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import 'leaflet.icon.glyph';
+
 // import bus from './FileJson/busUnisa.geojson';
 // import edifici from './FileJson/edificiPoligono.geojson';
 // import piazze from './FileJson/piazzeUnisaPoligono.geojson';
 import giardinoFoto from './image/DJI_0014.JPG';
 import './style.css';
+
 
 var piazze= {
     "type": "FeatureCollection",
@@ -228,42 +230,6 @@ function Mappa(){
     const [showGeoJSONLayer5, setShowGeoJSONLayer5] = useState(false);
     const [showGeoJSONLayer6, setShowGeoJSONLayer6] = useState(false);
 
-    useEffect(() => {
-        const loadScripts = async () => {
-            // Carica gli script in modo asincrono
-            await Promise.all([
-                loadScript("https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"),
-                loadScript("https://unpkg.com/geotiff@0.4.1/dist/main.js"),
-                loadScript("https://unpkg.com/plotty@0.2.0/src/plotty.js"),
-                loadScript("leaflet-geotiff.js"),
-                loadScript("leaflet-geotiff-plotty.js"),
-                loadScript("leaflet-geotiff-vector.js"),
-            ]);
-
-            // Gli script sono stati caricati con successo
-            console.log("Scripts loaded successfully");
-        };
-
-        // Funzione per caricare uno script
-        const loadScript = (src) => {
-            return new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.src = src;
-                script.onload = resolve;
-                script.onerror = reject;
-                document.body.appendChild(script);
-            });
-        };
-
-        loadScripts();
-
-        // Pulizia
-        return () => {
-            // Rimuovi gli script se necessario
-            // Nota: questo è un esempio semplice. Puoi implementare la logica di pulizia specifica
-            // in base alle tue esigenze, ad esempio rimuovere gli script dalla documentazione.
-        };
-    }, []);
 
     const handleCheckboxChange1 = () => {
         setShowGeoJSONLayer1(!showGeoJSONLayer1);
@@ -318,6 +284,8 @@ function Mappa(){
     const bottomleft = L.latLng(40.52180437272552, -3.7768453359603886);
 
 
+
+
     return (
         <div style={{ height: '100vh', width: '100%'}} className="Map">
             <Navbar />
@@ -354,6 +322,7 @@ function Mappa(){
                 </div>
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
+
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -414,7 +383,7 @@ function Mappa(){
                         bounds={[[40.769546676477958, 14.790083065102856], [40.770796673638706, 14.791842546645277]]} // Limiti dell'immagine
 
                     />
-                        </div>};
+                    </div>};
                 </MapContainer>
             </div>
 
