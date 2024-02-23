@@ -221,15 +221,50 @@ function Mappa(){
 
     const [route, setRoute] = useState([]);
 
-
-
-
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
     const [showGeoJSONLayer2, setShowGeoJSONLayer2] = useState(false);
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
     const [showGeoJSONLayer4, setShowGeoJSONLayer4] = useState(false);
     const [showGeoJSONLayer5, setShowGeoJSONLayer5] = useState(false);
     const [showGeoJSONLayer6, setShowGeoJSONLayer6] = useState(false);
+
+    useEffect(() => {
+        const loadScripts = async () => {
+            // Carica gli script in modo asincrono
+            await Promise.all([
+                loadScript("https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"),
+                loadScript("https://unpkg.com/geotiff@0.4.1/dist/main.js"),
+                loadScript("https://unpkg.com/plotty@0.2.0/src/plotty.js"),
+                loadScript("leaflet-geotiff.js"),
+                loadScript("leaflet-geotiff-plotty.js"),
+                loadScript("leaflet-geotiff-vector.js"),
+            ]);
+
+            // Gli script sono stati caricati con successo
+            console.log("Scripts loaded successfully");
+        };
+
+        // Funzione per caricare uno script
+        const loadScript = (src) => {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        };
+
+        loadScripts();
+
+        // Pulizia
+        return () => {
+            // Rimuovi gli script se necessario
+            // Nota: questo è un esempio semplice. Puoi implementare la logica di pulizia specifica
+            // in base alle tue esigenze, ad esempio rimuovere gli script dalla documentazione.
+        };
+    }, []);
+
     const handleCheckboxChange1 = () => {
         setShowGeoJSONLayer1(!showGeoJSONLayer1);
     };
