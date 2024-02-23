@@ -17,7 +17,6 @@ import MenuItem from '@mui/material/MenuItem';
 import PersistentDrawerLeft from "../src/components/sidebar/sidebar.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import { useNavigate } from 'react-router-dom';
-import Navigazione from "./Navigazione";
 import university from "./university.png";
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';

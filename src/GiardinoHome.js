@@ -11,7 +11,6 @@ import Col from 'react-bootstrap/Col';
 import React from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import SimpleMap from "./SimpleMap";
-import Navigazione from "./Navigazione";
 import Home from "./App";
 import Giardino from "./GiardinoHome";
 import vittime from "./vittime.json";

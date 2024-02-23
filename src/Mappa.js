@@ -8,13 +8,12 @@ import { createControlComponent } from "@react-leaflet/core";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import gh from 'graphhopper-js-api-client';
 import {Button, colors} from "@mui/material";
-import SidebarNavigazione from'../src/components/sidebar/sidebarNavigazione.jsx'
+
 import Navbar from'../src/components/navbar/navbar.jsx'
 import SwipeableEdge from '../src/components/swipeableEdge/swipeableEdge'
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import PersistentDrawerLeft from "../src/components/sidebar/sidebarNavigazione.jsx";
 import Dialog from "../src/components/dialog/Dialog.jsx";
 import 'leaflet.icon.glyph';
 import GiardinoTIF from './image/GiardinoREF.tif'

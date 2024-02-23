@@ -16,8 +16,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import SimpleMap from './SimpleMap';
 import {BrowserRouter as Router, Link, Route, Routes, useNavigate} from 'react-router-dom';
 import React from "react";
-import LeafletMapComponent from "./components/leafletMap/leafletmap";
-import Navigazione from "./Navigazione";
 import Giardino from "./GiardinoHome"
 import immagine1 from "./image/immagine1.JPG"
 import Row from 'react-bootstrap/Row';
@@ -35,7 +33,7 @@ function App() {
                 <Route path="/Mappa" element={<Mappa />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
-                <Route path="/Navigazione" element={<Navigazione />} />
+
                 <Route path="/Giardino" element={<Giardino />} />
                 <Route path="/PaginaUlivo/:id" element={<PaginaUlivo/>} />
             </Routes>
