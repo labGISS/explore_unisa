@@ -610,17 +610,15 @@ function SimpleMap(){
                     <LayerGroup ref={piazzeLayerRef} />
                     <LayerGroup ref={markersLayer} />
                     {showGeoJSONLayer1 && (<GeoJSON data={piazze} ref={piazzeLayerRef}   pointToLayer={(feature, latlng) => {
-                        const marker= L.marker(latlng, {
-                            icon: greenIcon,
-
-                        });
-                        // Aggiungi il marker al layer dei marker
-                        if (piazzeLayerRef.current) {
-                            piazzeLayerRef.current.addLayer(marker);
-                        }
-
-                        return marker;
-                    }} onEachFeature={onEachFeature} ref={piazzeLayerRef} />
+                            return L.circleMarker(latlng, {
+                                fillColor: 'yellow', // Cambia il colore di riempimento
+                                color: 'white',   // Cambia il colore del bordo
+                                radius: 10,        // Cambia la dimensione del marker
+                                weight: 2,         // Cambia la larghezza del bordo
+                                opacity: 1,        // Cambia l'opacità
+                                fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                            })
+                    }} onEachFeature={onEachFeature}  />
 
                         )}
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {

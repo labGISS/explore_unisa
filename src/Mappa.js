@@ -229,7 +229,6 @@ function Mappa(){
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
     const [showGeoJSONLayer4, setShowGeoJSONLayer4] = useState(false);
     const [showGeoJSONLayer5, setShowGeoJSONLayer5] = useState(false);
-    const [showGeoJSONLayer6, setShowGeoJSONLayer6] = useState(false);
 
 
     const handleCheckboxChange1 = () => {
@@ -255,9 +254,7 @@ function Mappa(){
     const handleCheckboxChange5 = () => {
         setShowGeoJSONLayer5(!showGeoJSONLayer5);
     };
-    const handleCheckboxChange6 = () => {
-        setShowGeoJSONLayer6(!showGeoJSONLayer6);
-    };
+
     useEffect(() => {
         // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
@@ -314,10 +311,7 @@ function Mappa(){
                             <span style={{ color: '#333', marginRight: 5 }}>Mostra Parcheggi</span>
                             <input type="checkbox" checked={showGeoJSONLayer5} onChange={handleCheckboxChange5} />
                         </label>
-                        <label style={{ display: 'block', marginBottom: 5 }}>
-                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Giardino</span>
-                            <input type="checkbox" checked={showGeoJSONLayer6} onChange={handleCheckboxChange6} />
-                        </label>
+
                     </div>
 
                 </div>

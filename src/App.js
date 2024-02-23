@@ -67,6 +67,7 @@ function Home() {
                     <Card title={"Giardino della legalità Falcone e Borsellino"}
                           imageUrl={immagine1}
                           text={"Ogni ramo racconta una storia di resilienza e speranza."}
+                          linkTo={"/Giardino"}
                           btnText={"Scopriamolo"}
                     />
                 </Col>
@@ -74,6 +75,7 @@ function Home() {
                     <Card title={"Mappa del Campus"}
                           imageUrl={mappaUnisa}
                           text={"Clicca qui per esplorare la mappa interattiva del campus."}
+                          linkTo={"/Mappa"}
                           btnText={"Scopriamolo"}
                     />
                 </Col>
@@ -81,6 +83,7 @@ function Home() {
                     <Card title={"Navigatore"}
                           imageUrl={fotoUnisa}
                           text={"Ti sei perso?\nTi aiutiamo noi."}
+                          linkTo={"/SimpleMap"}
                           btnText={"Scopriamolo"}
                     />
                 </Col>
