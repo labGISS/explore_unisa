@@ -26,25 +26,24 @@ function GiardinoHome() {
     return (
         <div>
             <Header/>
-            <div className=" mt-4">
-                <h1  className=" text-center">Il giardino della legalità "Falcone e Borsellino" </h1>
+            <div className="mt-4 mx-1">
+                <h1 className=" text-center">Il giardino della legalità "Falcone e Borsellino" </h1>
                 <p  className=" mx-5">
                     Nel Giardino di Ulivi dedicato a Borsellino e Falcone, ogni albero è un monumento vivente, testimone delle vite spezzate dalla mafia. Ogni tronco, ogni ramo, ogni foglia racconta la storia di una vittima, radicando nel terreno la memoria e il coraggio di coloro che hanno combattuto per la legalità. In questo giardino sacro, gli ulivi sono simboli di speranza e rinascita, sprigionando nell'aria un profumo di resilienza e dignità, affinché il ricordo delle vittime continui a illuminare il cammino verso un futuro senza mafia.</p>
             </div>
             <Container>
                 <Row className="justify-content-center my-4 mx-0 m-4">
                     {Array.isArray(vittime.vittime_mafia) && vittime.vittime_mafia.map((vittima, index) => (
-                        <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                            <Card title={vittima.nome} // Assumi che il nome della vittima sia il titolo
-                                  imageUrl={immagine1} // Immagine di esempio, puoi passare l'URL dell'immagine dal JSON se presente
-                                  text={vittima.descrizione} // Testo della descrizione dalla vittima
+                        <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4 d-flex align-items-center justify-content-center">
+                            <Card title={vittima.nome}
+                                  imageUrl={immagine1}
+                                  text={vittima.descrizione}
                                   btnText={"Scopriamolo"}
                                   linkTo={`/PaginaUlivo/${vittima.id}`}
                                 />
                           </Col>
                     ))}
                 </Row>
-
             </Container>
             <Footer/>
         </div>

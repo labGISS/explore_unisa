@@ -12,7 +12,7 @@ const NavigatorInstructions = ({ instructions: initialInstructions }) => {
     const handleClose = () => setShow(false);
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} style={{marginTop:'150px'}}>
             <Modal.Header closeButton>
                 <Modal.Title>Istruzioni del navigatore</Modal.Title>
             </Modal.Header>

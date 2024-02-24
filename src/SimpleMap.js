@@ -136,6 +136,14 @@ function SimpleMap(){
     const [durata, setDurata] = useState("");
     const [distanza, setDistanza] = useState("");
 
+    const buttonStyle = {
+        color: '#ffffff',
+        backgroundColor: '#2a5934',
+        borderColor: '#2a5934',
+        width: '100%',
+        marginBottom: '10px'
+    };
+
     i18next.init({
         lng: 'it',
         resources: {
@@ -726,7 +734,6 @@ function SimpleMap(){
             {/*    )}*/}
             <div>
                 {isMobile ? <SwipeableEdge istruzioni={instructions} /> : <Dialog  instructions={instructions}/>}
-
                 //
                 {/*<SwipeableEdge istruzioni={instructions}></SwipeableEdge>*/}
             </div>

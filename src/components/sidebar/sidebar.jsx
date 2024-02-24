@@ -24,6 +24,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Avatar from "@mui/material/Avatar";
 import {yellow} from "@mui/material/colors";
 import {Link} from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const drawerWidth = 240;
 
@@ -34,21 +36,28 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
+
         }),
         marginLeft: `-${drawerWidth}px`,
+
         ...(open && {
             transition: theme.transitions.create('margin', {
                 easing: theme.transitions.easing.easeOut,
                 duration: theme.transitions.duration.enteringScreen,
+
             }),
             marginLeft: 0,
+
+
         }),
     }),
 );
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
+
 })(({ theme, open }) => ({
+
     transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -73,6 +82,30 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, handleNavigationClick }) {
+    const buttonStyle = {
+        color: '#ffffff',
+        backgroundColor: '#2a5934',
+        borderColor: '#2a5934',
+        width: '100%',
+        marginTop: '40px'
+    };
+    const buttonStyle3 = {
+        color: '#ffffff',
+        backgroundColor: '#2a5934',
+        borderColor: '#2a5934',
+        width: '100%',
+        marginTop: '40px',
+        marginLeft: '10%'
+    };
+    const buttonStyle2 = {
+        color: '#ffffff',
+        backgroundColor: '#2a5934',
+        borderColor: '#2a5934',
+        width: '80%',
+        marginTop: '0px',
+        marginLeft:'30%',
+        marginRight:'30%'
+    };
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -80,6 +113,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
     const handleDrawerOpen = () => {
         setOpen(true);
     };
+
     const [suggestedNames, setSuggestedNames] = useState([]);
     const [suggestedNamesEnd, setSuggestedNamesEnd] = useState([]);
     const myGeoNomi = ["F3", "H", "F2", "F1", "F1", "Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "Piscina", "Laboratorio", "Laboratorio", "Laboratorio", "Laboratorio", "Mensa", "Chiostro della pace", "D", "Edisu", "Residenze", "Residenze", "Residenze", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank", "F", "E", "C", "B", "Residenze", "Laboratorio Modelli", "Masseria", "Masseria", "Bibllioteca umanistica"];
@@ -141,6 +175,15 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
         // Imposta il valore del textfield con il nome del suggerimento
         setEndPoint(name);
     };
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+        setShow(true);
+        handleDrawerClose();
+    }
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -181,7 +224,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                 </DrawerHeader>
                 <Divider />
                 <Link to="/" style={{ textDecoration: 'none', position: 'absolute', top: 30, left: 20, zIndex: 9999 }}>
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" color="primary" style={buttonStyle3}>
                         Torna alla Home
                     </Button>
                 </Link>
@@ -201,7 +244,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                                         {...params}
                                         label="Start Point"
                                         variant="outlined"
-                                        style={{ width: '200px', height: '60px' }}  // Imposta larghezza e altezza desiderate
+                                        style={{ width: '200px', height: '60px', marginTop: "70px" }}  // Imposta larghezza e altezza desiderate
 
                                     />
                                 )}
@@ -229,7 +272,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton>
-                            <Button variant="contained" onClick={handleSendClick}>
+                            <Button variant="contained" onClick={handleSendClick}  style={buttonStyle2}>
                                 Invia
                             </Button>
                         </ListItemButton>
@@ -252,11 +295,31 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
 
                 </List>
                 <List>
-                    <Button variant="contained" color="primary" onClick={() => handleNavigationClick()} style={{ position: 'absolute', top: 10, left: 10 }}>
-                        Naviga Rapidamente
+                    <Button variant="contained"  style={buttonStyle} onClick={handleShow} >
+                        Informazioni
                     </Button>
                 </List>
             </Drawer>
+            <Modal  show = {show} onHide={handleClose} style={{marginTop:'60px'}}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Guida</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h6>Benvenuto al nostro sistema di navigazione! Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi.</h6>
+                    <p>
+                        Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.
+                        na volta inserite le posizioni, premi il pulsante "Invia". L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione.
+                        Segui attentamente le istruzioni visualizzate sullo schermo. Ti indicheranno le direzioni da seguire, le distanze da percorrere e qualsiasi altra informazione utile per il viaggio.
+                        Non dimenticare di esplorare le opzioni aggiuntive dell'applicazione, come la pagina dedicata al Giardino della Legalità dove puoi vedere storie interessanti di lotte contro la mafia.
+                        Grazie per'attenzione.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Main open={open} style={{display:"none" }}>
                 <DrawerHeader />
 

@@ -69,7 +69,7 @@ function Home() {
                           btnText={"Scopriamolo"}
                     />
                 </Col>
-                <Col className="text-center d-flex justify-content-center">
+                <Col className="text-center d-flex justify-content-center my-2">
                     <Card title={"Mappa del Campus"}
                           imageUrl={mappaUnisa}
                           text={"Clicca qui per esplorare la mappa interattiva del campus."}
@@ -114,5 +114,4 @@ function Home() {
         </div>
     );
 }
-
 export default App;

@@ -1,49 +1,25 @@
-import React, { useState } from 'react';
-import {Route, Routes, useNavigate} from 'react-router-dom';
-import {
-    MDBContainer,
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarToggler,
-    MDBIcon,
-    MDBNavbarNav,
-    MDBNavbarItem,
-    MDBNavbarLink,
-    MDBBtn,
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownMenu,
-    MDBDropdownItem,
-    MDBCollapse,
-} from 'mdb-react-ui-kit';
-import unisaImage from './unisa2.png';
-import { Link } from 'react-router-dom';
-import SimpleMap from "../../SimpleMap";
+import React from 'react';
 import Navbar from "../navbar/navbar";
-import { Carousel, Image } from 'react-bootstrap';
-import fotoGiardino1 from "../../image/fotoGiardino1.JPG"
-import fotoGiardino2 from "../../image/fotoGiardino2.JPG"
-import fotoGiardino3 from "../../image/fotoGiardino3.JPG"
-import fotoGiardino4 from "../../image/giardinoQgis.png"
-export default function HeaderGiardino() {
-    const [showBasic, setShowBasic,openBasic, setOpenBasic] = useState(false);
+import { Carousel } from 'react-bootstrap';
+import fotoGiardino1 from "../../image/fotoGiardino1.JPG";
+import fotoGiardino2 from "../../image/fotoGiardino2.JPG";
+import fotoGiardino3 from "../../image/fotoGiardino3.JPG";
+import fotoGiardino4 from "../../image/giardinoQgis.png";
 
+export default function HeaderGiardino() {
     return (
         <header>
-            <Navbar/>
-            <div
-                className='text-center bg-image'
-                style={{height: '700px',}}
-            >
-                <Carousel>
+            <Navbar />
+            <div className='text-center bg-image'>
+                <Carousel style={{ width: '100%', maxWidth: '1280px', margin: '0 auto' }}>
                     <Carousel.Item>
-                        <Image src={fotoGiardino2}/>
+                        <img src={fotoGiardino2} className="d-block w-100" alt="First slide" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <Image src={fotoGiardino3} style={{width:'1280px'}}/>
+                        <img src={fotoGiardino4} className="d-block w-100" alt="Second slide" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <Image src={fotoGiardino4} style={{width:'1280px'}}/>
+                        <img src={fotoGiardino3} className="d-block w-100" alt="Third slide" />
                     </Carousel.Item>
                 </Carousel>
             </div>
