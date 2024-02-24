@@ -6,7 +6,7 @@ const MyCarousel = ({ images }) => {
     const maxHeight = 500;
 
     return (
-        <Carousel style={{maxHeight:'300px', margin:'auto'}}>
+        <Carousel controls="top" style={{maxHeight:'500px', margin:'auto'}}>
             {images.map((image, index) => (
                 <Carousel.Item key={index}>
                     <img
