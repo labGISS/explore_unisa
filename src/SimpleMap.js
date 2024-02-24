@@ -509,7 +509,47 @@ function SimpleMap(){
                 console.log('Data from API:', data);
                 const coordinates = data.features[0].geometry.coordinates;
                 //instructions = data.features[0].properties.segments[0].steps;
-                setInstructions(data.features[0].properties.segments[0].steps)
+                const steps = data.features[0].properties.segments[0].steps;
+                const translatedInstructions = steps.map(item => {
+                    const itemTradotto = {};
+                    for (const key in item) {
+                        // if (typeof item[key] === 'string') {
+                        //     itemTradotto[key] = i18next.t(item[key]);
+                        // } else {
+                        //     itemTradotto[key] = item[key];
+                        // }
+                        if(key === 'instruction') {
+                            const instruction = item[key];
+                            const indicationRegex = /^(.*?) on (.*)$/;
+                            if (instruction.includes('onto')) {
+                                const instructionParts = instruction.split(' onto '); // Divide la stringa in parti utilizzando 'onto' come separatore
+                                const instructionKey = instructionParts[0] + ' onto'; // Conserva la parte fino a 'onto'
+                                const restOfInstruction = instructionParts.slice(1).join(' onto '); // Prende il resto della stringa
+                                // Traduce solo la parte fino a 'onto' e poi ricongiunge il resto della stringa
+                                itemTradotto[key] = `${i18next.t(instructionKey)}${restOfInstruction}`;
+
+                            } else if (indicationRegex.test(instruction)) {
+                                const matches = instruction.match(indicationRegex);
+                                const infoPart = matches[1]; // Parte prima di 'on'
+                                const roadPart = matches[2]; // Parte dopo 'on'
+
+                                // Traduce la parte dell'informazione e lascia il nome della strada invariato
+                                itemTradotto[key] = `${i18next.t(infoPart)} ${roadPart}`;
+                            }
+                            else {
+                                itemTradotto[key] = i18next.t(instruction);
+                            }
+
+                        } else if (typeof item[key] === 'string'){
+                            itemTradotto[key] = i18next.t(item[key]);
+                        } else {
+                            itemTradotto[key] = item[key];
+                        }
+                    }
+                    return itemTradotto;
+                });
+                setInstructions(translatedInstructions)
+
                 console.log('Istruction :', instructions);
                 const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
                 flag = 1

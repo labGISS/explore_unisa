@@ -82,7 +82,7 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                     }}
                 >
                     <Puller />
-                    <Typography sx={{ p: 2, color: 'text.primary', fontWeight: 'bold'  }}>Distanza: {distanza} , Durata: {durata}</Typography>
+                    <Typography sx={{ p: 2, color: 'text.primary', fontWeight: 'bold'  }}>Segui le indicazioni</Typography>
                     <Divider/>
                     {istruzioni && istruzioni.length > 0 ? (
                         istruzioni.map((istruzione, index) => (
