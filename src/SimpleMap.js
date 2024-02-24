@@ -605,7 +605,7 @@ function SimpleMap(){
     });
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
-            <Sidebar/>
+            <Sidebar />
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
                 <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
                 <MapContainer center={[latitude, longitude]}

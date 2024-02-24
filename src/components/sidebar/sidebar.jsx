@@ -279,7 +279,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                     </ListItem>
                 </List>
                 <Divider />
-                <List>
+                <List sx={{ backgroundColor: '#f0f0f0' }}>
                     {['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton onClick={() => handleButtonClick(text)}>
@@ -292,13 +292,11 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                         </ListItem>
 
                     ))}
-
-                </List>
-                <List>
                     <Button variant="contained"  style={buttonStyle} onClick={handleShow} >
                         Informazioni
                     </Button>
                 </List>
+
             </Drawer>
             <Modal  show = {show} onHide={handleClose} style={{marginTop:'60px'}}>
                 <Modal.Header closeButton>
