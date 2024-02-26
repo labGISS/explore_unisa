@@ -81,7 +81,7 @@ function PaginaUlivo(){
     return(
         <div>
             <Navbar/>
-            <Container className="fluid">
+            <Container className="fluid mb-4">
                 <Row className="my-4">
                     <h3>{vittima.nome}</h3>
                     <Col md="2" style={{
@@ -102,6 +102,7 @@ function PaginaUlivo(){
                     <Carousel images={images} />
                 </Row>
             </Container>
+            <Footer/>
         </div>
 
     );
