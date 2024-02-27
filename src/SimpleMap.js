@@ -368,27 +368,6 @@ function SimpleMap(){
                         console.log(durataTotale);
                         console.log(distanzaTotale);
                     }
-                  //  const durataTotale = summary?.duration ?? "";
-                  //  const distanzaTotale = summary?.distance ?? "";
-                  //  setDurata(durataTotale);
-                  //  setDistanza(distanzaTotale);
-                  //  console.log(durataTotale)
-                  // console.log(distanzaTotale)
-
-                    // // Aggiungi popup con istruzioni
-                    // const instructionsDiv = document.getElementById('instructionsDiv');
-                    // instructionsDiv.innerHTML = ''; // Pulisci il contenuto precedente
-                    // instructions.forEach((instruction, index) => {
-                    //     const { location, instruction: text } = instruction;
-                    //
-                    //
-                    //     instructionsDiv.innerHTML += `<p>Step ${index + 1}: ${text}</p>`;
-                    //     // // Crea un marker per l'istruzione
-                    //     // const marker = L.marker([40.77100564, 14.79136122],{text}).addTo(map);
-                    //     //
-                    //     // // Crea un popup per l'istruzione e lo associa al marker
-                    //     // marker.bindPopup(`<p>Step ${index + 1}: ${text}</p>`);
-                    // });
 
                     L.setOptions({language: 'it'})
 
@@ -419,20 +398,7 @@ function SimpleMap(){
                     });
                 });
             }
-            //         layer.remove();
-            //
-            //     }
-            //
-            //     if (layer instanceof L.Marker && !piazzeLayerRef.current.hasLayer(layer) ) {
-            //         layer.remove(markers);
-            //         count = 0;
-            //
-            //     }
-            //
-            // });
-            // count = 0;
 
-            // }
 
 
     };
@@ -583,9 +549,8 @@ function SimpleMap(){
                     });
 
                     L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
-                    L.setOptions({language: 'it'})
                     setContatoreMarker(prevCount => prevCount + 1);
-                    console.log("CONTATORE MARKER", contatoreMarker);
+
 
                 }
 
@@ -613,7 +578,6 @@ function SimpleMap(){
                 return newPositions;
             });
 
-
             console.log(' MARKER DOPO:', markerArray);
 
             count=1;
@@ -635,14 +599,7 @@ function SimpleMap(){
         }
 
     };
-    const greenIcon = L.icon({
-        iconUrl: university, // URL dell'icona dell'università
-        iconSize: [90, 90], // Nuove dimensioni dell'icona
-        shadowSize: [0, 0], // dimensione dell'ombra
-        iconAnchor: [37, 20], // Punto dell'icona che corrisponde alla posizione del marker
 
-        popupAnchor: [0, 0] // Punto dal quale il popup dovrebbe aprirsi rispetto all'iconAnchor
-    });
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar />
@@ -695,87 +652,8 @@ function SimpleMap(){
                 </MapContainer>
             </div>
 
-
-            {/*<div>*/}
-            {/*    <label>*/}
-            {/*        Mostra Piazze*/}
-            {/*        <input type="checkbox" checked={showGeoJSONLayer1} onChange={handleCheckboxChange1} />*/}
-            {/*    </label>*/}
-            {/*    <label>*/}
-            {/*        Mostra Bus*/}
-            {/*        <input type="checkbox" checked={showGeoJSONLayer2} onChange={handleCheckboxChange2} />*/}
-            {/*    </label>*/}
-            {/*        <label>*/}
-            {/*        Mostra Edifici*/}
-            {/*        <input type="checkbox" checked={showGeoJSONLayer3} onChange={handleCheckboxChange3} />*/}
-            {/*        </label>*/}
-            {/*</div>*/}
-
-            {/*    /!*<Button onClick={handleWaypoints} type="primary">*!/*/}
-            {/*    /!*    Calcola Percorso*!/*/}
-            {/*    /!*</Button>*!/*/}
-            {/*    <Button onClick={deleteWaypoints} type="primary">*/}
-            {/*        Elimina Percorso*/}
-            {/*    </Button>*/}
-            {/*    <Button onClick={localizeClick} type="primary">*/}
-            {/*        Localizzami*/}
-            {/*    </Button>*/}
-            {/*    <div id="instructionsDiv"></div>*/}
-            {/*    <Select*/}
-            {/*        labelId="demo-simple-select-label"*/}
-            {/*        id="demo-simple-select"*/}
-            {/*        value={0}*/}
-            {/*        onChange={handleSelectChange}*/}
-            {/*    >*/}
-            {/*        <MenuItem value={0}>Cerca</MenuItem>*/}
-            {/*        <MenuItem value={10}>Edifici</MenuItem>*/}
-            {/*        <MenuItem value={20}>Piazze</MenuItem>*/}
-            {/*        <MenuItem value={30}>Bus</MenuItem>*/}
-            {/*    </Select>*/}
-            {/*    { selectedValue == 10 && (*/}
-            {/*        <Select*/}
-            {/*            labelId="demo-simple-select-label"*/}
-            {/*            id="demo-simple-select"*/}
-            {/*            value={selectedValue}*/}
-            {/*            onChange={handleSelectChange}*/}
-            {/*        >*/}
-            {/*            {listaEdifici.map((elemento) => (*/}
-            {/*                <MenuItem key={elemento.id} value={elemento.id}>*/}
-            {/*                    {elemento.name}*/}
-            {/*                </MenuItem>*/}
-            {/*            ))}*/}
-            {/*        </Select>*/}
-            {/*    )}*/}
-            {/*    { selectedValue == 20 && (*/}
-            {/*        <Select*/}
-            {/*            labelId="demo-simple-select-label"*/}
-            {/*            id="demo-simple-select"*/}
-            {/*            value={selectedValue}*/}
-            {/*            onChange={handleSelectChange}*/}
-            {/*        >*/}
-            {/*            {listaPiazze.map((elemento) => (*/}
-            {/*                <MenuItem key={elemento.id} value={elemento.id}>*/}
-            {/*                    {elemento.name}*/}
-            {/*                </MenuItem>*/}
-            {/*            ))}*/}
-            {/*        </Select>*/}
-            {/*    )}*/}
-            {/*    { selectedValue == 30 && (*/}
-            {/*        <Select*/}
-            {/*            labelId="demo-simple-select-label"*/}
-            {/*            id="demo-simple-select"*/}
-            {/*            value={selectedValue}*/}
-            {/*            onChange={handleSelectChange}*/}
-            {/*        >*/}
-            {/*            <MenuItem value={10}>Edifici</MenuItem>*/}
-            {/*            <MenuItem value={20}>Piazze</MenuItem>*/}
-            {/*            <MenuItem value={30}>Bus</MenuItem>*/}
-            {/*        </Select>*/}
-            {/*    )}*/}
             <div>
-                {isMobile ? <SwipeableEdge istruzioni={instructions} /> : <Dialog  instructions={instructions}/>}
-                //
-                {/*<SwipeableEdge istruzioni={instructions}></SwipeableEdge>*/}
+                {isMobile ? <SwipeableEdge istruzioni={instructions} /> : null}
             </div>
 
 
