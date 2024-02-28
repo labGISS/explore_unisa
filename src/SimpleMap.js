@@ -356,7 +356,7 @@ function SimpleMap(){
                     // console.log("MARKER TO DELETE", markerToDelete);
 
                     // Aggiungi il marker 2
-                    const newMarker2 = L.marker([lat2, lng2]).addTo(map);
+                    const newMarker2 = L.marker([lat2, lng2]).addTo(markersLayer.current);
                     map.flyTo([lat2, lng2]);
                     setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
                     const summary = data.features[0]?.properties?.summary;
@@ -467,6 +467,7 @@ function SimpleMap(){
         console.log("STAMPA",lat1,lng1,lat2,lng2);
         //vado ad eliminare il layer quello che inserisce i punti scrivendo
         deleteWaypoints();
+
 
         //crea qua il secondo punto e invia la richiesta
         fetch(url)
