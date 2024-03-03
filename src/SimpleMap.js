@@ -441,7 +441,7 @@ function SimpleMap(){
     };
     const onEachFeature = (feature, layer) => {
         if (feature.properties) {
-            const popupContent = `<p>${feature.properties.Nome}</p>`; // Sostituisci con le tue proprietà
+            let popupContent = `<p>${feature.properties.Nome}</p>`; // Sostituisci con le tue proprietà
 
             layer.bindPopup(popupContent);
         }
@@ -607,7 +607,7 @@ function SimpleMap(){
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
                 <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
                 <MapContainer center={[latitude, longitude]}
-                              zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
+                              zoom={20} ref={mapRef}  style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
