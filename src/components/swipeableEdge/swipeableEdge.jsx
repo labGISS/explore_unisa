@@ -84,6 +84,19 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                     <Puller />
                     <Typography sx={{ p: 2, color: 'text.primary', fontWeight: 'bold'  }}>Segui le indicazioni</Typography>
                     <Divider/>
+                    {distanza  && (
+                        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            {distanza > 1000 ? `Distanza totale: ${Math.floor(distanza / 1000)} kilometro e ${Math.floor(distanza % 1000)} metri` : `Distanza totale: ${distanza} metri`}
+                        </Typography>
+                    )}
+
+                    {/* Verifica se durata è definito e non nullo */}
+                    {durata  && (
+                        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Durata prevista: {Math.floor(durata / 60)} minuti {Math.floor(durata % 60)} secondi
+                        </Typography>
+                    )}
+
                     {istruzioni && istruzioni.length > 0 ? (
                         istruzioni.map((istruzione, index) => (
                             <Box key={index} sx={{ my: 1 }}>

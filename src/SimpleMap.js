@@ -188,8 +188,6 @@ function SimpleMap(){
     const [instructions, setInstructions] = useState(""); // Definisci lo state instructions
 
 
-
-
     const deleteWaypoints2 = () => {
 
         if (mapRef.current) {
@@ -264,6 +262,12 @@ function SimpleMap(){
         // Aggiungi altri controlli se necessario
     };
 
+    async function traduciStringa(stringaDaTradurre) {
+        const parole = stringaDaTradurre.split(' ');
+        const paroleTradotte = await Promise.all(parole.map(parola => i18next.t(parola)));
+        const stringaTradotta = paroleTradotte.join(' ');
+        return stringaTradotta;
+    }
 
     const handlePoint = (mar1,mar2,mar3, mar4) => {
         const lat1 = mar2.toFixed(6);  // Limita a 6 decimali
@@ -321,7 +325,6 @@ function SimpleMap(){
                     }
                     return itemTradotto;
                 });
-
                 setInstructions(translatedInstructions)
                 console.log('Istruction in ita****:', translatedInstructions);
                 const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
@@ -336,7 +339,6 @@ function SimpleMap(){
                             map.removeLayer(layer);
 
                         }
-
 
                     });
 
@@ -366,15 +368,11 @@ function SimpleMap(){
                         const distanzaTotale = summary.distance ?? "";
                         setDurata(durataTotale);
                         setDistanza(distanzaTotale);
-                        console.log(durataTotale);
-                        console.log(distanzaTotale);
+                        console.log('durata totale',durataTotale);
+                        console.log('distanza ',distanzaTotale);
                     }
-
                     L.setOptions({language: 'it'})
-
-
                 }
-
                 setRoute(routeCoordinates);
             })
             .catch((error) => {
@@ -662,7 +660,7 @@ function SimpleMap(){
             </div>
 
             <div>
-                {isMobile ? <SwipeableEdge istruzioni={instructions} /> : null}
+                {isMobile ? <SwipeableEdge istruzioni={instructions} distanza={distanza} durata={durata}/> : null}
             </div>
 
 
