@@ -15,13 +15,50 @@ import Home from "./App";
 import Giardino from "./GiardinoHome";
 import vittime from "./vittime.json";
 import { Link } from 'react-router-dom';
-import PaginaUlivo from './PaginaUlivo'
+import PaginaUlivo from './PaginaUlivo';
+import fotoMimmo from './image/BeneventanoUlivo1.jpg';
+import fotoDiana from './image/DianaUlivo1.jpg';
+import fotoTorre from './image/TorreUlivo2.jpg';
+import fotoLamberti from './image/LambertiUlivo1.jpg';
+import fotoFerraioli from './image/FerraioliUlivo2.jpg';
+import fotoMusella from './image/MusellaUlivo2.jpg';
+import fotoDelPrete from './image/DelPreteUlivo2.jpg';
+
 
 function GiardinoHome() {
+
     useEffect(() => {
         // Stampare i dati in console
         console.log(vittime);
     }, []);
+
+    const getImageForTitle = (title) => {
+        switch (title) {
+            case "Don Giuseppe Diana":
+                return fotoDiana;
+                break;
+            case "Mimmo Beneventano":
+                return fotoMimmo;
+                break;
+            case "Marcello Torre":
+                return fotoTorre;
+                break;
+            case "Simonetta Lamberti":
+                return fotoLamberti;
+                break;
+            case "Antonio Esposito Ferraioli":
+                return fotoFerraioli;
+                break;
+            case "Gennaro Musella":
+                return fotoMusella;
+                break;
+            case "Federico Del Prete":
+                return fotoDelPrete;
+                break;
+            default:
+                return immagine1;
+        }
+    };
 
     return (
         <div>
@@ -36,7 +73,7 @@ function GiardinoHome() {
                     {Array.isArray(vittime.vittime_mafia) && vittime.vittime_mafia.map((vittima, index) => (
                         <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4 d-flex align-items-center justify-content-center">
                             <Card title={vittima.nome}
-                                  imageUrl={immagine1}
+                                  imageUrl={getImageForTitle(vittima.nome)}
                                   text={vittima.descrizione}
                                   btnText={"Scopriamolo"}
                                   linkTo={`/PaginaUlivo/${vittima.id}`}
