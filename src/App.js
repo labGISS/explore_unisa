@@ -33,7 +33,6 @@ function App() {
                 <Route path="/Mappa" element={<Mappa />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/SimpleMap" element={<SimpleMap />} />
-
                 <Route path="/Giardino" element={<Giardino />} />
                 <Route path="/PaginaUlivo/:id" element={<PaginaUlivo/>} />
             </Routes>
@@ -41,22 +40,7 @@ function App() {
     );
 }
 
-// Componente Home
 function Home() {
-    // const navigate = useNavigate();
-    // const handleClick = () => {
-    //     // Quando il pulsante viene cliccato, naviga a "/Navigazione"
-    //     navigate('/Navigazione');
-    // };
-    // const handleClickGiardino = () => {
-    //     // Quando il pulsante viene cliccato, naviga a "/Navigazione"
-    //     navigate('/Giardino');
-    // };
-    //
-    // const handleClick2 = () => {
-    //     // Quando il pulsante viene cliccato, naviga a "/Navigazione"
-    //     navigate('/SimpleMap');
-    // };
     return (
         <div>
             <Header />
@@ -86,30 +70,6 @@ function Home() {
                     />
                 </Col>
             </Row>
-            {/*<Grid container spacing={10} justifyContent="center" alignItems="flex-end" style={{ paddingTop: '20px', paddingBottom: '20px' }}>*/}
-            {/*    <Grid item>*/}
-            {/*       <Card title={"Giardino della legalità"}*/}
-            {/*       imageUrl={immagine1}*/}
-            {/*       text={"questa è una prova"}*/}
-            {/*       btnText={"Scopriamolo"}*/}
-            {/*       onClick={handleClick()}/>*/}
-            {/*    </Grid>*/}
-            {/*    <Grid item>*/}
-            {/*        <Card title={"Giardino della legalità"}*/}
-            {/*              imageUrl={immagine1}*/}
-            {/*              text={"questa è una prova"}*/}
-            {/*              btnText={"Scopriamolo"}*/}
-            {/*              onClick={handleClick()}/> </Grid>*/}
-            {/*    <Grid item>*/}
-            {/*        <Card title={"Giardino della legalità"}*/}
-            {/*              imageUrl={immagine1}*/}
-            {/*              text={"questa è una prova"}*/}
-            {/*              btnText={"Scopriamolo"}*/}
-            {/*              onClick={handleClick()}/>*/}
-            {/*    </Grid>*/}
-
-            {/*</Grid>*/}
-            {/*<Button onClick={handleClick}>Vai a Navigazione</Button>*/}
             <Footer />
         </div>
     );

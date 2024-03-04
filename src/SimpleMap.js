@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import university from "./university.png";
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
+import Form from 'react-bootstrap/Form';
 
 var myGeo = {
     "type": "FeatureCollection",
@@ -605,6 +606,13 @@ function SimpleMap(){
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar />
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
+                <Form>
+                    <Form.Check // prettier-ignore
+                        type="switch"
+                        id="custom-switch"
+                        label="Check this switch"
+                    />
+                </Form>
                 <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef}  style={{height: 'calc(100vh - 64px)', width: "100vw"}}>

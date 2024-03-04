@@ -17,9 +17,6 @@ function ColorSchemesExample() {
                         <Nav.Link href="/SimpleMap" style={{ 'color': 'white', marginRight:'20px' }}>Navigatore</Nav.Link>
                         <Nav.Link href="/Giardino" style={{ 'color': 'white', marginRight:'20px' }}>Giardino della legalità</Nav.Link>
                     </NavbarCollapse>
-                    {/*<Nav className="me-auto" >*/}
-                    {/*    */}
-                    {/*</Nav>*/}
                 </Container>
             </Navbar>
         </>
