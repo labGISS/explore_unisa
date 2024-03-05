@@ -313,7 +313,7 @@ function SimpleMap(){
                                 // Traduce solo la parte fino a 'onto' e poi ricongiunge il resto della stringa
                                 itemTradotto[key] = `${i18next.t(instructionKey)}${restOfInstruction}`;
 
-                             } else if (indicationRegex.test(instruction)) {
+                            } else if (indicationRegex.test(instruction)) {
                                 const matches = instruction.match(indicationRegex);
                                 const infoPart = matches[1]; // Parte prima di 'on'
                                 const roadPart = matches[2]; // Parte dopo 'on'
@@ -394,17 +394,17 @@ function SimpleMap(){
             const map = mapRef.current;
 
             // map.removeLayer(markersLayer);
-                map.eachLayer(layer => {
-                    console.log("MARKER LAYER", markersLayer);
-                    markersLayer.current.eachLayer(marker => {
-                        // Rimuovi il marker dal layer
-                        markersLayer.current.removeLayer(marker);
+            map.eachLayer(layer => {
+                console.log("MARKER LAYER", markersLayer);
+                markersLayer.current.eachLayer(marker => {
+                    // Rimuovi il marker dal layer
+                    markersLayer.current.removeLayer(marker);
 
-                        // Opzionalmente, puoi anche rimuovere il marker dalla mappa
-                        // mapRef.current.removeLayer(marker);
-                    });
+                    // Opzionalmente, puoi anche rimuovere il marker dalla mappa
+                    // mapRef.current.removeLayer(marker);
                 });
-            }
+            });
+        }
 
 
 
@@ -420,7 +420,7 @@ function SimpleMap(){
 
         // Verifica se sono state trovate le coordinate per entrambi i punti
         if (startCoordinates && endCoordinates) {
-           // deleteWaypoints();
+            // deleteWaypoints();
             // Esegui la funzione handleWayPoint con le coordinate trovate
             console.log('COOORDINATEE',startCoordinates[0],endCoordinates);
             deleteWaypoints2();
@@ -630,9 +630,9 @@ function SimpleMap(){
                                 opacity: 1,        // Cambia l'opacità
                                 fillOpacity: 0.7   // Cambia l'opacità del riempimento
                             })
-                    }} onEachFeature={onEachFeature}  />
+                        }} onEachFeature={onEachFeature}  />
 
-                        )}
+                    )}
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
                         return L.circleMarker(latlng, {
                             fillColor: 'blue', // Cambia il colore di riempimento
