@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Carousel from '../src/components/Carousel/Carousel';
 import Navbar from '../src/components/navbar/navbar';
 import Header from '../src/components/headerGiardino/headerGiardino';
 import Card from '../src/components/card/card';

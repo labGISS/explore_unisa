@@ -10,7 +10,7 @@ import Location from "./Location"
 import Giardino from "./GiardinoHome"
 import PaginaUlivo from "./PaginaUlivo"
 
-
+import GiardinoHome from "./GiardinoHome"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>

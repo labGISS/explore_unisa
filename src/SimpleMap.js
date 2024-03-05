@@ -21,7 +21,9 @@ import university from "./university.png";
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import Form from 'react-bootstrap/Form';
-
+import FormGroup from 'react-bootstrap/Form';
+import FormCheck from 'react-bootstrap/Form';
+import {Row, Col } from 'react-bootstrap';
 var myGeo = {
     "type": "FeatureCollection",
     "name": "EdificiCentro",
@@ -136,6 +138,12 @@ function SimpleMap(){
     const { t } = useTranslation();
     const [durata, setDurata] = useState("");
     const [distanza, setDistanza] = useState("");
+
+    const [bandiera, setBandiera] = useState(0);
+
+    const handleSwitchChange = () => {
+        setBandiera(flag === 0 ? 1 : 0);
+    };
 
     const buttonStyle = {
         color: '#ffffff',
@@ -603,14 +611,7 @@ function SimpleMap(){
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar />
-            <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'64px'}}>
-                <Form>
-                    <Form.Check // prettier-ignore
-                        type="switch"
-                        id="custom-switch"
-                        label="Check this switch"
-                    />
-                </Form>
+            <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'60px'}}>
                 <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef}  style={{height: 'calc(100vh - 64px)', width: "100vw"}}>

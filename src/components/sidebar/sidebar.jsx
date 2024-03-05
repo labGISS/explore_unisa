@@ -25,7 +25,10 @@ import Avatar from "@mui/material/Avatar";
 import {yellow} from "@mui/material/colors";
 import {Link} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {ic_accessible_forward_outline} from 'react-icons-kit/md/ic_accessible_forward_outline';
+import { Icon } from 'react-icons-kit'
 
 const drawerWidth = 240;
 
@@ -82,6 +85,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, handleNavigationClick }) {
+    const [switchState, setSwitchState] = useState(false);
+
+    const handleSwitchChange = () => {
+        setSwitchState(!switchState);
+    };
+
     const buttonStyle = {
         color: '#ffffff',
         backgroundColor: '#2a5934',
@@ -202,6 +211,19 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                     <Typography variant="h6" noWrap component="div">
                         Naviga il campus
                     </Typography>
+                    <Form.Check
+                        // prettier-ignore
+                        style={{marginLeft: "auto", marginTop:"2px"}}
+                        type="switch"
+                        id="custom-switch"
+                        label= ""
+                        onChange={handleSwitchChange}
+                    />
+                    <Icon
+                        size={32}
+                        icon={ic_accessible_forward_outline}
+                        style={{ color: switchState ? "yellow" : "white" }} // Cambia il colore dell'icona in base allo stato dello switch
+                    />
                 </Toolbar>
             </AppBar>
             <Drawer

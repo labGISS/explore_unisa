@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
@@ -21,7 +21,7 @@ const Root = styled('div')(({ theme }) => ({
 
 const StyledBox = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
-    overflowY: 'auto', // Aggiunto lo scorrimento per le istruzioni lunghe
+    overflowY: 'auto', // Abilita lo scorrimento verticale
 }));
 
 const Puller = styled('div')(({ theme }) => ({
@@ -41,6 +41,16 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
+
+    const contentRef = useRef(null);
+
+    useEffect(() => {
+        // Aggiorna l'altezza massima del contenitore interno ogni volta che il drawer viene aperto
+        if (contentRef.current) {
+            const drawerHeight = contentRef.current.parentNode.clientHeight;
+            contentRef.current.style.maxHeight = `${drawerHeight}px`;
+        }
+    }, [open]);
 
     // This is used only for the example
     const container = window !== undefined ? () => window().document.body : undefined;
@@ -78,19 +88,18 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                         right: 0,
                         left: 0,
                         padding: theme => theme.spacing(2),
-                        overflowY: 'auto'
+                        overflowY: 'auto',
+                        maxHeight: '100%', // Imposta l'altezza massima del contenitore interno
                     }}
                 >
                     <Puller />
-                    <Typography sx={{ p: 2, color: 'text.primary', fontWeight: 'bold'  }}>Segui le indicazioni</Typography>
+                    <Typography sx={{ pb: 2, color: 'text.primary', fontWeight: 'bold'  }}>Segui le indicazioni</Typography>
                     <Divider/>
                     {distanza  && (
                         <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                             {distanza > 1000 ? `Distanza totale: ${Math.floor(distanza / 1000)} kilometro e ${Math.floor(distanza % 1000)} metri` : `Distanza totale: ${distanza} metri`}
                         </Typography>
                     )}
-
-                    {/* Verifica se durata è definito e non nullo */}
                     {durata  && (
                         <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                             Durata prevista: {Math.floor(durata / 60)} minuti {Math.floor(durata % 60)} secondi
@@ -100,10 +109,17 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                     {istruzioni && istruzioni.length > 0 ? (
                         istruzioni.map((istruzione, index) => (
                             <Box key={index} sx={{ my: 1 }}>
-                                {/*<Typography variant="body1" sx={{ fontWeight: 'bold' }}>*/}
-                                {/*    Distanza: {istruzione.distance}, Durata: {istruzione.duration}*/}
-                                {/*</Typography>*/}
                                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
+                                {index === istruzioni.findIndex(instr => instr === durata) && ( // Solo per il primo elemento dopo la durata
+                                    <div ref={contentRef} style={{ overflowY: 'auto', maxHeight: 'calc(100% - 112px)' }}>
+                                        {istruzioni.slice(index + 1).map((istruzione, index) => ( // Inizia dalla posizione successiva a durata
+                                            <Box key={index} sx={{ my: 1 }}>
+                                                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
+                                                <hr/>
+                                            </Box>
+                                        ))}
+                                    </div>
+                                )}
                                 <hr/>
                             </Box>
                         ))
@@ -111,27 +127,12 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                         <Typography variant="body2">Nessuna istruzione disponibile</Typography>
                     )}
                 </StyledBox>
-                <StyledBox
-                    sx={{
-                        px: 2,
-                        pb: 2,
-                        height: '100%',
-                        overflow: 'auto',
-                    }}
-                >
-                    <Skeleton variant="rectangular" height="100%" />
-                </StyledBox>
-
             </SwipeableDrawer>
         </Root>
     );
 }
 
 SwipeableEdgeDrawer.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     window: PropTypes.func,
     istruzioni: PropTypes.arrayOf(
         PropTypes.shape({
