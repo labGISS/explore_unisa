@@ -27,10 +27,15 @@ import {Link} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Icon } from 'react-icons-kit'
 import {ic_accessible_forward_outline} from 'react-icons-kit/md/ic_accessible_forward_outline';
-
-import { Icon } from 'react-icons-kit';
+import {ic_directions_bus} from 'react-icons-kit/md/ic_directions_bus'
 import {ic_volume_up_twotone} from 'react-icons-kit/md/ic_volume_up_twotone'
+import {ic_location_city_outline} from 'react-icons-kit/md/ic_location_city_outline'
+import {ic_tour} from 'react-icons-kit/md/ic_tour'
+import {ic_delete_forever} from 'react-icons-kit/md/ic_delete_forever'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -169,6 +174,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
         // Verifica se entrambi i campi di testo sono compilati prima di inviare i dati
         if (startPoint && endPoint) {
             onSendClick({ startPoint, endPoint });
+            handleDrawerClose();
         } else {
             console.log('Compila entrambi i campi prima di inviare.');
         }
@@ -311,20 +317,43 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                         </ListItemButton>
                     </ListItem>
                 </List>
-                <Divider />
-                <List sx={{ backgroundColor: '#f0f0f0' }}>
-                    {['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton onClick={() => handleButtonClick(text)}>
-                                <Avatar style={{ backgroundColor: getCircleColor(text) }}>
-                                    {/* Puoi inserire il testo all'interno dell'Avatar per mostrare le iniziali o il numero se necessario */}
-                                    {text.charAt(0)}
-                                </Avatar>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
+                <List sx={{ backgroundColor: '#ffffff' }}>
+                    <Row className="mt-3">
+                        <Col className="d-flex align-items-center">
+                            <Icon icon={ic_directions_bus} size={50} style={{ marginLeft: "8px", color:'#3744d9'}} />
+                            <h6 className="ml-1 mb-0">BUS</h6>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3" onClick={handleShow}>
+                        <Col className="d-flex align-items-center" style={{paddingRight:'0px'}}>
+                            <Icon icon={ic_location_city_outline} size={50} style={{ marginLeft: "8px", color:'#abcdef' }} />
+                            <h6 className="ml-2 mb-0">PDI</h6>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col className="d-flex align-items-center">
+                            <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
+                            <h6 className="ml-2 mb-0">PIAZZE</h6>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col className="d-flex align-items-center">
+                            <Icon icon={ic_delete_forever} size={50} style={{ marginLeft: "8px", color: '#2A9D8F'}} />
+                            <h6 className="ml-2 mb-0">ELIMINA PERCORSO</h6>
+                        </Col>
+                    </Row>
+                    {/*{['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (*/}
+                    {/*    <ListItem key={text} disablePadding>*/}
+                    {/*        <ListItemButton onClick={() => handleButtonClick(text)}>*/}
+                    {/*            <Avatar style={{ backgroundColor: getCircleColor(text) }}>*/}
+                    {/*                /!* Puoi inserire il testo all'interno dell'Avatar per mostrare le iniziali o il numero se necessario *!/*/}
+                    {/*                {text.charAt(0)}*/}
+                    {/*            </Avatar>*/}
+                    {/*            <ListItemText primary={text} />*/}
+                    {/*        </ListItemButton>*/}
+                    {/*    </ListItem>*/}
 
-                    ))}
+                    {/*))}*/}
                     <Button variant="contained"  style={buttonStyle} onClick={handleShow} >
                         Informazioni
                     </Button>
@@ -339,9 +368,9 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     style={{marginTop:"5px"}}></Icon>
                 </Modal.Header>
                 <Modal.Body>
-                    <h6>Benvenuto al nostro sistema di navigazione! Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi.</h6>
+                    <h6>Benvenuto al nostro sistema di navigazione! <br/>Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi.</h6>
                     <p>
-                        Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.
+                        Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. <br/>Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.
                         Una volta inserite le posizioni, premi il pulsante "Invia". L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione.
                         Segui attentamente le istruzioni visualizzate sullo schermo. Ti indicheranno le direzioni da seguire, le distanze da percorrere e qualsiasi altra informazione utile per il viaggio.
                         Non dimenticare di esplorare le opzioni aggiuntive dell'applicazione, come la pagina dedicata al Giardino della Legalità dove puoi vedere storie interessanti di lotte contro la mafia.

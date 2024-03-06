@@ -8,7 +8,6 @@ import { createControlComponent } from "@react-leaflet/core";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import gh from 'graphhopper-js-api-client';
 import {Button, colors} from "@mui/material";
-
 import Navbar from'../src/components/navbar/navbar.jsx'
 import SwipeableEdge from '../src/components/swipeableEdge/swipeableEdge'
 import Select from '@mui/material/Select';
@@ -33,10 +32,6 @@ import f2 from "./image/campus/edificioF2.jpg";
 import f3 from "./image/campus/edificioF3.jpg";
 import piazzaDelSapere from "./image/piazze/piazzadelSapere.jpg";
 import GiardinoTIF from './image/GiardinoREF.tif'
-
-// import bus from './FileJson/busUnisa.geojson';
-// import edifici from './FileJson/edificiPoligono.geojson';
-// import piazze from './FileJson/piazzeUnisaPoligono.geojson';
 import giardinoFoto from './image/DJI_0014.JPG';
 import './style.css';
 
@@ -292,12 +287,12 @@ function Mappa(){
     const onEachFeature = (feature, layer) => {
         if (feature.properties) {
             const nome = feature.properties.Nome;
-            let popupContent = `<p>${nome}</a></p>`;
+            let popupContent = `<p>Edificio: ${nome}</a></p>`;
             const fotoUrl = feature.properties.FotoUrl; // Sostituisci con la URL della tua proprietà immagine
 
 
             if (fotoUrl) {
-                popupContent += `<img src="${fotoUrl}" alt="Foto" width="200" height="200" marginBottom = "5px">`; // Aggiungi l'immagine se disponibile
+                popupContent += `<img src="${fotoUrl}" alt="Foto" width="200" height="200" marginBottom = "5px" style={{border-radius:"2px"}}>`; // Aggiungi l'immagine se disponibile
                 popupContent += `<p></p>`;
                 popupContent += `<button style="background-color: green; color: white;" onclick="window.location.href='/SimpleMap?nome=${encodeURIComponent(nome)}'">Scopri la pagina navigazione</button>`;
             }
@@ -360,7 +355,7 @@ function Mappa(){
                     />};
                     {showGeoJSONLayer2 && <GeoJSON key="bus-layer" data={bus}   pointToLayer={(feature, latlng) => {
                         return L.circleMarker(latlng, {
-                            fillColor: 'blue', // Cambia il colore di riempimento
+                            fillColor: '#3744d9', // Cambia il colore di riempimento
                             color: 'white',   // Cambia il colore del bordo
                             radius: 10,        // Cambia la dimensione del marker
                             weight: 2,         // Cambia la larghezza del bordo
@@ -369,14 +364,14 @@ function Mappa(){
                         });
                     }} onEachFeature={onEachFeature}
                     />};
-                    {showGeoJSONLayer3 && <GeoJSON data={edifici}  style={(feature) => ({ color: 'yellow' })} pointToLayer={(feature, latlng) => {
+                    {showGeoJSONLayer3 && <GeoJSON data={edifici}  style={(feature) => ({ color: '#CC46FA' })} pointToLayer={(feature, latlng) => {
                         return L.circleMarker(latlng, {
-                            fill: 'red',    // Imposta il colore del riempimento a rosso
+                            fill: '#abcdef',    // Imposta il colore del riempimento a rosso
                             color: 'white',      // Colore del bordo bianco
                             radius: 10,          // Dimensione del marker
                             weight: 2,           // Spessore del bordo
                             opacity: 1,          // Opacità
-                            fillOpacity: 0.7     // Opacità del riempimento
+                            fillOpacity: 1     // Opacità del riempimento
                         });
                     }} onEachFeature={onEachFeature}
                     />};

@@ -34,6 +34,24 @@ const Puller = styled('div')(({ theme }) => ({
     left: 'calc(50% - 15px)',
 }));
 
+const FixedSection = styled('div')(({ theme }) => ({
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
+    padding: theme.spacing(2),
+    borderBottom: `1px solid ${theme.palette.divider}`,
+}));
+
+const ScrollableContent = styled('div')(({ theme }) => ({
+    overflowY: 'auto',
+    maxHeight: 'calc(100% - 112px)', // Altezza massima meno l'altezza della sezione fissa
+}));
+
+const InstructionBox = styled(Box)({
+    marginLeft: '2px', // Aggiunge un margine sinistro di 2px
+});
+
 function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
     const { window } = { istruzioni };
     const [open, setOpen] = React.useState(false);
@@ -87,45 +105,47 @@ function SwipeableEdgeDrawer({ istruzioni, distanza, durata }) {
                         visibility: 'visible',
                         right: 0,
                         left: 0,
-                        padding: theme => theme.spacing(2),
                         overflowY: 'auto',
                         maxHeight: '100%', // Imposta l'altezza massima del contenitore interno
                     }}
                 >
                     <Puller />
-                    <Typography sx={{ pb: 2, color: 'text.primary', fontWeight: 'bold'  }}>Segui le indicazioni</Typography>
-                    <Divider/>
-                    {distanza  && (
-                        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                            {distanza > 1000 ? `Distanza totale: ${Math.floor(distanza / 1000)} kilometro e ${Math.floor(distanza % 1000)} metri` : `Distanza totale: ${distanza} metri`}
-                        </Typography>
-                    )}
-                    {durata  && (
-                        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                            Durata prevista: {Math.floor(durata / 60)} minuti {Math.floor(durata % 60)} secondi
-                        </Typography>
-                    )}
-
-                    {istruzioni && istruzioni.length > 0 ? (
-                        istruzioni.map((istruzione, index) => (
-                            <Box key={index} sx={{ my: 1 }}>
-                                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
-                                {index === istruzioni.findIndex(instr => instr === durata) && ( // Solo per il primo elemento dopo la durata
-                                    <div ref={contentRef} style={{ overflowY: 'auto', maxHeight: 'calc(100% - 112px)' }}>
-                                        {istruzioni.slice(index + 1).map((istruzione, index) => ( // Inizia dalla posizione successiva a durata
-                                            <Box key={index} sx={{ my: 1 }}>
-                                                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
-                                                <hr/>
-                                            </Box>
-                                        ))}
-                                    </div>
-                                )}
-                                <hr/>
-                            </Box>
-                        ))
-                    ) : (
-                        <Typography variant="body2">Nessuna istruzione disponibile</Typography>
-                    )}
+                    <FixedSection>
+                        <Typography sx={{ pb: 2, color: 'text.primary', fontWeight: 'bold'  }}>Segui le indicazioni</Typography>
+                        <Divider/>
+                        {distanza  && (
+                            <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                                {distanza > 1000 ? `Distanza totale: ${Math.floor(distanza / 1000)} kilometro e ${Math.floor(distanza % 1000)} metri` : `Distanza totale: ${distanza} metri`}
+                            </Typography>
+                        )}
+                        {durata  && (
+                            <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                                Durata prevista: {Math.floor(durata / 60)} minuti {Math.floor(durata % 60)} secondi
+                            </Typography>
+                        )}
+                    </FixedSection>
+                    <ScrollableContent>
+                        {istruzioni && istruzioni.length > 0 ? (
+                            istruzioni.map((istruzione, index) => (
+                                <InstructionBox key={index} sx={{ my: 1 }}>
+                                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
+                                    {index === istruzioni.findIndex(instr => instr === durata) && ( // Solo per il primo elemento dopo la durata
+                                        <div style={{ overflowY: 'auto', maxHeight: 'calc(100% - 112px)' }}>
+                                            {istruzioni.slice(index + 1).map((istruzione, index) => ( // Inizia dalla posizione successiva a durata
+                                                <Box key={index} sx={{ my: 1 }}>
+                                                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{istruzione.instruction}</Typography>
+                                                    <hr/>
+                                                </Box>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <hr/>
+                                </InstructionBox>
+                            ))
+                        ) : (
+                            <Typography variant="body2">Nessuna istruzione disponibile</Typography>
+                        )}
+                    </ScrollableContent>
                 </StyledBox>
             </SwipeableDrawer>
         </Root>

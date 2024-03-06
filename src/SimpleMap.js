@@ -528,7 +528,15 @@ function SimpleMap(){
                     return itemTradotto;
                 });
                 setInstructions(translatedInstructions)
-
+                const summary = data.features[0]?.properties?.summary;
+                if (summary) {
+                    const durataTotale = summary.duration ?? "";
+                    const distanzaTotale = summary.distance ?? "";
+                    setDurata(durataTotale);
+                    setDistanza(distanzaTotale);
+                    console.log('durata totale due punti a casa', durataTotale);
+                    console.log('distanza ', distanzaTotale);
+                }
                 console.log('Istruction :', instructions);
                 const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
                 flag = 1
