@@ -32,6 +32,8 @@ import { Icon } from 'react-icons-kit'
 import {TextFields} from "@mui/icons-material";
 import {Text} from "lucide-react";
 
+import { Icon } from 'react-icons-kit';
+import {ic_volume_up_twotone} from 'react-icons-kit/md/ic_volume_up_twotone'
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -191,6 +193,16 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
         handleDrawerClose();
     }
 
+    const testoDaLeggere = "Benvenuto nel nostro sistema di navigazione! Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi. Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.Una volta inserite le posizioni, premi il pulsante Invia . L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione. Segui attentamente le istruzioni visualizzate sullo schermo. Ti indicheranno le direzioni da seguire, le distanze da percorrere e qualsiasi altra informazione utile per il viaggio. Non dimenticare di esplorare le opzioni aggiuntive dell'applicazione, come la pagina dedicata al Giardino della Legalità dove puoi vedere storie interessanti di lotte contro la mafia. Grazie per l'attenzione"
+    const leggiTesto = (testo) => {
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(testo);
+        utterance.addEventListener('end', () => {
+            synth.cancel(); // Interrompe la sintesi vocale alla fine della lettura
+        });
+        synth.speak(utterance);
+    };
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -325,15 +337,18 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
             <Modal  show = {show} onHide={handleClose} style={{marginTop:'60px'}}>
                 <Modal.Header closeButton>
                     <Modal.Title>Guida</Modal.Title>
+                    <Icon icon={ic_volume_up_twotone} size={'32'}
+                    onClick={() => leggiTesto(testoDaLeggere)}
+                    style={{marginTop:"5px"}}></Icon>
                 </Modal.Header>
                 <Modal.Body>
                     <h6>Benvenuto al nostro sistema di navigazione! Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi.</h6>
                     <p>
                         Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.
-                        na volta inserite le posizioni, premi il pulsante "Invia". L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione.
+                        Una volta inserite le posizioni, premi il pulsante "Invia". L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione.
                         Segui attentamente le istruzioni visualizzate sullo schermo. Ti indicheranno le direzioni da seguire, le distanze da percorrere e qualsiasi altra informazione utile per il viaggio.
                         Non dimenticare di esplorare le opzioni aggiuntive dell'applicazione, come la pagina dedicata al Giardino della Legalità dove puoi vedere storie interessanti di lotte contro la mafia.
-                        Grazie per'attenzione.
+                        <br/>Grazie per l'attenzione.
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
