@@ -319,28 +319,37 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                 </List>
                 <List sx={{ backgroundColor: '#ffffff' }}>
                     <Row className="mt-3">
+                        <ListItemButton onClick={() => handleButtonClick("Bus")}>
                         <Col className="d-flex align-items-center">
                             <Icon icon={ic_directions_bus} size={50} style={{ marginLeft: "8px", color:'#3744d9'}} />
                             <h6 className="ml-1 mb-0">BUS</h6>
                         </Col>
-                    </Row>
-                    <Row className="mt-3" onClick={handleShow}>
-                        <Col className="d-flex align-items-center" style={{paddingRight:'0px'}}>
-                            <Icon icon={ic_location_city_outline} size={50} style={{ marginLeft: "8px", color:'#abcdef' }} />
-                            <h6 className="ml-2 mb-0">PDI</h6>
-                        </Col>
+                        </ListItemButton>
                     </Row>
                     <Row className="mt-3">
+                        <ListItemButton onClick={() => handleButtonClick("Edifici")}>
+                        <Col className="d-flex align-items-center" style={{paddingRight:'0px'}}>
+                            <Icon icon={ic_location_city_outline} size={50} style={{ marginLeft: "8px", color:'#abcdef' }} />
+                            <h6 className="ml-2 mb-0">EDIFICI</h6>
+                        </Col>
+                        </ListItemButton>
+                    </Row>
+                    <Row className="mt-3" >
+                        <ListItemButton onClick={() => handleButtonClick("Piazze")}>
                         <Col className="d-flex align-items-center">
                             <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
                             <h6 className="ml-2 mb-0">PIAZZE</h6>
                         </Col>
+                        </ListItemButton>
                     </Row>
-                    <Row className="mt-3">
-                        <Col className="d-flex align-items-center">
+                    <Row className="mt-3" >
+                        <ListItemButton onClick={() => handleButtonClick("Elimina Percorso")}>
+                            <Col className="d-flex align-items-center">
                             <Icon icon={ic_delete_forever} size={50} style={{ marginLeft: "8px", color: '#2A9D8F'}} />
                             <h6 className="ml-2 mb-0">ELIMINA PERCORSO</h6>
-                        </Col>
+                            </Col>
+                        </ListItemButton>
+
                     </Row>
                     {/*{['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (*/}
                     {/*    <ListItem key={text} disablePadding>*/}
