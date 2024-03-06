@@ -29,6 +29,8 @@ import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ic_accessible_forward_outline} from 'react-icons-kit/md/ic_accessible_forward_outline';
 import { Icon } from 'react-icons-kit'
+import {TextFields} from "@mui/icons-material";
+import {Text} from "lucide-react";
 
 const drawerWidth = 240;
 
@@ -84,12 +86,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, handleNavigationClick }) {
-    const [switchState, setSwitchState] = useState(false);
+export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchChange, onSendClick, handleNavigationClick }) {
 
-    const handleSwitchChange = () => {
-        setSwitchState(!switchState);
-    };
 
     const buttonStyle = {
         color: '#ffffff',
@@ -211,19 +209,6 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                     <Typography variant="h6" noWrap component="div">
                         Naviga il campus
                     </Typography>
-                    <Form.Check
-                        // prettier-ignore
-                        style={{marginLeft: "auto", marginTop:"2px"}}
-                        type="switch"
-                        id="custom-switch"
-                        label= ""
-                        onChange={handleSwitchChange}
-                    />
-                    <Icon
-                        size={32}
-                        icon={ic_accessible_forward_outline}
-                        style={{ color: switchState ? "yellow" : "white" }} // Cambia il colore dell'icona in base allo stato dello switch
-                    />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -291,6 +276,23 @@ export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, h
                                 )}
                             />
                         </ListItemButton>
+                    </ListItem>
+                    <ListItem>
+                        <Icon
+                            size={32}
+                            icon={ic_accessible_forward_outline}
+                            //style={{ color: switchState ? "yellow" : "white" }} // Cambia il colore dell'icona in base allo stato dello switch
+                        />
+                        <span>Accessibilità</span>
+                         <Form.Check
+                              // prettier-ignore
+                              style={{marginLeft: "auto", marginTop:"2px"}}
+                              type="switch"
+                              id="custom-switch"
+                             label= ""
+                             onChange={handleSwitchChange}
+                         />
+
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton>

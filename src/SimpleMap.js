@@ -127,6 +127,7 @@ let count = 0;
 
 
 function SimpleMap(){
+    const [switchState, setSwitchState] = useState(false);
     let piazzeLayerRef = useRef(null);
     let markersLayer =useRef(null);
     const mapRef = useRef(null);
@@ -139,11 +140,9 @@ function SimpleMap(){
     const [durata, setDurata] = useState("");
     const [distanza, setDistanza] = useState("");
 
-    const [bandiera, setBandiera] = useState(0);
 
-    const handleSwitchChange = () => {
-        setBandiera(flag === 0 ? 1 : 0);
-    };
+
+
 
     const buttonStyle = {
         color: '#ffffff',
@@ -270,6 +269,7 @@ function SimpleMap(){
         // Aggiungi altri controlli se necessario
     };
 
+
     async function traduciStringa(stringaDaTradurre) {
         const parole = stringaDaTradurre.split(' ');
         const paroleTradotte = await Promise.all(parole.map(parola => i18next.t(parola)));
@@ -283,109 +283,114 @@ function SimpleMap(){
         const lat2 = mar4.toFixed(6);
         const lng2 = mar3.toFixed(6);
         const apiKey = '5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df';
-        const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
+        let url = '';
+        if(!switchState) {
+             url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
+        }else{
+            url = `https://api.openrouteservice.org/v2/directions/wheelchair?api_key=5b3ce3597851110001cf6248280102de693842a9afa75ce9c91c78df&start=${lng1},${lat1}&end=${lng2},${lat2}&language=it`;
+        }
 
-        console.log("STAMPA",lat1,lng1,lat2,lng2);
-        //crea qua il secondo punto e invia la richiesta
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Data from API:', data);
-                const coordinates = data.features[0].geometry.coordinates;
-                //instructions = data.features[0].properties.segments[0].steps;
-                const steps = data.features[0].properties.segments[0].steps;
-                console.log('step**********', steps);
-                const translatedInstructions = steps.map(item => {
-                    const itemTradotto = {};
-                    for (const key in item) {
-                        // if (typeof item[key] === 'string') {
-                        //     itemTradotto[key] = i18next.t(item[key]);
-                        // } else {
-                        //     itemTradotto[key] = item[key];
-                        // }
-                        if(key === 'instruction') {
-                            const instruction = item[key];
-                            const indicationRegex = /^(.*?) on (.*)$/;
-                            if (instruction.includes('onto')) {
-                                const instructionParts = instruction.split(' onto '); // Divide la stringa in parti utilizzando 'onto' come separatore
-                                const instructionKey = instructionParts[0] + ' onto'; // Conserva la parte fino a 'onto'
-                                const restOfInstruction = instructionParts.slice(1).join(' onto '); // Prende il resto della stringa
-                                // Traduce solo la parte fino a 'onto' e poi ricongiunge il resto della stringa
-                                itemTradotto[key] = `${i18next.t(instructionKey)}${restOfInstruction}`;
+            //crea qua il secondo punto e invia la richiesta
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Data from API:', data);
+                    const coordinates = data.features[0].geometry.coordinates;
+                    //instructions = data.features[0].properties.segments[0].steps;
+                    const steps = data.features[0].properties.segments[0].steps;
+                    console.log('step**********', steps);
+                    const translatedInstructions = steps.map(item => {
+                        const itemTradotto = {};
+                        for (const key in item) {
+                            // if (typeof item[key] === 'string') {
+                            //     itemTradotto[key] = i18next.t(item[key]);
+                            // } else {
+                            //     itemTradotto[key] = item[key];
+                            // }
+                            if (key === 'instruction') {
+                                const instruction = item[key];
+                                const indicationRegex = /^(.*?) on (.*)$/;
+                                if (instruction.includes('onto')) {
+                                    const instructionParts = instruction.split(' onto '); // Divide la stringa in parti utilizzando 'onto' come separatore
+                                    const instructionKey = instructionParts[0] + ' onto'; // Conserva la parte fino a 'onto'
+                                    const restOfInstruction = instructionParts.slice(1).join(' onto '); // Prende il resto della stringa
+                                    // Traduce solo la parte fino a 'onto' e poi ricongiunge il resto della stringa
+                                    itemTradotto[key] = `${i18next.t(instructionKey)}${restOfInstruction}`;
 
-                            } else if (indicationRegex.test(instruction)) {
-                                const matches = instruction.match(indicationRegex);
-                                const infoPart = matches[1]; // Parte prima di 'on'
-                                const roadPart = matches[2]; // Parte dopo 'on'
+                                } else if (indicationRegex.test(instruction)) {
+                                    const matches = instruction.match(indicationRegex);
+                                    const infoPart = matches[1]; // Parte prima di 'on'
+                                    const roadPart = matches[2]; // Parte dopo 'on'
 
-                                // Traduce la parte dell'informazione e lascia il nome della strada invariato
-                                itemTradotto[key] = `${i18next.t(infoPart)} ${roadPart}`;
+                                    // Traduce la parte dell'informazione e lascia il nome della strada invariato
+                                    itemTradotto[key] = `${i18next.t(infoPart)} ${roadPart}`;
+                                } else {
+                                    itemTradotto[key] = i18next.t(instruction);
+                                }
+
+                            } else if (typeof item[key] === 'string') {
+                                itemTradotto[key] = i18next.t(item[key]);
+                            } else {
+                                itemTradotto[key] = item[key];
                             }
-                            else {
-                                itemTradotto[key] = i18next.t(instruction);
-                            }
-
-                        } else if (typeof item[key] === 'string'){
-                            itemTradotto[key] = i18next.t(item[key]);
-                        } else {
-                            itemTradotto[key] = item[key];
                         }
+                        return itemTradotto;
+                    });
+                    setInstructions(translatedInstructions)
+                    console.log('Istruction in ita****:', translatedInstructions);
+                    const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
+                    flag = 1
+                    // Rimuovi il percorso esistente, se presente
+                    if (mapRef.current) {
+                        const map = mapRef.current;
+                        map.eachLayer(layer => {
+                            console.log(layer);
+                            if (layer instanceof L.Polyline) {
+                                console.log("LAYERR", layer);
+                                map.removeLayer(layer);
+
+                            }
+
+                        });
+
+                        markersLayer.current.eachLayer(marker => {
+                            // Rimuovi il marker dal layer
+                            markersLayer.current.removeLayer(marker);
+
+                            // Opzionalmente, puoi anche rimuovere il marker dalla mappa
+                            // mapRef.current.removeLayer(marker);
+                        });
+                        L.polyline(routeCoordinates, {color: 'blue'}).addTo(map);
+
+
+                        const newMarker = L.marker([lat1, lng1]).addTo(markersLayer.current);
+                        setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+
+                        // const markerToDelete = markers.find(marker => marker.options && marker.options.id === 'marker1');
+                        // console.log("MARKER TO DELETE", markerToDelete);
+
+                        // Aggiungi il marker 2
+                        const newMarker2 = L.marker([lat2, lng2]).addTo(markersLayer.current);
+                        map.flyTo([lat2, lng2]);
+                        setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
+                        const summary = data.features[0]?.properties?.summary;
+                        if (summary) {
+                            const durataTotale = summary.duration ?? "";
+                            const distanzaTotale = summary.distance ?? "";
+                            setDurata(durataTotale);
+                            setDistanza(distanzaTotale);
+                            console.log('durata totale', durataTotale);
+                            console.log('distanza ', distanzaTotale);
+                        }
+                        L.setOptions({language: 'it'})
                     }
-                    return itemTradotto;
+                    setRoute(routeCoordinates);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Ci scusiamo per il disagio, questo percorso non è al momento disponibile")
                 });
-                setInstructions(translatedInstructions)
-                console.log('Istruction in ita****:', translatedInstructions);
-                const routeCoordinates = coordinates.map((coord) => [coord[1], coord[0]]);
-                flag = 1
-                // Rimuovi il percorso esistente, se presente
-                if (mapRef.current) {
-                    const map = mapRef.current;
-                    map.eachLayer(layer => {
-                        console.log(layer);
-                        if (layer instanceof L.Polyline) {
-                            console.log("LAYERR",layer);
-                            map.removeLayer(layer);
 
-                        }
-
-                    });
-
-                    markersLayer.current.eachLayer(marker => {
-                        // Rimuovi il marker dal layer
-                        markersLayer.current.removeLayer(marker);
-
-                        // Opzionalmente, puoi anche rimuovere il marker dalla mappa
-                        // mapRef.current.removeLayer(marker);
-                    });
-                    L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
-
-
-                    const newMarker = L.marker([lat1, lng1]).addTo(markersLayer.current);
-                    setMarkers(prevMarkers => [...prevMarkers, newMarker]);
-
-                    // const markerToDelete = markers.find(marker => marker.options && marker.options.id === 'marker1');
-                    // console.log("MARKER TO DELETE", markerToDelete);
-
-                    // Aggiungi il marker 2
-                    const newMarker2 = L.marker([lat2, lng2]).addTo(markersLayer.current);
-                    map.flyTo([lat2, lng2]);
-                    setMarkers(prevMarkers => [...prevMarkers, newMarker2]);
-                    const summary = data.features[0]?.properties?.summary;
-                    if(summary){
-                        const durataTotale = summary.duration ?? "";
-                        const distanzaTotale = summary.distance ?? "";
-                        setDurata(durataTotale);
-                        setDistanza(distanzaTotale);
-                        console.log('durata totale',durataTotale);
-                        console.log('distanza ',distanzaTotale);
-                    }
-                    L.setOptions({language: 'it'})
-                }
-                setRoute(routeCoordinates);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
     };
     const deleteWaypoints = () => {
 
@@ -608,11 +613,16 @@ function SimpleMap(){
 
     };
 
+
+    const handleSwitchChange = () => {
+        setSwitchState(!switchState);
+        console.log(switchState);
+    };
     return (
         <div style={{ height: '100vh', width: '100%'}} className="SimpleMap">
             <Sidebar />
             <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'60px'}}>
-                <PersistentDrawerLeft handleButtonClick={handleButtonClick} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
+                <PersistentDrawerLeft handleButtonClick={handleButtonClick} handleSwitchChange={handleSwitchChange} onSendClick={handleSendClick} handleNavigationClick={handleNavigationClick}/>
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef}  style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
                     <TileLayer
