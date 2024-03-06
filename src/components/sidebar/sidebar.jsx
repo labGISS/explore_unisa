@@ -28,9 +28,6 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ic_accessible_forward_outline} from 'react-icons-kit/md/ic_accessible_forward_outline';
-import { Icon } from 'react-icons-kit'
-import {TextFields} from "@mui/icons-material";
-import {Text} from "lucide-react";
 
 import { Icon } from 'react-icons-kit';
 import {ic_volume_up_twotone} from 'react-icons-kit/md/ic_volume_up_twotone'
