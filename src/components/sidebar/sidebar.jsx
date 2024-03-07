@@ -128,10 +128,46 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
     const [suggestedNames, setSuggestedNames] = useState([]);
     const [suggestedNamesEnd, setSuggestedNamesEnd] = useState([]);
     const myGeoNomi = ["F3", "H", "F2", "F1", "F1", "Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "Piscina", "Laboratorio", "Laboratorio", "Laboratorio", "Laboratorio", "Mensa", "Chiostro della pace", "D", "Edisu", "Residenze", "Residenze", "Residenze", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank", "F", "E", "C", "B", "Residenze", "Laboratorio Modelli", "Masseria", "Masseria", "Bibllioteca umanistica"];
-    const options =["F3", "H", "F2","E1", "F1","F", "E", "C", "B", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "D","Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2",  "Piscina", "Laboratorio", "Mensa", "Chiostro della pace",  "Edisu", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank",  "Residenze", "Laboratorio Modelli", "Masseria", "Bibllioteca umanistica","Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica Giulio Natta", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società"];
+    const options =["F3", "H", "F2","E1", "F1","F", "E", "C", "B", "I1", "E2", "D3", "D2", "B2", "A1", "B1", "A2", "C1", "C2", "D1", "D","Biblioteca Scientifica", "Osservatorio dell'Appennino meridionale", "Osservatorio dell'Appennino Meridionale 2",  "Piscina", "Laboratorio", "Mensa", "Chiostro della pace",  "Edisu", "Residenze", "Presidio Sanitario e Poste", "Unicredit Bank",  "Residenze", "Laboratorio Modelli", "Masseria", "Bibllioteca umanistica","Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica Giulio Natta", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società","NULLBaby Point di Ateneo - Nursery",
+        "Biblioteca centrale del Polo Umanistico \"E. R. Caianiello\"",
+        "Biblioteca del Polo Scientifico",
+        "Cappella",
+        "Centro di Ateneo per l'Orientamento e il Tutorato (CAOT)\n",
+        "Centro Stampa d'Ateneo",
+        "Bancomat Unicredit",
+        "Internet Point Segreterie Studenti",
+        "Posto di Polizia",
+        "Presidio Sanitario Polispecialistico dell'Università di Salerno",
+        "Residenze",
+        "Teatro di Ateneo “Filippo Alison”",
+        "Terminal Bus",
+        "Ufficio Postale",
+        "Ufficio Diritto allo Studio",
+        "Ufficio Internazionalizzazione",
+        "Ufficio Relazioni con il Pubblico",
+        "Aula Magna"];
 
     const piazzeNomi = ["Piazza del Sapere", "Piazza delle Scienze Matematiche Fisiche e Naturali", "Piazza Renato Cacciappoli", "Piazza De Rosa", "Piazza della Scienza e della Tecnica Giulio Natta", "Piazza Renato Maria Capocelli", "Piazza della Politica", "Piazza della Costituzione Italiana", "Piazza Pomponio Leto", "Piazza dell'Economia", "Piazza Primo Levi", "Piazza dell'Industria", "Piazza delle Costruzioni", "Piazza Mario Napoli", "Piazza della Società"];
-
+    const strutture = [
+        "NULLBaby Point di Ateneo - Nursery",
+        "Biblioteca centrale del Polo Umanistico \"E. R. Caianiello\"",
+        "Biblioteca del Polo Scientifico",
+        "Cappella",
+        "Centro di Ateneo per l'Orientamento e il Tutorato (CAOT)\n",
+        "Centro Stampa d'Ateneo",
+        "Bancomat Unicredit",
+        "Internet Point Segreterie Studenti",
+        "Posto di Polizia",
+        "Presidio Sanitario Polispecialistico dell'Università di Salerno",
+        "Residenze",
+        "Teatro di Ateneo “Filippo Alison”",
+        "Terminal Bus",
+        "Ufficio Postale",
+        "Ufficio Diritto allo Studio",
+        "Ufficio Internazionalizzazione",
+        "Ufficio Relazioni con il Pubblico",
+        "Aula Magna"
+    ];
     const handleDrawerClose = () => {
         setOpen(false);
     };

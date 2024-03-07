@@ -75,6 +75,32 @@ var myGeo = {
         { "type": "Feature", "properties": { "id": 266, "Nome": "Bibllioteca umanistica", "Tipologia": null, "Note": null, "Area": null }, "geometry": { "type": "Point", "coordinates": [ 14.7909291629075294594, 40.76906249111235069904 ] } }
     ]
 }
+var strutture = {
+    "type": "FeatureCollection",
+    "name": "StruttureDiServizio",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    "features": [
+        { "type": "Feature", "properties": { "id": null, "Nome": "NULLBaby Point di Ateneo - Nursery", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.793603227704585, 40.77069156419217 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Biblioteca centrale del Polo Umanistico \"E. R. Caianiello\"", "Tipologia": "Biblioteca" }, "geometry": { "type": "Point", "coordinates": [ 14.791062240398317, 40.76905822752358 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Biblioteca del Polo Scientifico", "Tipologia": "Biblioteca" }, "geometry": { "type": "Point", "coordinates": [ 14.788812332355423, 40.772444100768546 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Cappella", "Tipologia": "Cappella" }, "geometry": { "type": "Point", "coordinates": [ 14.790689327463035, 40.771813381201554 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Centro di Ateneo per l'Orientamento e il Tutorato (CAOT)\n", "Tipologia": "INFO" }, "geometry": { "type": "Point", "coordinates": [ 14.792413013919466, 40.768756973723889 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Centro Stampa d'Ateneo", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.79208982270889, 40.77030716099992 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Bancomat Unicredit", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.789626525597473, 40.769307702292622 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Internet Point Segreterie Studenti", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.792434767174036, 40.769992576324697 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Mensa", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.793802114603414, 40.772934394803286 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Posto di Polizia", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.789471145207767, 40.769299072677882 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Presidio Sanitario Polispecialistico dell'Università di Salerno", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.789626525597471, 40.769144523933285 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Residenze", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.794364591614137, 40.772339765731097 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Teatro di Ateneo “Filippo Alison”", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.792317713947121, 40.769349281329767 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Terminal Bus", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.793403304936515, 40.773640411857173 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Ufficio Postale", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.789492898462333, 40.7691515845437 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Ufficio Diritto allo Studio", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.79170965868876, 40.768520833722974 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Ufficio Internazionalizzazione", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.79154184786788, 40.768847193104065 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Ufficio Relazioni con il Pubblico", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.792103289009338, 40.768635373496011 ] } },
+        { "type": "Feature", "properties": { "id": null, "Nome": "Aula Magna", "Tipologia": null }, "geometry": { "type": "Point", "coordinates": [ 14.792264884614633, 40.769554822602771 ] } }
+    ]
+};
 
 var piazze = {
     "type": "FeatureCollection",
@@ -223,6 +249,7 @@ function SimpleMap(){
     const [showGeoJSONLayer1, setShowGeoJSONLayer1] = useState(false);
     const [showGeoJSONLayer2, setShowGeoJSONLayer2] = useState(false);
     const [showGeoJSONLayer3, setShowGeoJSONLayer3] = useState(false);
+    const [showGeoJSONLayer4, setShowGeoJSONLayer4] = useState(false);
 
     const handleCheckboxChange1 = () => {
         setShowGeoJSONLayer1(!showGeoJSONLayer1);
@@ -240,6 +267,9 @@ function SimpleMap(){
     };
     const handleCheckboxChange3 = () => {
         setShowGeoJSONLayer3(!showGeoJSONLayer3);
+    };
+    const handleCheckboxChange4 = () => {
+        setShowGeoJSONLayer4(!showGeoJSONLayer4);
     };
     useEffect(() => {
         // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
@@ -442,12 +472,12 @@ function SimpleMap(){
         const myGeoFeature = myGeo.features.find((feature) => feature.properties.Nome === name);
         const piazzeFeature = piazze.features.find((feature) => feature.properties.Nome === name);
         const busFeature = bus.features.find((feature) => feature.properties.Nome === name);
-
+        const struttureFeature = strutture.features.find((feature) => feature.properties.Nome === name);
         // Restituisci le coordinate se trovate
         if (myGeoFeature) return myGeoFeature.geometry.coordinates;
         if (piazzeFeature) return piazzeFeature.geometry.coordinates;
         if (busFeature) return busFeature.geometry.coordinates;
-
+        if(struttureFeature) return struttureFeature.geometry.coordinates;
         // Restituisci null se il nome non è stato trovato in nessuna collezione
         return null;
     };
@@ -673,7 +703,17 @@ function SimpleMap(){
                         });
                     }} onEachFeature={onEachFeature}
                     />}
-
+                    {showGeoJSONLayer4 && <GeoJSON data={strutture}  pointToLayer={(feature, latlng) => {
+                        return L.circleMarker(latlng, {
+                            fillColor: 'green', // Cambia il colore di riempimento
+                            color: 'white',   // Cambia il colore del bordo
+                            radius: 10,        // Cambia la dimensione del marker
+                            weight: 2,         // Cambia la larghezza del bordo
+                            opacity: 1,        // Cambia l'opacità
+                            fillOpacity: 0.7   // Cambia l'opacità del riempimento
+                        });
+                    }} onEachFeature={onEachFeature}
+                    />}
                     <MapEventsHandler handleMapClick={handleMapClick} />
                 </MapContainer>
             </div>
