@@ -34,6 +34,8 @@ import {ic_volume_up_twotone} from 'react-icons-kit/md/ic_volume_up_twotone'
 import {ic_location_city_outline} from 'react-icons-kit/md/ic_location_city_outline'
 import {ic_tour} from 'react-icons-kit/md/ic_tour'
 import {ic_delete_forever} from 'react-icons-kit/md/ic_delete_forever'
+import {ic_local_parking_twotone} from 'react-icons-kit/md/ic_local_parking_twotone'
+import {ic_emoji_objects_outline} from 'react-icons-kit/md/ic_emoji_objects_outline'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 const drawerWidth = 240;
@@ -222,7 +224,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Naviga il campus
+                        Esplora il campus
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -245,14 +247,22 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <Link to="/" style={{ textDecoration: 'none', position: 'absolute', top: 30, left: 20, zIndex: 9999 }}>
+                <Link to="/" style={{ textDecoration: 'none', position: 'absolute', top: 40, left: 20, zIndex: 9999 }}>
                     <Button variant="contained" color="primary" style={buttonStyle3}>
                         Torna alla Home
                     </Button>
                 </Link>
                 <Divider />
-                <List sx={{ backgroundColor: '#ffffff' }}>
+                <List sx={{ backgroundColor: '#ffffff', marginTop:'40px' }}>
                     <Row className="mt-3" >
+                        <Typography variant="h6" noWrap component="div">
+                            Conosci il Campus?<br/>Clicca sulle icone.
+                        </Typography>
+                            {/*<Col className="d-flex align-items-center">*/}
+                            {/*    <h5 className="mb-0 mt-1 ml-3">Conosci il Campus?<br/> Clicca sulle icone.</h5>*/}
+                            {/*</Col>*/}
+                    </Row>
+                    <Row className="mt-1" >
                         <ListItemButton onClick={() => handleButtonClick("Bus")} style={{marginTop:"30px"}}>
                         <Col className="d-flex align-items-center">
                             <Icon icon={ic_directions_bus} size={50} style={{ marginLeft: "8px",  color:'#3744d9'}} />
@@ -261,7 +271,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                         </ListItemButton>
                     </Row>
                     <Row className="mt-3">
-                        <ListItemButton onClick={() => handleButtonClick("Edifici")}>
+                        <ListItemButton onClick={() => handleButtonClick("Edifici") }>
                         <Col className="d-flex align-items-center" style={{paddingRight:'0px'}}>
                             <Icon icon={ic_location_city_outline} size={50} style={{ marginLeft: "8px", color:'#abcdef' }} />
                             <h6 className="ml-2 mb-0">EDIFICI</h6>
@@ -279,7 +289,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     <Row className="mt-3" >
                         <ListItemButton onClick={() => handleButtonClick("Servizio")}>
                             <Col className="d-flex align-items-center">
-                                <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
+                                <Icon icon={ic_emoji_objects_outline} size={50} style={{ marginLeft: "8px", color:'#105F25'}} />
                                 <h6 className="ml-2 mb-0">STRUTTURE DI SERVIZIO</h6>
                             </Col>
                         </ListItemButton>
@@ -287,7 +297,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     <Row className="mt-3" >
                         <ListItemButton onClick={() => handleButtonClick("Parcheggi")}>
                             <Col className="d-flex align-items-center">
-                                <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
+                                <Icon icon={ic_local_parking_twotone} size={50} style={{ marginLeft: "8px", color:'#447884'}} />
                                 <h6 className="ml-2 mb-0">PARCHEGGI</h6>
                             </Col>
                         </ListItemButton>

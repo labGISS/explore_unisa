@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useContext  } from "react";
 import {GeoJSON, ImageOverlay, MapContainer, Marker, Polyline, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import Button from 'react-bootstrap/Button';
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -7,7 +8,7 @@ import L from 'leaflet';
 import { createControlComponent } from "@react-leaflet/core";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import gh from 'graphhopper-js-api-client';
-import {Button, colors} from "@mui/material";
+import {colors} from "@mui/material";
 import Navbar from'../src/components/navbar/navbar.jsx'
 import SwipeableEdge from '../src/components/swipeableEdge/swipeableEdge'
 import Select from '@mui/material/Select';
@@ -296,12 +297,12 @@ function Mappa(){
                 popupContent = `<p>${nome}</p>`;
             }
             const fotoUrl = feature.properties.FotoUrl; // Sostituisci con la URL della tua proprietà immagine
-
+            const buttonStyleString = `color: ${buttonStyle.color}; background-color: ${buttonStyle.backgroundColor}; border-color: ${buttonStyle.borderColor}; width: ${buttonStyle.width}; margin-bottom: ${buttonStyle.marginBottom}; border-radius: '3px`;
 
             if (fotoUrl) {
                 popupContent += `<img src="${fotoUrl}" alt="Foto" width="200" height="200" marginBottom = "5px" style={{border-radius:"2px"}}>`; // Aggiungi l'immagine se disponibile
                 popupContent += `<p></p>`;
-                popupContent += `<button style="background-color: green; color: white;" onclick="window.location.href='/SimpleMap?nome=${encodeURIComponent(nome)}'">Scopri la pagina navigazione</button>`;
+                popupContent += `<button style="${buttonStyleString}" onclick="window.location.href='/SimpleMap?nome=${encodeURIComponent(nome)}'">Scopri la pagina navigazione</button>`;
             }
             layer.bindPopup(popupContent);
         }
@@ -327,7 +328,15 @@ function Mappa(){
         }if (text === 'Parcheggi') {
             handleCheckboxChange5();
         }
-        // Aggiungi altri controlli se necessario
+
+    };
+
+    const buttonStyle = {
+        color: '#ffffff',
+        backgroundColor: '#2a5934',
+        borderColor: '#2a5934',
+        width: '100%',
+        marginBottom: '10px'
     };
 
     return (
