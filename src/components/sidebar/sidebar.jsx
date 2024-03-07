@@ -197,13 +197,33 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
     }
 
     const testoDaLeggere = "Benvenuto nel nostro sistema di navigazione! Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi. Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.Una volta inserite le posizioni, premi il pulsante Invia . L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione. Segui attentamente le istruzioni visualizzate sullo schermo. Ti indicheranno le direzioni da seguire, le distanze da percorrere e qualsiasi altra informazione utile per il viaggio. Non dimenticare di esplorare le opzioni aggiuntive dell'applicazione, come la pagina dedicata al Giardino della Legalità dove puoi vedere storie interessanti di lotte contro la mafia. Grazie per l'attenzione"
+    // const leggiTesto = (testo) => {
+    //     const synth = window.speechSynthesis;
+    //     const utterance = new SpeechSynthesisUtterance(testo);
+    //     utterance.addEventListener('end', () => {
+    //         synth.cancel(); // Interrompe la sintesi vocale alla fine della lettura
+    //     });
+    //     synth.speak(utterance);
+    // };
+    let currentlySpeaking = false; // Variabile per tenere traccia dello stato della sintesi vocale
+
     const leggiTesto = (testo) => {
         const synth = window.speechSynthesis;
+
+        if (currentlySpeaking) {
+            // Se la sintesi vocale è attualmente in corso, la interrompiamo
+            synth.cancel();
+            currentlySpeaking = false;
+            return; // Usciamo dalla funzione
+        }
+
         const utterance = new SpeechSynthesisUtterance(testo);
         utterance.addEventListener('end', () => {
-            synth.cancel(); // Interrompe la sintesi vocale alla fine della lettura
+            currentlySpeaking = false;
         });
+
         synth.speak(utterance);
+        currentlySpeaking = true;
     };
 
     return (
