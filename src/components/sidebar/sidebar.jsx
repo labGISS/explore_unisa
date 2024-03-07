@@ -209,7 +209,6 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-
             <AppBar position="absolute" open={open}  style={{'backgroundColor': '#2a5934'}}>
                 <Toolbar>
                     <IconButton
@@ -251,7 +250,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     </Button>
                 </Link>
                 <Divider />
-                <List>
+                <List style={{paddingBottom:'0px'}}>
 
                     <ListItem disablePadding>
 
@@ -292,7 +291,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                             />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem>
+                    <ListItem style={{backgroundColor:'#ffffff'}}>
                         <Icon
                             size={32}
                             icon={ic_accessible_forward_outline}
@@ -309,8 +308,8 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                          />
 
                     </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
+                    <ListItem style={{backgroundColor:'#ffffff', paddingTop:'10px',paddingBottom:'10px'}}>
+                        <ListItemButton >
                             <Button variant="contained" onClick={handleSendClick}  style={buttonStyle2}>
                                 Invia
                             </Button>
@@ -318,7 +317,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     </ListItem>
                 </List>
                 <List sx={{ backgroundColor: '#ffffff' }}>
-                    <Row className="mt-3" >
+                    <Row className="mt-1" >
                         <ListItemButton onClick={() => handleButtonClick("Elimina Percorso")}>
                             <Col className="d-flex align-items-center">
                             <Icon icon={ic_delete_forever} size={50} style={{ marginLeft: "8px", color: '#2A9D8F'}} />
