@@ -34,8 +34,8 @@ import piazzaDelSapere from "./image/piazze/piazzadelSapere.jpg";
 import GiardinoTIF from './image/GiardinoREF.tif'
 import giardinoFoto from './image/DJI_0014.JPG';
 import './style.css';
-
-
+import SidebarMappa from'../src/components/sidebar/sidebarMappa.jsx'
+import PersistentDrawerLeft from "../src/components/sidebar/sidebarMappa.jsx";
 var piazze= {
     "type": "FeatureCollection",
     "name": "piazzeUnisa",
@@ -287,7 +287,13 @@ function Mappa(){
     const onEachFeature = (feature, layer) => {
         if (feature.properties) {
             const nome = feature.properties.Nome;
-            let popupContent = `<p>Edificio: ${nome}</a></p>`;
+            let popupContent;
+
+            if(nome && (nome.length === 1 || nome.length === 2)){
+                popupContent = `<p>Edificio: ${nome}</p>`;
+            } else {
+                popupContent = `<p>${nome}</p>`;
+            }
             const fotoUrl = feature.properties.FotoUrl; // Sostituisci con la URL della tua proprietà immagine
 
 
@@ -306,39 +312,25 @@ function Mappa(){
     const bottomleft = L.latLng(40.52180437272552, -3.7768453359603886);
 
 
-
+    const handleButtonClick = (text) => {
+        console.log(`Button clicked: ${text}`);
+        // Aggiungi la logica specifica per attivare il layer del bus qui
+        if (text === 'Bus') {
+            handleCheckboxChange2();
+        } if (text === 'Piazze') {
+            handleCheckboxChange1();
+        } if (text === 'Edifici') {
+            handleCheckboxChange3();
+        }
+        // Aggiungi altri controlli se necessario
+    };
 
     return (
         <div style={{ height: '100vh', width: '100%'}} className="Map">
             <Navbar />
-            <div style={{ height: 'calc(100vh - 64px)', width: '100%', marginTop:'5px'}}>
-                <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 999 }}>
-                    {/* Il tuo div sovrapposto */}
-                    <div style={{ backgroundColor: 'beige', padding: 10, borderRadius: 10, marginTop: '100px', marginRight:'20px'}}>
-                        <label style={{ display: 'block', marginBottom: 5 }}>
-                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Piazze</span>
-                            <input type="checkbox" checked={showGeoJSONLayer1} onChange={handleCheckboxChange1} />
-                        </label>
-                        <label style={{ display: 'block', marginBottom: 5 }}>
-                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Bus</span>
-                            <input type="checkbox" checked={showGeoJSONLayer2} onChange={handleCheckboxChange2} />
-                        </label>
-                        <label style={{ display: 'block', marginBottom: 5 }}>
-                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Edifici</span>
-                            <input type="checkbox" checked={showGeoJSONLayer3} onChange={handleCheckboxChange3} />
-                        </label>
-                        <label style={{ display: 'block', marginBottom: 5 }}>
-                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Strutture di servizio </span>
-                            <input type="checkbox" checked={showGeoJSONLayer4} onChange={handleCheckboxChange4} />
-                        </label>
-                        <label style={{ display: 'block', marginBottom: 5 }}>
-                            <span style={{ color: '#333', marginRight: 5 }}>Mostra Parcheggi</span>
-                            <input type="checkbox" checked={showGeoJSONLayer5} onChange={handleCheckboxChange5} />
-                        </label>
+            <SidebarMappa/>
+            <PersistentDrawerLeft handleButtonClick={handleButtonClick}/>
 
-                    </div>
-
-                </div>
                 <MapContainer center={[latitude, longitude]}
                               zoom={20} ref={mapRef} style={{height: 'calc(100vh - 64px)', width: "100vw"}}>
 
@@ -400,10 +392,6 @@ function Mappa(){
 
                     };
                 </MapContainer>
-            </div>
-
-            <div>
-            </div>
 
         </div>
 

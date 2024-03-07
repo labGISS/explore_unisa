@@ -251,77 +251,11 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     </Button>
                 </Link>
                 <Divider />
-                <List>
-
-                    <ListItem disablePadding>
-
-                        <ListItemButton style={{ flexDirection: 'column'}}>
-                            <Autocomplete
-                                freeSolo
-                                options={options}
-                                value={startPoint}
-                                onChange={handleStartPointChange}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Start Point"
-                                        variant="outlined"
-                                        style={{ width: '200px', height: '60px', marginTop: "70px" }}  // Imposta larghezza e altezza desiderate
-
-                                    />
-                                )}
-                            />
-
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton style={{ flexDirection: 'column' }}>
-                            <Autocomplete
-                                freeSolo
-                                options={options}
-                                value={endPoint}
-                                onChange={handleEndPointChange}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="End Point"
-                                        variant="outlined"
-                                        style={{ width: '200px', height: '60px' }}
-                                    />
-                                )}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <Icon
-                            size={32}
-                            icon={ic_accessible_forward_outline}
-                            //style={{ color: switchState ? "yellow" : "white" }} // Cambia il colore dell'icona in base allo stato dello switch
-                        />
-                        <span>Accessibilità</span>
-                         <Form.Check
-                              // prettier-ignore
-                              style={{marginLeft: "auto", marginTop:"2px"}}
-                              type="switch"
-                              id="custom-switch"
-                             label= ""
-                             onChange={handleSwitchChange}
-                         />
-
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <Button variant="contained" onClick={handleSendClick}  style={buttonStyle2}>
-                                Invia
-                            </Button>
-                        </ListItemButton>
-                    </ListItem>
-                </List>
                 <List sx={{ backgroundColor: '#ffffff' }}>
-                    <Row className="mt-3">
-                        <ListItemButton onClick={() => handleButtonClick("Bus")}>
+                    <Row className="mt-3" >
+                        <ListItemButton onClick={() => handleButtonClick("Bus")} style={{marginTop:"30px"}}>
                         <Col className="d-flex align-items-center">
-                            <Icon icon={ic_directions_bus} size={50} style={{ marginLeft: "8px", color:'#3744d9'}} />
+                            <Icon icon={ic_directions_bus} size={50} style={{ marginLeft: "8px",  color:'#3744d9'}} />
                             <h6 className="ml-1 mb-0">BUS</h6>
                         </Col>
                         </ListItemButton>
@@ -342,15 +276,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                         </Col>
                         </ListItemButton>
                     </Row>
-                    <Row className="mt-3" >
-                        <ListItemButton onClick={() => handleButtonClick("Elimina Percorso")}>
-                            <Col className="d-flex align-items-center">
-                            <Icon icon={ic_delete_forever} size={50} style={{ marginLeft: "8px", color: '#2A9D8F'}} />
-                            <h6 className="ml-2 mb-0">ELIMINA PERCORSO</h6>
-                            </Col>
-                        </ListItemButton>
 
-                    </Row>
                     {/*{['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (*/}
                     {/*    <ListItem key={text} disablePadding>*/}
                     {/*        <ListItemButton onClick={() => handleButtonClick(text)}>*/}
@@ -363,35 +289,10 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     {/*    </ListItem>*/}
 
                     {/*))}*/}
-                    <Button variant="contained"  style={buttonStyle} onClick={handleShow} >
-                        Informazioni
-                    </Button>
                 </List>
 
             </Drawer>
-            <Modal  show = {show} onHide={handleClose} style={{marginTop:'60px'}}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Guida</Modal.Title>
-                    <Icon icon={ic_volume_up_twotone} size={'32'}
-                    onClick={() => leggiTesto(testoDaLeggere)}
-                    style={{marginTop:"5px"}}></Icon>
-                </Modal.Header>
-                <Modal.Body>
-                    <h6>Benvenuto al nostro sistema di navigazione! <br/>Con questa app, puoi raggiungere facilmente la tua destinazione in pochi semplici passaggi.</h6>
-                    <p>
-                        Prima di tutto, inserisci la tua posizione di partenza e la destinazione desiderata. <br/>Puoi farlo in due modi: digitando gli indirizzi nei campi di testo oppure semplicemente toccando i punti corrispondenti direttamente sulla mappa.
-                        Una volta inserite le posizioni, premi il pulsante "Invia". L'applicazione calcolerà quindi il percorso ottimale per te e ti mostrerà le istruzioni dettagliate passo-passo per raggiungere la destinazione.
-                        Segui attentamente le istruzioni visualizzate sullo schermo. Ti indicheranno le direzioni da seguire, le distanze da percorrere e qualsiasi altra informazione utile per il viaggio.
-                        Non dimenticare di esplorare le opzioni aggiuntive dell'applicazione, come la pagina dedicata al Giardino della Legalità dove puoi vedere storie interessanti di lotte contro la mafia.
-                        <br/>Grazie per l'attenzione.
-                    </p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+
             <Main open={open} style={{display:"none" }}>
                 <DrawerHeader />
 
