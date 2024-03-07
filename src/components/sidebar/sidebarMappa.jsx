@@ -276,7 +276,22 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                         </Col>
                         </ListItemButton>
                     </Row>
-
+                    <Row className="mt-3" >
+                        <ListItemButton onClick={() => handleButtonClick("Servizio")}>
+                            <Col className="d-flex align-items-center">
+                                <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
+                                <h6 className="ml-2 mb-0">STRUTTURE DI SERVIZIO</h6>
+                            </Col>
+                        </ListItemButton>
+                    </Row>
+                    <Row className="mt-3" >
+                        <ListItemButton onClick={() => handleButtonClick("Parcheggi")}>
+                            <Col className="d-flex align-items-center">
+                                <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
+                                <h6 className="ml-2 mb-0">PARCHEGGI</h6>
+                            </Col>
+                        </ListItemButton>
+                    </Row>
                     {/*{['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (*/}
                     {/*    <ListItem key={text} disablePadding>*/}
                     {/*        <ListItemButton onClick={() => handleButtonClick(text)}>*/}

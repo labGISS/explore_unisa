@@ -265,6 +265,7 @@ function Mappa(){
         setShowGeoJSONLayer5(!showGeoJSONLayer5);
     };
 
+
     useEffect(() => {
         // Esempio: Aggiornare il layer GeoJSON quando showGeoJSONLayer1 cambia
         if (piazzeLayerRef.current) {
@@ -321,6 +322,10 @@ function Mappa(){
             handleCheckboxChange1();
         } if (text === 'Edifici') {
             handleCheckboxChange3();
+        }if (text === 'Servizio') {
+            handleCheckboxChange4();
+        }if (text === 'Parcheggi') {
+            handleCheckboxChange5();
         }
         // Aggiungi altri controlli se necessario
     };
