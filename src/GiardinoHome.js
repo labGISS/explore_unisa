@@ -11,7 +11,7 @@ import React from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import SimpleMap from "./SimpleMap";
 import Home from "./App";
-import Giardino from "./GiardinoHome";
+
 import vittime from "./vittime.json";
 import { Link } from 'react-router-dom';
 import PaginaUlivo from './PaginaUlivo';

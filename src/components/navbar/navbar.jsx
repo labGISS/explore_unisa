@@ -42,6 +42,7 @@ function ColorSchemesExample() {
                             <Nav.Link href="/Mappa" style={{ 'color': 'white', marginRight: '20px' }}>Mappa</Nav.Link>
                             <Nav.Link href="/SimpleMap" style={{ 'color': 'white', marginRight: '20px' }}>Navigatore</Nav.Link>
                             <Nav.Link href="/Giardino" style={{ 'color': 'white', marginRight: '20px' }}>Giardino della legalità</Nav.Link>
+                            <Nav.Link href="/Percorsi" style={{ 'color': 'white', marginRight: '20px' }}>Percorsi Tematici</Nav.Link>
                         </Nav>
                     </NavbarCollapse>
                 </Container>

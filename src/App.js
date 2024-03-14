@@ -17,6 +17,7 @@ import SimpleMap from './SimpleMap';
 import {BrowserRouter as Router, Link, Route, Routes, useNavigate} from 'react-router-dom';
 import React from "react";
 import Giardino from "./GiardinoHome"
+import Percorsi from "./PercorsiTematici";
 import immagine1 from "./image/immagine1.JPG"
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/SimpleMap" element={<SimpleMap />} />
                 <Route path="/Giardino" element={<Giardino />} />
                 <Route path="/PaginaUlivo/:id" element={<PaginaUlivo/>} />
+                <Route path="/Percorsi" element={<Percorsi />} />
             </Routes>
         </Router>
     );
