@@ -371,13 +371,8 @@ function Mappa(){
                     }} onEachFeature={onEachFeature}
                     />};
                     {showGeoJSONLayer3 && <GeoJSON data={edifici}  style={(feature) => ({ color: '#CC46FA' })} pointToLayer={(feature, latlng) => {
-                        return L.circleMarker(latlng, {
-                            fill: '#abcdef',    // Imposta il colore del riempimento a rosso
-                            color: 'white',      // Colore del bordo bianco
-                            radius: 10,          // Dimensione del marker
-                            weight: 2,           // Spessore del bordo
-                            opacity: 1,          // Opacità
-                            fillOpacity: 1     // Opacità del riempimento
+                        return L.marker(latlng, {
+                          edifici   // Opacità del riempimento
                         });
                     }} onEachFeature={onEachFeature}
                     />};
