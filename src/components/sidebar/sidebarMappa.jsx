@@ -38,7 +38,18 @@ import {ic_local_parking_twotone} from 'react-icons-kit/md/ic_local_parking_twot
 import {ic_emoji_objects_outline} from 'react-icons-kit/md/ic_emoji_objects_outline'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import scrittaNeroVerde from "C:/Users/Utente/explore_unisa/src/image/logo/8.png";
+import bus from "C:/Users/Utente/explore_unisa/src/image/icone/bus.png";
+import edifici from "C:/Users/Utente/explore_unisa/src/image/icone/city(1).png";
+import bar from "C:/Users/Utente/explore_unisa/src/image/icone/coffee.png";
+import parcheggi from "C:/Users/Utente/explore_unisa/src/image/icone/parked-car.png";
+import piazze from "C:/Users/Utente/explore_unisa/src/image/icone/tree.png";
+import struttureServizio from "C:/Users/Utente/explore_unisa/src/image/icone/notification-bell.png";
+import { genImageMaskStyle } from 'antd/es/image/style';
+
 const drawerWidth = 240;
+
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -118,6 +129,26 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
         marginTop: '0px',
         marginLeft:'30%',
         marginRight:'30%'
+    };
+
+    const textStyle = {
+        color: '#3b8b4f',
+        width: '50%',
+        fontWeight: 'bold', 
+        fontFamily: 'Arial, sans-serif'
+    };
+
+    const textStyle1 = {
+        color: '#ffffff',
+        width: '50%',
+        fontFamily: 'Arial, sans-serif'
+    };
+
+    const imageStyle = {
+        marginLeft: "20px", 
+        marginRight: '20px',
+        height: '40px',
+        width: '40px' 
     };
 
     const theme = useTheme();
@@ -223,7 +254,7 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" style ={textStyle1}>
                         Esplora il campus
                     </Typography>
                 </Toolbar>
@@ -242,66 +273,91 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                 open={open}
             >
                 <DrawerHeader >
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                <IconButton
+                        color="#2a5934"
+                        aria-label="open drawer"
+                        onClick={handleDrawerClose}
+                        edge="start"
+                        sx={{ ml: 2, mr: 2}}
+                    >
+                        <MenuIcon />
+                    
                     </IconButton>
+                    
+                    <Link to="/" style={{ textDecoration: 'none'}}>
+                        <img src={scrittaNeroVerde}
+                            alt="Torna alla Home"
+                            style={{ width: '165px', height: '20px' }}
+                        />
+                    </Link>
                 </DrawerHeader>
                 <Divider />
-                <Link to="/" style={{ textDecoration: 'none', position: 'absolute', top: 40, left: 20, zIndex: 9999 }}>
-                    <Button variant="contained" color="primary" style={buttonStyle3}>
-                        Torna alla Home
-                    </Button>
-                </Link>
-                <Divider />
-                <List sx={{ backgroundColor: '#ffffff', marginTop:'40px' }}>
-                    <Row className="mt-3" >
-                        <Typography variant="h6" noWrap component="div">
-                            Conosci il Campus?<br/>Clicca sulle icone.
-                        </Typography>
-                            {/*<Col className="d-flex align-items-center">*/}
-                            {/*    <h5 className="mb-0 mt-1 ml-3">Conosci il Campus?<br/> Clicca sulle icone.</h5>*/}
-                            {/*</Col>*/}
-                    </Row>
+                <List sx={{ backgroundColor: '#ffffff', marginTop:'30%' }}>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>
                     <Row className="mt-1" >
-                        <ListItemButton onClick={() => handleButtonClick("Bus")} style={{marginTop:"30px"}}>
+                        <ListItemButton onClick={() => handleButtonClick("Bus")}>
                         <Col className="d-flex align-items-center">
-                            <Icon icon={ic_directions_bus} size={50} style={{ marginLeft: "8px",  color:'#3744d9'}} />
-                            <h6 className="ml-1 mb-0">BUS</h6>
+                        <img src={bus} style={imageStyle} />                            
+                        <h6 className="ml-1 mb-0" style={textStyle}>Bus</h6>
                         </Col>
                         </ListItemButton>
                     </Row>
-                    <Row className="mt-3">
-                        <ListItemButton onClick={() => handleButtonClick("Edifici") }>
-                        <Col className="d-flex align-items-center" style={{paddingRight:'0px'}}>
-                            <Icon icon={ic_location_city_outline} size={50} style={{ marginLeft: "8px", color:'#abcdef' }} />
-                            <h6 className="ml-2 mb-0">EDIFICI</h6>
-                        </Col>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>                    <Row className="mt-1">
+                        <ListItemButton onClick={() => handleButtonClick("Edifici") } style={{display: 'flex', flexDirection: 'row', paddingRight:'0px'}}>
+                            <Col className="d-flex align-items-center">
+                                <img src={edifici} style={imageStyle} />
+                                <h6 className="ml-2 mb-0" style={textStyle}>Edifici</h6>
+                            </Col>
                         </ListItemButton>
                     </Row>
-                    <Row className="mt-3" >
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>                    <Row className="mt-1" >
                         <ListItemButton onClick={() => handleButtonClick("Piazze")}>
                         <Col className="d-flex align-items-center">
-                            <Icon icon={ic_tour} size={50} style={{ marginLeft: "8px", color:'#a1eca7'}} />
-                            <h6 className="ml-2 mb-0">PIAZZE</h6>
+                        <img src={piazze} style={imageStyle} />                            
+                        <h6 className="ml-2 mb-0" style={textStyle}>Piazze</h6>
                         </Col>
                         </ListItemButton>
                     </Row>
-                    <Row className="mt-3" >
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>                    <Row className="mt-1" >
                         <ListItemButton onClick={() => handleButtonClick("Servizio")}>
                             <Col className="d-flex align-items-center">
-                                <Icon icon={ic_emoji_objects_outline} size={50} style={{ marginLeft: "8px", color:'#105F25'}} />
-                                <h6 className="ml-2 mb-0">STRUTTURE DI SERVIZIO</h6>
+                            <img src={struttureServizio} style={imageStyle} />                                
+                            <h6 className="ml-2 mb-0" style={textStyle}>Strutture di servizio</h6>
                             </Col>
                         </ListItemButton>
                     </Row>
-                    <Row className="mt-3" >
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>                    <Row className="mt-1" >
                         <ListItemButton onClick={() => handleButtonClick("Parcheggi")}>
                             <Col className="d-flex align-items-center">
-                                <Icon icon={ic_local_parking_twotone} size={50} style={{ marginLeft: "8px", color:'#447884'}} />
-                                <h6 className="ml-2 mb-0">PARCHEGGI</h6>
+                            <img src={parcheggi} style={imageStyle} />
+                            <h6 className="ml-2 mb-0" style={textStyle}>Parcheggi</h6>
                             </Col>
                         </ListItemButton>
                     </Row>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>                    
+                    <Row className="mt-1" >
+                        <ListItemButton onClick={() => handleButtonClick("Parcheggi")}>
+                            <Col className="d-flex align-items-center">
+                            <img src={bar} style={imageStyle} />
+                            <h6 className="ml-2 mb-0" style={textStyle}>Bar e Punti di Ristoro</h6>
+                            </Col>
+                        </ListItemButton>
+                    </Row>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Divider style={{ backgroundColor: 'black', height: '2px', width: '90%'}}/>
+                    </div>
                     {/*{['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (*/}
                     {/*    <ListItem key={text} disablePadding>*/}
                     {/*        <ListItemButton onClick={() => handleButtonClick(text)}>*/}

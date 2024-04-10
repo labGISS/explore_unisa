@@ -36,6 +36,12 @@ import {ic_tour} from 'react-icons-kit/md/ic_tour'
 import {ic_delete_forever} from 'react-icons-kit/md/ic_delete_forever'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import scrittaNeroVerde from "C:/Users/Utente/explore_unisa/src/image/logo/8.png";
+import maps from "C:/Users/Utente/explore_unisa/src/image/icone/maps.png"
+import gis2 from"C:/Users/Utente/explore_unisa/src/image/icone/GIS2.png"
+import InfoIcon from '@mui/icons-material/Info';
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -60,6 +66,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
         }),
     }),
+    
 );
 
 const AppBar = styled(MuiAppBar, {
@@ -90,7 +97,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchChange, onSendClick, handleNavigationClick }) {
+
+
+export default function PersistentDrawerLeft({ handleButtonClick, onSendClick, handleNavigationClick }) {
 
 
     const buttonStyle = {
@@ -100,23 +109,35 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
         width: '100%',
         marginTop: '40px'
     };
-    const buttonStyle3 = {
-        color: '#ffffff',
-        backgroundColor: '#2a5934',
+    const buttonStyleElimina = {
+        color: '#2a5934',
+        backgroundColor: '#ffffff',
         borderColor: '#2a5934',
-        width: '100%',
-        marginTop: '40px',
-        marginLeft: '10%'
+        width: '80%',
+        marginTop: '15px',
+        fontWeight: 'bold', 
+        fontFamily: 'Arial, sans-serif',
+        textTransform: 'capitalize',
+        borderRadius: '15px'
     };
-    const buttonStyle2 = {
+
+    const buttonStyleCalcola = {
         color: '#ffffff',
         backgroundColor: '#2a5934',
         borderColor: '#2a5934',
         width: '80%',
-        marginTop: '0px',
-        marginLeft:'30%',
-        marginRight:'30%'
+        fontWeight: 'bold', 
+        fontFamily: 'Arial, sans-serif',
+        textTransform: 'capitalize',
+        borderRadius: '15px'
     };
+
+    const textStyle1 = {
+        color: '#ffffff',
+        width: '50%',
+        fontFamily: 'Arial, sans-serif'
+    };
+
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -262,6 +283,13 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
         currentlySpeaking = true;
     };
 
+    const [isSwitchChecked, setIsSwitchChecked] = useState(false);
+
+    const handleSwitchChange = (event) => {
+    setIsSwitchChecked(event.target.checked);
+    };
+
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -275,8 +303,9 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                         sx={{ mr: 2, ...(open && { display: 'none' }) }}
                     >
                         <MenuIcon />
+                    
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" style={textStyle1}>
                         Naviga il campus
                     </Typography>
                 </Toolbar>
@@ -295,109 +324,138 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
                 open={open}
             >
                 <DrawerHeader >
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    <IconButton
+                        color="#2a5934"
+                        aria-label="open drawer"
+                        onClick={handleDrawerClose}
+                        edge="start"
+                        sx={{ ml: 2, mr: 2}}
+                    >
+                        <MenuIcon />
+                    
                     </IconButton>
+                    
+                    <Link to="/" style={{ textDecoration: 'none'}}>
+                        <img src={scrittaNeroVerde}
+                            alt="Torna alla Home"
+                            style={{ width: '165px', height: '20px' }}
+                        />
+                    </Link>
                 </DrawerHeader>
                 <Divider />
-                <Link to="/" style={{ textDecoration: 'none', position: 'absolute', top: 30, left: 20, zIndex: 9999 }}>
-                    <Button variant="contained" color="primary" style={buttonStyle3}>
-                        Torna alla Home
-                    </Button>
-                </Link>
-                <Divider />
-                <List style={{paddingBottom:'0px'}}>
 
-                    <ListItem disablePadding>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <img src={maps} alt=" " style={{width: '15px', height: '75px', marginLeft: '10px', marginRight: '5px', marginTop: '105px'}} />
 
-                        <ListItemButton style={{ flexDirection: 'column'}}>
-                            <Autocomplete
-                                freeSolo
-                                options={options}
-                                value={startPoint}
-                                onChange={handleStartPointChange}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Start Point"
-                                        variant="outlined"
-                                        style={{ width: '200px', height: '60px', marginTop: "70px" }}  // Imposta larghezza e altezza desiderate
+                <List style={{marginTop: '30%', marginLeft: '-5px', paddingBottom:'0px', position: 'sticky'}}>
 
-                                    />
-                                )}
-                            />
+                    <ListItem disablePadding style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '210px', height: '60px', borderRadius: '15px' }}>
 
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton style={{ flexDirection: 'column' }}>
-                            <Autocomplete
-                                freeSolo
-                                options={options}
-                                value={endPoint}
-                                onChange={handleEndPointChange}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="End Point"
-                                        variant="outlined"
-                                        style={{ width: '200px', height: '60px' }}
-                                    />
-                                )}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem style={{backgroundColor:'#ffffff'}}>
-                        <Icon
-                            size={32}
-                            icon={ic_accessible_forward_outline}
-                            //style={{ color: switchState ? "yellow" : "white" }} // Cambia il colore dell'icona in base allo stato dello switch
+                        <Autocomplete 
+                            freeSolo
+                            options={options}
+                            value={startPoint}
+                            onChange={handleStartPointChange}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Scegli il punto di partenza..."
+                                    variant="outlined"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        style: {borderRadius: '15px', width: '200px', height: '35px', marginTop: "0px", marginBottom: '0px'}
+                                    }}
+                                    inputProps={{
+                                        ...params.inputProps,
+                                        style: { height: '100%', width: '100%'}
+                                    }}
+                                    InputLabelProps={{
+                                        style: { textAlign: 'center', lineHeight: '20px', fontSize: '15px' } // Centra l'etichetta verticalmente
+                                    }}
+                                />
+                            )}
                         />
-                        <span>Accessibilità</span>
-                         <Form.Check
-                              // prettier-ignore
-                              style={{marginLeft: "auto", marginTop:"2px"}}
-                              type="switch"
-                              id="custom-switch"
-                             label= ""
-                             onChange={handleSwitchChange}
-                         />
+                    </ListItem>
+                    <ListItem disablePadding style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '210px', height: '60px', borderRadius: '15px' }}>
+                        <Autocomplete
+                            freeSolo
+                            options={options}
+                            value={endPoint}
+                            onChange={handleEndPointChange}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Scegli la destinazione..."
+                                    variant="outlined"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        style: { borderRadius: '15px', width: '200px', height: '35px' }
+                                    }}
+                                    inputProps={{
+                                        ...params.inputProps,
+                                        style: { height: '100%' }
+                                    }}
+                                    InputLabelProps={{
+                                        style: { textAlign: 'center', lineHeight: '20px', fontSize: '15px' } // Centra l'etichetta verticalmente
+                                    }}
+                                />
+                            )}
+                        />
+                    </ListItem>
+                </List>
+
+                </div>
+
+                <List>
+                    <ListItem style={{backgroundColor:'#ffffff', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    
+                        <ListItemIcon>
+                            <img src={gis2}
+                                alt=" "
+                                style={{ width: '30px', height: '30x', marginLeft: '10px'}}
+                            />
+                        </ListItemIcon>
+                        
+                        <span style={{ marginTop: '8px', marginLeft: '-10px', whiteSpace: 'nowrap', fontSize: '15px'}}>Percorso Sicuro</span>
+                        <Form.Check
+                            // prettier-ignore
+                            style={{marginLeft: "10px", marginTop:"10px", borderColor: '#2a5934'}}
+                            type="switch"
+                            id="custom-switch"
+                            label= ""
+                            onChange={handleSwitchChange}
+                        />
+
+                   
 
                     </ListItem>
-                    <ListItem style={{backgroundColor:'#ffffff', paddingTop:'10px',paddingBottom:'10px'}}>
-                        <ListItemButton >
-                            <Button variant="contained" onClick={handleSendClick}  style={buttonStyle2}>
-                                Invia
+
+                    {isSwitchChecked && (
+                    <ListItem style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <input class="form-control" id="timeStandard" type="time" style={{width: '50%'}} />
+                    </ListItem>
+                    )}
+
+                    <ListItem style={{flexDirection: 'column', backgroundColor:'#ffffff', paddingBottom:'10px', marginTop: '5px'}}>
+                        
+                            <Button variant="contained" onClick={handleSendClick}  style={buttonStyleCalcola}>
+                                Calcola Percorso
                             </Button>
-                        </ListItemButton>
+
+                            <Button variant="contained" onClick={() => handleButtonClick("Elimina Percorso")}  style={buttonStyleElimina}>
+                                Elimina Percorso
+                            </Button>
+
+                            
                     </ListItem>
-                </List>
-                <List sx={{ backgroundColor: '#ffffff' }}>
-                    <Row className="mt-1" >
-                        <ListItemButton onClick={() => handleButtonClick("Elimina Percorso")}>
-                            <Col className="d-flex align-items-center">
-                            <Icon icon={ic_delete_forever} size={50} style={{ marginLeft: "8px", color: '#2A9D8F'}} />
-                            <h6 className="ml-2 mb-0">ELIMINA PERCORSO</h6>
-                            </Col>
-                        </ListItemButton>
 
-                    </Row>
-                    {/*{['Piazze', 'Bus', 'Edifici','Elimina Percorso'].map((text, index) => (*/}
-                    {/*    <ListItem key={text} disablePadding>*/}
-                    {/*        <ListItemButton onClick={() => handleButtonClick(text)}>*/}
-                    {/*            <Avatar style={{ backgroundColor: getCircleColor(text) }}>*/}
-                    {/*                /!* Puoi inserire il testo all'interno dell'Avatar per mostrare le iniziali o il numero se necessario *!/*/}
-                    {/*                {text.charAt(0)}*/}
-                    {/*            </Avatar>*/}
-                    {/*            <ListItemText primary={text} />*/}
-                    {/*        </ListItemButton>*/}
-                    {/*    </ListItem>*/}
-
-                    {/*))}*/}
-                    <Button variant="contained"  style={buttonStyle} onClick={handleShow} >
-                        Informazioni
-                    </Button>
                 </List>
+                <div style={{ position: 'absolute', bottom: '0', right: '0', margin: '10px' }}>
+                    <IconButton onClick={handleShow}>
+                        <InfoIcon style={{ color: 'black' }}/>
+                    </IconButton>
+                </div>
+                
 
             </Drawer>
             <Modal  show = {show} onHide={handleClose} style={{marginTop:'60px'}}>
@@ -430,3 +488,4 @@ export default function PersistentDrawerLeft({ handleButtonClick, handleSwitchCh
         </Box>
     );
 }
+
