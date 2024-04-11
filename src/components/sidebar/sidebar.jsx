@@ -37,9 +37,9 @@ import {ic_delete_forever} from 'react-icons-kit/md/ic_delete_forever'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import scrittaNeroVerde from "C:/Users/Utente/explore_unisa/src/image/logo/8.png";
-import maps from "C:/Users/Utente/explore_unisa/src/image/icone/maps.png"
-import gis2 from"C:/Users/Utente/explore_unisa/src/image/icone/GIS2.png"
+import scrittaNeroVerde from "../../image/logo/8.png";
+import maps from "../../image/icone/maps.png"
+import gis2 from"../../image/icone/GIS2.png"
 import InfoIcon from '@mui/icons-material/Info';
 
 const drawerWidth = 240;

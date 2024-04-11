@@ -39,13 +39,13 @@ import {ic_emoji_objects_outline} from 'react-icons-kit/md/ic_emoji_objects_outl
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import scrittaNeroVerde from "C:/Users/Utente/explore_unisa/src/image/logo/8.png";
-import bus from "C:/Users/Utente/explore_unisa/src/image/icone/bus.png";
-import edifici from "C:/Users/Utente/explore_unisa/src/image/icone/city(1).png";
-import bar from "C:/Users/Utente/explore_unisa/src/image/icone/coffee.png";
-import parcheggi from "C:/Users/Utente/explore_unisa/src/image/icone/parked-car.png";
-import piazze from "C:/Users/Utente/explore_unisa/src/image/icone/tree.png";
-import struttureServizio from "C:/Users/Utente/explore_unisa/src/image/icone/notification-bell.png";
+import scrittaNeroVerde from "../../image/logo/8.png";
+import bus from "../../image/icone/bus.png";
+import edifici from "../../image/icone/city(1).png";
+import bar from "../../image/icone/coffee.png";
+import parcheggi from "../../image/icone/parked-car.png";
+import piazze from "../../image/icone/tree.png";
+import struttureServizio from "../../image/icone/notification-bell.png";
 import { genImageMaskStyle } from 'antd/es/image/style';
 
 const drawerWidth = 240;
